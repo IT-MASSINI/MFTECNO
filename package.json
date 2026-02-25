@@ -14,6 +14,9 @@
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
+  "overrides": {
+    "commander": "^13.1.0"
+  },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",
