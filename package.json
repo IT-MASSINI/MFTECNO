@@ -15,7 +15,9 @@
     "vue-router": "^4.2.5"
   },
   "overrides": {
-    "commander": "^13.1.0"
+    "@bomb.sh/tab": {
+      "commander": "^11.1.0"
+    }
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
