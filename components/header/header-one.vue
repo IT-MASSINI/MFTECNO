@@ -21,7 +21,7 @@
 				<div class="d-flex align-items-center">
 					<div class="logo order-lg-0">
 						<nuxt-link href="/" class="d-flex align-items-center">
-							<img src="/images/logo/logo_02.svg" alt="">
+							<img src="/images/logo/logo_mf.svg" alt="">
 						</nuxt-link>
 					</div>
 					<!-- logo -->

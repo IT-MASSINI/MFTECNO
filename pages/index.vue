@@ -42,5 +42,5 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: false });
-useSeoMeta({ title: "Home Main - Babun" });
+useSeoMeta({ title: "MF Tecno" });
 </script>
