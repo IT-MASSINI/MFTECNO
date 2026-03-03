@@ -3,15 +3,15 @@
 		<div class="gap-fix info-row">
 			<div class="d-md-flex justify-content-between">
 				<div class="greetings text-center">
-					<span class="opacity-50">Hello!!</span> 
-					<span class="fw-500">Welcome to babun.</span>
+					<span class="opacity-50">Hello! </span> 
+					<span class="fw-500">Welcome to MF Tecno.</span>
 				</div>
 				<ul class="style-none d-none d-md-flex contact-info">
 					<li class="d-flex align-items-center"><img src="/images/icon/icon_14.svg" alt=""
-							class="lazy-img icon me-2"> <a href="mailto:babuninc@company.com"
-							class="fw-500">babuninc@company.com</a></li>
+							class="lazy-img icon me-2"> <a href="mailto:info.mf@massiniindustries.com"
+							class="fw-500">Info MF Tecno</a></li>
 					<li class="d-flex align-items-center"><img src="/images/icon/icon_15.svg" alt=""
-							class="lazy-img icon me-2"> <a href="tel:+757 699-4478" class="fw-500">+757 699-4478</a>
+							class="lazy-img icon me-2"> <a href="tel:+39 0758043623" class="fw-500">+39 0758043623</a>
 					</li>
 				</ul>
 			</div>
