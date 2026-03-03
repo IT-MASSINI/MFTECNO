@@ -21,7 +21,18 @@
 				<div class="d-flex align-items-center">
 					<div class="logo order-lg-0">
 						<nuxt-link href="/" class="d-flex align-items-center">
-							<img src="/images/logo/logo_mf.svg" alt="">
+							<!-- Logo desktop: visibile da tablet in su -->
+							<img 
+								src="/images/logo/logo_mftecno.svg" 
+								alt="MF TECNO Logo"
+								class="logo-desktop"
+							>
+							<!-- Logo mobile: visibile solo su mobile -->
+							<img 
+								src="/images/logo/logo_mftecno_small.svg" 
+								alt="MF TECNO Logo"
+								class="logo-mobile"
+							>
 						</nuxt-link>
 					</div>
 					<!-- logo -->
@@ -66,3 +77,59 @@
 <script setup lang="ts">
 const { isSticky } = useSticky();
 </script>
+
+<style scoped>
+/* ===========================================
+   LOGO RESPONSIVO - Breakpoints
+   ===========================================
+   - Desktop full (>= 1200px):  logo desktop al 110%
+   - Tablet / ~50% (768px-1199px): logo desktop al 90%
+   - Mobile (< 768px): logo small
+   =========================================== */
+
+/* --- Stato base: nascondo il logo mobile --- */
+.logo-desktop {
+	display: inline-block;
+}
+.logo-mobile {
+	display: none;
+}
+
+/* --- Desktop pieno (>= 1200px): logo al 130% --- */
+@media (min-width: 1200px) {
+	.logo-desktop {
+		transform: scale(1.3);
+		transform-origin: left center;
+		transition: transform 0.3s ease;
+	}
+}
+
+/* --- Tablet / viewport medio (768px - 1199px): logo al 90% --- */
+@media (min-width: 840px) and (max-width: 1199.98px) {
+	.logo-desktop {
+		transform: scale(1.0);
+		transform-origin: left center;
+		transition: transform 0.3s ease;
+	}
+}
+
+/* --- Tablet / viewport medio (768px - 1199px): logo al 90% --- */
+@media (min-width: 768px) and (max-width: 839.98px) {
+	.logo-desktop {
+		transform: scale(0.9);
+		transform-origin: left center;
+		transition: transform 0.3s ease;
+	}
+}
+
+/* --- Mobile (< 768px): switch al logo small --- */
+@media (max-width: 767.98px) {
+	.logo-desktop {
+		display: none;
+	}
+	.logo-mobile {
+		display: inline-block;
+		transition: transform 0.3s ease;
+	}
+}
+</style>
