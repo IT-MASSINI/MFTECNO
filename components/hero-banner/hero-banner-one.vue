@@ -11,6 +11,8 @@
         alt="MF Tecno packaging line"
         class="hero-bg-img"
         :class="{ 'hero-bg-img--active': currentSlide === index }"
+        fetchpriority="high"
+        loading="eager"
       />
 
       <!-- Overlay scuro gradiente da sinistra (ridotto) -->
@@ -97,7 +99,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Tutte le immagini sono sempre nel DOM, sovrapposte */
+/* Tutte le immagini sono nel DOM, sovrapposte */
 .hero-bg-img {
   position: absolute;
   inset: 0;
@@ -107,10 +109,28 @@ onUnmounted(() => {
   object-position: center right;
   opacity: 0;
   transition: opacity 1s ease;
+  transform-origin: center center;
 }
 
+/* Slide attiva */
 .hero-bg-img--active {
   opacity: 0.75;
+}
+
+/* Tablet: centra il soggetto */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .hero-bg-img {
+    object-position: center center;
+    transform: scale(1.05);
+  }
+}
+
+/* Mobile: leggero zoom + soggetto leggermente a destra */
+@media (max-width: 767px) {
+  .hero-bg-img {
+    object-position: 65% center;
+    transform: scale(1.1);
+  }
 }
 
 /* Overlay ridotto: opacità abbassata rispetto all'originale */

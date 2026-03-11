@@ -265,6 +265,59 @@ header.theme-main-menu:not(.fixed) {
   box-shadow: none !important;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   MOBILE MENU (<992px) — SEMPRE sfondo bianco, testo navy
+   Nessuna eccezione: né su hero, né su sticky, né altrove
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 991.98px) {
+
+  /* Pannello menu aperto: SEMPRE bianco */
+  .theme-main-menu .navbar-collapse,
+  .theme-main-menu .navbar-collapse.show,
+  .theme-main-menu #navbarNav,
+  .theme-main-menu #navbarNav.show {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    box-shadow: -2px 0 20px rgba(0, 0, 0, 0.10) !important;
+    border: none !important;
+  }
+
+  /* Voci menu: navy di default */
+  .theme-main-menu .navbar-collapse .nav-link,
+  .theme-main-menu #navbarNav .nav-link,
+  .theme-main-menu .navbar-collapse .navbar-nav .nav-link {
+    color: var(--mft-navy) !important;
+  }
+
+  /* Hover arancione */
+  .theme-main-menu .navbar-collapse .nav-link:hover,
+  .theme-main-menu #navbarNav .nav-link:hover,
+  .theme-main-menu .navbar-collapse .navbar-nav .nav-item.dropdown:hover > .nav-link,
+  .theme-main-menu .navbar-collapse .navbar-nav .nav-item.show > .nav-link {
+    color: var(--mft-orange) !important;
+  }
+
+  /* Separatori: grigio chiaro */
+  .theme-main-menu .navbar-collapse .nav-item,
+  .theme-main-menu #navbarNav .nav-item {
+    border-color: rgba(40, 71, 125, 0.10) !important;
+  }
+
+  /* Hamburger: bianco quando menu chiuso su hero non-sticky */
+  .theme-main-menu:not(.fixed) .navbar-toggler span,
+  .theme-main-menu:not(.fixed) .navbar-toggler span::before,
+  .theme-main-menu:not(.fixed) .navbar-toggler span::after {
+    background: #ffffff !important;
+  }
+
+  /* Hamburger: navy su sticky */
+  .theme-main-menu.fixed .navbar-toggler span,
+  .theme-main-menu.fixed .navbar-toggler span::before,
+  .theme-main-menu.fixed .navbar-toggler span::after {
+    background: var(--mft-navy) !important;
+  }
+}
+
 
 /* ============================================================
    5. HEADER — LOGO RESPONSIVE
@@ -526,12 +579,53 @@ header.theme-main-menu:not(.fixed) {
   inset: 0;
   z-index: 0;
 }
-.hero-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center right;
-  opacity: 0.75;
+
+/* ── Immagine slideshow: posizionamento responsive per device ── */
+
+/* Desktop grande ≥1400px: soggetto (macchinari) prevalentemente a destra */
+@media (min-width: 1400px) {
+  .hero-bg-img { object-position: center right; }
+}
+
+/* Laptop 1200–1399px */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .hero-bg-img { object-position: 75% center; }
+}
+
+/* Tablet landscape 992–1199px */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .hero-bg-img {
+    object-position: center center;
+    transform: scale(1.04);
+    transform-origin: center center;
+  }
+}
+
+/* Tablet portrait 768–991px */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-bg-img {
+    object-position: 60% center;
+    transform: scale(1.06);
+    transform-origin: center center;
+  }
+}
+
+/* Mobile landscape 576–767px */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .hero-bg-img {
+    object-position: 65% center;
+    transform: scale(1.08);
+    transform-origin: center center;
+  }
+}
+
+/* Mobile portrait <576px */
+@media (max-width: 575.98px) {
+  .hero-bg-img {
+    object-position: 60% center;
+    transform: scale(1.12);
+    transform-origin: center center;
+  }
 }
 
 .hero-overlay {
@@ -614,7 +708,7 @@ header.theme-main-menu:not(.fixed) {
   color: #ffffff;
 }
 
-/* Hero — Responsive */
+/* Hero — Responsive layout (testo e altezza banner) */
 @media (max-width: 991px) {
   .hero-content-wrap { padding-top: 130px; padding-bottom: 80px; }
   .hero-title         { font-size: clamp(2.2rem, 7vw, 3.5rem); }
@@ -622,10 +716,16 @@ header.theme-main-menu:not(.fixed) {
 @media (max-width: 767px) {
   .hero-banner-one    { min-height: 85vh; }
   .hero-content-wrap  { padding-top: 110px; padding-bottom: 60px; }
-  .hero-bg-img        { object-position: 70% center; }
   .hero-title         { font-size: 2.2rem; }
   .hero-subtitle      { font-size: 0.92rem; }
   .hero-glow          { display: none; }
+}
+@media (max-width: 575.98px) {
+  .hero-banner-one    { min-height: 75vh; }
+  .hero-content-wrap  { padding-top: 90px; padding-bottom: 50px; }
+  .hero-title         { font-size: 1.85rem; }
+  .hero-subtitle-med  { font-size: 0.90rem; margin-bottom: 32px; }
+  .hero-btn           { padding: 12px 22px; font-size: 0.88rem; gap: 10px; }
 }
 
 
@@ -819,7 +919,7 @@ header.theme-main-menu:not(.fixed) {
   .scopri-btn     { padding: 11px 24px; font-size: 0.90rem; justify-content: center; width: 100%; }
   .call-btn       { padding: 11px 24px; font-size: 0.90rem; justify-content: center; width: 100%; }
   .call-btn-cards { padding: 11px 24px; font-size: 0.90rem; justify-content: center; width: 100%; }
-  .vedi-tutte-btn { width: 100%; justify-content: center; }
+  .vedi-tutte-btn { width: 100%; justify-content: center; margin-bottom: 24px; }
   .btn-group-wrap { flex-direction: column; }
 }
 
@@ -983,7 +1083,7 @@ header.theme-main-menu:not(.fixed) {
   font-style: italic;
   color: var(--mft-navy);
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 .product-desc {
   font-size: 0.92rem;

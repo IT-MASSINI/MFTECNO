@@ -61,28 +61,28 @@ const packagingTypes = [
     id: 1,
     title: "Confezione a fondo quadro",
     description: "Base piatta per elevata stabilità e pallettizzazione efficiente",
-    image: "/images/home/tipologie/pack-01.png",
+    image: "/images/home/pack-01.png",
     link: "/tipologie/fondo-quadro"
   },
   {
     id: 2,
     title: "Doypack",
     description: "Sacco stand-up con fondo sagomato autoportante",
-    image: "/images/home/tipologie/pack-02.png",
+    image: "/images/home/pack-02.png",
     link: "/tipologie/doypack"
   },
   {
     id: 3,
     title: "Confezione a cuscino",
     description: "Formato pillow bag per confezionamento rapido e continuo",
-    image: "/images/home/tipologie/pack-03.png",
+    image: "/images/home/pack-03.png",
     link: "/tipologie/cuscino"
   },
   {
     id: 4,
     title: "Confezione con soffietto",
     description: "Sacco con soffietti laterali per maggiore capacità e stabilità",
-    image: "/images/home/tipologie/pack-04.png",
+    image: "/images/home/pack-04.png",
     link: "/tipologie/soffietto"
   },
 ]

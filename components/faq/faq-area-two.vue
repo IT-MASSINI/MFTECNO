@@ -34,12 +34,13 @@
 const localePath = useLocalePath()
 
 const logos = [
-  { src: '/images/clients/befood.svg',   alt: 'BeFood Pet Nutrition' },
-  { src: '/images/clients/xion.svg',     alt: 'XION Sea Salt' },
-  { src: '/images/clients/durrah.svg',   alt: 'Durrah Advanced Development Co.' },
-  { src: '/images/clients/proa.svg',     alt: 'Proa' },
-  { src: '/images/clients/tecno-supplier.svg', alt: 'Tecno Supplier' },
-  { src: '/images/clients/unicol.svg',   alt: 'Unicol Adhesive Technologies' },
+  { src: '/images/clients/be-food.png',   alt: 'BeFood Pet Nutrition' },
+  { src: '/images/clients/xion.png',     alt: 'XION Sea Salt' },
+  { src: '/images/clients/durrah.png',   alt: 'Durrah Advanced Development Co.' },
+  { src: '/images/clients/proa.png',     alt: 'Proa' },
+  { src: '/images/clients/tecno_supplier.png', alt: 'Tecno Supplier' },
+  { src: '/images/clients/unicol.png',   alt: 'Unicol Adhesive Technologies' },
+  { src: '/images/clients/di-nunzio.png',   alt: 'Di Nunzio' },
 ]
 </script>
 

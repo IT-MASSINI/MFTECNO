@@ -183,7 +183,12 @@ const localePath = useLocalePath()
   .partner-banner { border-radius: 20px; }
 }
 @media (max-width: 767.98px) {
-  .banner-content-wrap { padding-top: 40px; padding-bottom: 40px; }
+  .banner-content-wrap {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
   .banner-overlay {
     background: linear-gradient(
       180deg,
@@ -192,5 +197,14 @@ const localePath = useLocalePath()
     );
   }
   .partner-banner { border-radius: 16px; }
+
+  /* Checklist allineata a sinistra come il titolo */
+  .banner-check-list {
+    align-items: flex-start;
+  }
+  .banner-check-list li {
+    padding-left: 0;
+    font-size: 1.1rem;
+  }
 }
 </style>
