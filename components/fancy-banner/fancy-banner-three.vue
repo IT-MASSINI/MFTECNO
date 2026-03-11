@@ -1,24 +1,41 @@
 <template>
-  <div class="fancy-banner-three position-relative wow fadeInUp">
+  <section class="cta-section py-section text-center">
     <div class="container">
-      <div class="row align-content-center">
-        <div class="col-lg-8 col-md-9">
-          <div class="title-one mb-20 lg-mb-10">
-            <h2 class="text-white">Want to Chat? Feel free to Contact our Team.</h2>
-          </div>
-          <!-- /.title-one -->
-          <p class="text-lg m0 text-white opacity-75">If you have anything in mind just contact us with our expert.</p>
-        </div>
-        <div class="col-lg-4 col-md-3">
-          <nuxt-link href="/contact" class="quote-btn tran5s rounded-circle d-flex align-items-center justify-content-center ms-auto">
-            <img src="/images/icon/icon_30.svg" alt="icon" class="lazy-img">
-          </nuxt-link>
-        </div>
+      <h2 class="section-title">Vuoi parlare con noi?<br>Contatta il nostro team</h2>
+      <p class="section-body cta-subtitle mt-3 mb-5">
+        Contatta il nostro team per ricevere risposte rapide e utili
+      </p>
+      <br/>
+      <div class="d-flex justify-content-center gap-3 flex-wrap btn-group-wrap">
+        <nuxt-link :to="localePath('/contatti')" class="scopri-btn">
+          Scopri di più
+        </nuxt-link>
+        <nuxt-link :to="localePath('/contatti')" class="btn call-btn">
+          Richiedi una call
+          <span class="btn-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </nuxt-link>
       </div>
     </div>
-  </div>
+    <br/>
+    <br/>
+  </section>
 </template>
 
 <script setup lang="ts">
-
+const localePath = useLocalePath()
 </script>
+
+<style scoped>
+/* CTA Section — fancy-banner-three */
+.cta-section {
+  background: #ffffff;
+}
+
+.cta-subtitle {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

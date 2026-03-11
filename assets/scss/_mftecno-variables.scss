@@ -1,0 +1,19 @@
+// assets/scss/_mftecno-variables.scss
+// ============================================
+// MF TECNO — Override variabili Bootstrap + Babun
+// ============================================
+
+// --- Colori Bootstrap (DEVONO stare prima di bootstrap.scss) ---
+$primary:        #28477D;
+$secondary:      #ED7417;
+$dark:           #28477D;
+$light:          #F5F5F5;
+$body-color:     #28477D;
+$link-color:     #28477D;
+$link-hover-color: #ED7417;
+
+// --- Bottoni ---
+$btn-border-radius: 6px;
+$btn-padding-x:     1.5rem;
+$btn-padding-y:     0.7rem;
+$btn-font-weight:   600;

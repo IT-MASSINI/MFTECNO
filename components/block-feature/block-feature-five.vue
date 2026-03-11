@@ -1,73 +1,73 @@
+<!-- Stili in: mftecno.css (globale) -->
 <template>
-  <div class="block-feature-five light-bg position-relative mt-80 md-mt-50 pt-120 lg-pt-80 pb-150 lg-pb-80">
-			<div class="container">
-				<div class="position-relative">
-					<div class="row">
-						<div class="col-lg-8 wow fadeInLeft">
-							<div class="title-one mb-50 lg-mb-30 md-mb-10">
-								<h2>Confidently secure assets with expert guidance.</h2>
-							</div>
-							<!-- /.title-one -->
-						</div>
-					</div>
+  <section class="product-section py-section bg-white text-center">
+    <div class="container">
 
-					<div class="row">
-						<div v-for="(item,i) in service_data" :key="item.id" class="col-xl-3 col-md-6 d-flex wow fadeInUp" :data-wow-delay="`0.${i}s`">
-							<div class="card-style-seven text-center vstack tran3s w-100 mt-30">
-								<div class="icon tran3s rounded-circle d-flex align-items-center justify-content-center m-auto">
-                  <img :src="item.icon" alt="icon" class="lazy-img">
-                </div>
-								<h4 class="fw-bold mt-40 md-mt-20 mb-20">{{item.title}}</h4>
-								<p class="mb-60 md-mb-40">{{item.desc}}</p>
-								<nuxt-link href="/service-details" class="arrow-btn tran3s m-auto stretched-link">
-                  <img src="/images/icon/icon_09.svg" alt="icon" class="lazy-img">
-                </nuxt-link>
-							</div>
-							<!-- /.card-style-seven -->
-						</div>
-					</div>
+      <h2 class="section-title">Per ogni Prodotto,<br>la soluzione giusta pensata per te</h2>
 
-					<div class="section-btn md-mt-40">
-						<nuxt-link href="/service-v2" class="btn-seven d-inline-flex align-items-center">
-							<span class="text">All Services</span>
-							<div class="icon tran3s rounded-circle d-flex align-items-center">
-                <img src="/images/icon/icon_27.svg" alt="icon" class="lazy-img">
+      <p class="section-subtitle mt-3">
+        Dai prodotti alimentari ai materiali chimici e combustibili solidi,<br>
+        i macchinari MF TECNO sono progettati per gestire un'ampia varietà di prodotti sfusi.
+      </p>
+
+      <div class="scopri-wrap mt-4">
+        <nuxt-link :to="localePath('/macchinari')" class="btn call-btn mt-2">
+          Scoprili Tutti
+          <span class="btn-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </nuxt-link>
+      </div>
+      <br/>
+      <div class="products-row mt-5">
+        <nuxt-link
+          v-for="product in products"
+          :key="product.id"
+          :to="localePath(product.link)"
+          class="product-card"
+        >
+          <div class="product-icon">
+            <img :src="product.icon" :alt="product.title" />
+          </div>
+          <h4 class="product-title">{{ product.title }}</h4>
+          <p class="product-desc">{{ product.description }}</p>
+              <div class="type-arrow">
+                <span class="call-btn">
+                  <span class="btn-arrow">→</span>
+                </span>
               </div>
-						</nuxt-link>
-					</div>
-				</div>
-			</div>
-			<img src="/images/shape/shape_06.svg" alt="shape" class="lazy-img shapes shape_01">
-		</div>
+        </nuxt-link>
+      </div>
+
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath()
 
-const service_data = [
+const products = [
   {
     id: 1,
-    icon: "/images/icon/icon_23.svg",
-    title: "Banking",
-    desc: "Effortless payments and transfers with our streamlined banking process.",
+    title: 'Zucchero',
+    description: 'Gestione precisa di prodotti cristallini',
+    icon: '/images/home/sugar-icon.png',
+    link: '/settori/zucchero',
   },
   {
     id: 2,
-    icon: "/images/icon/icon_24.svg",
-    title: "Earning",
-    desc: "Earning potential grows with dedication, innovation, and continuous improvement.",
+    title: 'Pet Food',
+    description: 'Soluzioni per prodotti granulari e crocchette',
+    icon: '/images/home/petfood-icon.png',
+    link: '/settori/petfood',
   },
   {
     id: 3,
-    icon: "/images/icon/icon_25.svg",
-    title: "Expense Track",
-    desc: "Empower your budgeting with accurate and intuitive expense tracking",
+    title: 'Semi',
+    description: 'Soluzioni per semi e prodotti granulari',
+    icon: '/images/home/seeds-icon.png',
+    link: '/settori/semi',
   },
-  {
-    id: 4,
-    icon: "/images/icon/icon_26.svg",
-    title: "Savings",
-    desc: "Secure your dreams through disciplined savings & prudent investments.",
-  },
-];
-
+]
 </script>
+

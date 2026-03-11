@@ -6,8 +6,8 @@
 
 // Global Style
 ::-webkit-scrollbar{ width: 5px; }
-::-webkit-scrollbar-track { background: #fff;}
-::-webkit-scrollbar-thumb { background: $heading; border-radius: 0;}
+::-webkit-scrollbar-track { background: #f5f5f5;}
+::-webkit-scrollbar-thumb { background: #28477D; border-radius: 5px;}
 body {
   font-family: $main-font;
   font-weight: normal;

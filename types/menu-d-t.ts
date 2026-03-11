@@ -1,18 +1,24 @@
+export interface ISubMenu {
+  link: string;
+  title: string;
+}
+
 export interface IMenu {
   id: number;
   link: string;
   title: string;
   dropdown?: boolean;
   dropdown_menus?: {
-      link: string;
-      title: string;
+    link: string;
+    title: string;
+    sub_menus?: ISubMenu[];  // ← terzo livello opzionale
   }[];
   mega_menu?: boolean;
   mega_menus?: {
-      id:number;
-      menus:{
-        link: string;
-        title: string;
-      }[]
+    id: number;
+    menus: {
+      link: string;
+      title: string;
+    }[];
   }[];
 }

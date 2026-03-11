@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^10.2.3",
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",
     "@yeger/vue-masonry-wall": "^5.0.8",

@@ -1,55 +1,62 @@
+<!-- Stili in: mftecno.css (globale) -->
 <template>
-  <div class="block-feature-four position-relative mt-150 lg-mt-80 pb-150 lg-pb-80">
+  <section class="solutions-section py-section bg-light-grey">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-xl-8 col-lg-9 m-auto wow fadeInUp">
-          <div class="title-one text-center mb-50 lg-mb-20">
-            <h2>We're here to help you build,  & protect your wealth.</h2>
-          </div>
-          <!-- /.title-one -->
+
+      <!-- Header row -->
+      <div class="row align-items-start mb-5">
+        <div class="col-lg-5">
+          <h2 class="section-title">Le nostre</h2>
+          <h2 class="section-title">Soluzioni</h2>
+        </div>
+        <div class="col-lg-7 d-flex flex-column align-items-end justify-content-start pt-2">
+          <p class="section-body mt-3 text-lg-end">Scopri la gamma di macchinari MF TECNO progettati per ogni fase della tua linea di packaging. Possiamo personalizzare ogni tipo di richiesta in base alle tue esigenze.</p>
+          <nuxt-link :to="localePath('/macchinari')" class="btn call-btn mt-2">
+            Vedi Tutti
+            <span class="btn-arrow">
+              <i class="bi bi-arrow-right"></i>
+            </span>
+          </nuxt-link>
         </div>
       </div>
-      <div class="row gx-xxl-5">
-        <div v-for="(item,i) in block_features" :key="item.id" class="col-lg-4 d-flex wow fadeInUp" :data-wow-delay="`0.${i}s`">
-          <div :class="`card-style-six text-center vstack tran3s w-100 mt-30 ${item.id === 2 ? 'active' : ''}`">
-            <div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto">
-              <img :src="item.icon" alt="icon" class="lazy-img">
+
+      <!-- Cards row -->
+      <div class="row g-4">
+        <div v-for="sol in solutions" :key="sol.id" class="col-lg-4 col-md-6">
+          <nuxt-link :to="localePath(sol.link)" class="solution-card">
+
+            <!-- Full-bleed image -->
+            <img :src="sol.image" :alt="sol.title" class="card-bg-img" />
+
+            <!-- Bottom overlay with title + arrow -->
+            <div class="card-footer-overlay">
+              <div class="card-footer-inner">
+                <div class="card-title-wrap">
+                  <h3 class="card-sol-title">{{ sol.title }}</h3>
+                  <div class="card-divider"></div>
+                </div>
+                <div class="card-arrow-btn">
+                  <i class="bi bi-arrow-up-right"></i>
+                </div>
+              </div>
             </div>
-            <h4 class="fw-bold mt-40 md-mt-30 mb-25">{{item.title}}</h4>
-            <p class="mb-20">{{item.subtitle}}</p>
-            <nuxt-link href="/service-v2" class="arrow-btn tran3s m-auto stretched-link">
-              <img src="/images/icon/icon_09.svg" alt="icon" class="lazy-img">
-            </nuxt-link>
-          </div>
-          <!-- /.card-style-six -->
+
+          </nuxt-link>
         </div>
       </div>
+      <br/>
+      <br/>
     </div>
-    <img src="/images/shape/shape_05.svg" alt="shape" class="lazy-img shapes shape_01">
-    <img src="/images/shape/shape_06.svg" alt="shape" class="lazy-img shapes shape_02">
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath()
 
-const block_features = [
-  {
-    id:1,
-    icon:'/images/icon/icon_20.svg',
-    title:'Expert Advisor',
-    subtitle:'Elit esse cillum dolore eu fugiat nulla pariatur',
-  },
-  {
-    id:2,
-    icon:'/images/icon/icon_21.svg',
-    title:'Highly Secured',
-    subtitle:'Elit esse cillum dolore eu fugiat nulla pariatur',
-  },
-  {
-    id:3,
-    icon:'/images/icon/icon_22.svg',
-    title:'Management',
-    subtitle:'Elit esse cillum dolore eu fugiat nulla pariatur',
-  }
+const solutions = [
+  { id: 1, title: "Confezionatrici Verticali", category: "Confezionamento", image: "/images/home/confezionatrici.jpg", link: "/soluzioni/confezionatrici" },
+  { id: 2, title: "Pallettizzatori",           category: "Fine Linea",       image: "/images/home/pallettizzatori.jpg",  link: "/soluzioni/palettizzatori" },
+  { id: 3, title: "Avvolgitori",               category: "Fine Linea",       image: "/images/home/avvolgitori.jpg",     link: "/soluzioni/avvolgitori" },
 ]
 </script>
+

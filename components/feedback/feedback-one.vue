@@ -1,103 +1,196 @@
 <template>
-   <div class="feedback-section-two position-relative mt-150 lg-mt-80">
-			<div class="container">
-				<div class="position-relative">
-					<div class="row">
-						<div class="col-lg-8 m-auto">
-							<div class="title-one text-center mb-80 lg-mb-40 wow fadeInUp">
-								<h2>We help 10k+ Customers to full fill their dream.</h2>
-							</div>
-							<!-- /.title-one -->
-						</div>
-					</div>
-				</div>
-			</div>
+  <section class="partner-banner">
 
-			<div class="slider-wrapper">
-				<swiper v-bind="slider_setting" class="feedback-slider-two">
-					<swiper-slide v-for="item in testimonial_data" :key="item.id" class="item">
-						<div class="feedback-block-two tran3s">
-							<div class="d-flex align-items-center">
-								<img :src="item.user" alt="user" class="avatar rounded-circle">
-								<div class="ps-3">
-									<div class="name fw-bold">{{item.name}}</div>
-									<p class="m0">{{item.location}}</p>
-								</div>
-							</div>
-							<blockquote class="text-lg">{{item.desc}}</blockquote>
-							<div class="bottom-line d-flex align-items-center justify-content-between">
-								<ul class="style-none d-flex rating">
-									<li><i class="bi bi-star-fill"></i></li>
-									<li><i class="bi bi-star-fill"></i></li>
-									<li><i class="bi bi-star-fill"></i></li>
-									<li><i class="bi bi-star-fill"></i></li>
-									<li><i class="bi bi-star-fill"></i></li>
-								</ul>
-								<img src="/images/icon/icon_28.svg" alt="" class="icon">
-							</div>
-						</div>
-						<!-- /.feedback-block-two -->
-					</swiper-slide>
-				</swiper>
-			</div>
-			<!-- /.slider-wrapper -->
-			<img src="/images/shape/shape_06.svg" alt="shape" class="lazy-img shapes shape_01">
-	 </div>
+    <!-- Immagine di sfondo -->
+    <div class="banner-bg-wrap">
+      <img
+        src="/images/home/sfondo-banner.jpg"
+        alt="Partner_MFTecno"
+        class="banner-bg-img"
+        aria-hidden="true"
+      />
+    </div>
+
+    <!-- Overlay navy sfumato da sinistra -->
+    <div class="banner-overlay" />
+
+    <!-- Contenuto -->
+    <div class="container banner-content-wrap">
+      <div class="row align-items-center gy-5">
+
+        <!-- Colonna sinistra — titolo + CTA -->
+        <div class="col-lg-5">
+          <span class="banner-badge">Perché scegliere MF TECNO</span>
+          <h2 class="banner-title mt-3">
+            Il Partner giusto<br />per la tua produzione
+          </h2>
+          <nuxt-link :to="localePath('/contatti')" class="banner-cta mt-4 d-inline-block">
+            CONTATTACI
+          </nuxt-link>
+        </div>
+
+        <!-- Colonna destra — checklist -->
+        <div class="col-lg-7">
+          <ul class="banner-check-list">
+            <li>
+              <i class="bi bi-check2" aria-hidden="true"></i>
+              Produzione All-in-house
+            </li>
+            <li>
+              <i class="bi bi-check2" aria-hidden="true"></i>
+              Esperienza industriale consolidata
+            </li>
+            <li>
+              <i class="bi bi-check2" aria-hidden="true"></i>
+              Soluzioni su misura
+            </li>
+            <li>
+              <i class="bi bi-check2" aria-hidden="true"></i>
+              Presenza Internazionale
+            </li>
+            <li>
+              <i class="bi bi-check2" aria-hidden="true"></i>
+              Assistenza tecnica dedicata
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <br/>
+  <br/>
 </template>
 
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue";
-
-const testimonial_data = [
-  {
-    id:1,
-    user:'/images/media/img_08.jpg',
-    name:'James Bond.',
-    location:'Thailad',
-    desc:'We are absolutely thrilled with the services provided by Babun! Their team went above and beyond to transform our outdated website into a stunning, user-friendly masterpiece.',
-    rating:5
-  },
-  {
-    id:2,
-    user:'/images/media/img_09.jpg',
-    name:'James Bond.',
-    location:'Thailad',
-    desc:'It has been an absolute pleasure working with Babun on our brand identity overhaul. Their ability to capture the essence of our culinary vision and translate it into a visual identity has been commendable.',
-    rating:4
-  },
-  {
-    id:3,
-    user:'/images/media/img_14.jpg',
-    name:'Mark Smith',
-    location:'United state',
-    desc:'It has been an absolute pleasure working with Babun on our brand identity overhaul. Their ability to capture the essence of our culinary vision and translate it into a visual identity has been commendable.',
-    rating:5
-  },
-  {
-    id:4,
-    user:'/images/media/img_15.jpg',
-    name:'Jon Doe',
-    location:'Dubai',
-    desc:'Babun thumbs up to the team! Their personalized approach to fitness training has been a breath of fresh air. The trainers are not only knowledgeable but also genuinely invested in their clients well-being',
-    rating:3
-  }
-]
-
-const slider_setting = {
-  slidesPerView: 3,
-  spaceBetween: 30,
-  centeredSlides: true,
-  loop:true,
-  breakpoints: {
-    "768": {
-      slidesPerView: 3,
-    },
-    "576": {
-      slidesPerView: 1,
-    },
-    "0": {
-      slidesPerView: 1,
-    },
-  },
-};
+const localePath = useLocalePath()
 </script>
+
+<style scoped>
+/* ── Wrapper principale ─────────────────────────── */
+.partner-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;           /* angoli arrotondati come nel mockup */
+  margin: 0 auto;
+  max-width: 1320px;             /* si adatta al container Bootstrap */
+}
+
+/* ── Immagine di sfondo ─────────────────────────── */
+.banner-bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.banner-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ── Overlay navy sfumato ────────────────────────── */
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(28, 52, 100, 0.92) 0%,
+    rgba(28, 52, 100, 0.80) 40%,
+    rgba(28, 52, 100, 0.45) 70%,
+    rgba(28, 52, 100, 0.15) 100%
+  );
+}
+
+/* ── Contenuto sopra sfondo ─────────────────────── */
+.banner-content-wrap {
+  padding-left: 80px;
+  position: relative;
+  z-index: 2;
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+/* ── Badge label ────────────────────────────────── */
+.banner-badge {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* ── Titolo ─────────────────────────────────────── */
+.banner-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+/* ── Bottone CTA pill ───────────────────────────── */
+.banner-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  border: 2.5px solid rgba(255, 255, 255, 0.70);
+  border-radius: 50px;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.banner-cta:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #28477D;
+}
+
+/* ── Checklist ──────────────────────────────────── */
+.banner-check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.banner-check-list li {
+  padding-left: 80px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #ffffff;
+  font-size: clamp(1.7rem, 1.6vw, 1.15rem);
+  font-weight: 400;
+}
+.banner-check-list .bi-check2 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+@media (max-width: 991.98px) {
+  .banner-content-wrap { padding-top: 56px; padding-bottom: 56px; }
+  .partner-banner { border-radius: 20px; }
+}
+@media (max-width: 767.98px) {
+  .banner-content-wrap { padding-top: 40px; padding-bottom: 40px; }
+  .banner-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(28, 52, 100, 0.85) 0%,
+      rgba(28, 52, 100, 0.75) 100%
+    );
+  }
+  .partner-banner { border-radius: 16px; }
+}
+</style>

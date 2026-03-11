@@ -1,90 +1,85 @@
 import type { IMenu } from "@/types/menu-d-t";
 
-const menu_data:IMenu[] = [
+const menu_data: IMenu[] = [
   {
-    id:1,
-    link:'/',
-    title:'Home',
-    dropdown:true,
-    dropdown_menus:[
-      {link:'/',title:'Finance'},
-      {link:'/home-2',title:'Business Consultancy'},
-      {link:'/home-3',title:'Banking'},
-      {link:'/home-4',title:'Payment Solution'},
-      {link:'/home-5',title:'Digital Agency'},
-      {link:'/home-6',title:'Marketing'},
-      {link:'/home-7',title:'Insurance'},
-    ]
-  },
-  {
-    id:2,
-    link:'/about-us',
-    title:'Pages',
-    mega_menu:true,
-    mega_menus:[
+    id: 1,
+    link: '/',
+    title: 'Macchinari',
+    dropdown: true,
+    dropdown_menus: [
       {
-        id:1,
-        menus:[
-          {link:'/service-v1',title:'Service v-1'},
-          {link:'/service-v2',title:'Service v-2'},
-          {link:'/service-details',title:'Service Details'},
-          {link:'/team-v1',title:'Team V-1'},
-          {link:'/team-v2',title:'Team V-2'},
-          {link:'/team-details',title:'Team Details'}
+        title: "Insaccatrici a Bocca Aperta",
+        link: "",
+        sub_menus: [
+          { title: "Piccoli Formati",        link: "/insaccatrici-automatiche-piccoli-formati" },
+          { title: "Medi e Grandi Formati",  link: "/insaccatrici-automatiche-medi-grandi-formati" },
+          { title: "Semiautomatiche",        link: "/insaccatrici-semiautomatiche-2" },
         ]
       },
+      { title: "Formatrici Tubolari FFS",          link: "/ffs-formatrice-tubolare" },
       {
-        id:2,
-        menus:[
-          {link:'/about-us',title:'About Us V-1'},
-          {link:'/about-us-2',title:'About Us V-2'},
-          {link:'/testimonial',title:'Testimonial'},
-          {link:'/pricing',title:'Pricing'},
-          {link:'/faq',title:'FAQ’s'},
-          {link:'/404',title:'404'},
+        title: "Confezionatrici Verticali VFFS",
+        link: "",
+        sub_menus: [
+          { title: "Piccoli Formati",       link: "/confezionatrici-piccoli-formati" },
+          { title: "Medi e Grandi Formati", link: "/confezionatrici-medi-grandi-formati" },
         ]
       },
-      {
-        id:3,
-        menus:[
-          {link:'/project-v1',title:'Project V-1'},
-          {link:'/project-v2',title:'Project V-2'},
-          {link:'/project-v3',title:'Project V-3'},
-          {link:'/project-details-v1',title:'Project Details V-1'},
-          {link:'/project-details-v2',title:'Project Details V-2'},
-        ]
-      }
+      { title: "Flow Pack",                         link: "/flow-pack" },
+      { title: "Pallettizzatori",                   link: "/pallettizzatori" },
+      { title: "Avvolgitori Pallet",                link: "/avvolgitori-pallet" },
+      { title: "Cartonatrici",                      link: "/macchine-cartonatrici" },
+      { title: "Fardellatrici",                     link: "/fardellatrici" },
+      { title: "Big-bag",                           link: "/big-bag" },
+      { title: "Crico e Trasporto prodotto",        link: "/carico-e-trasporto-prodotto" },
+      { title: "Accessori e Movimentazione Pallet", link: "/movimentazione-pallet-e-accessori" },
+      { title: "Vedi tutte le macchine →",          link: "/macchinari" },
     ]
   },
   {
-    id:3,
-    link:'/shop',
-    title:'Shop',
-    dropdown:true,
-    dropdown_menus:[
-      {link:'/shop',title:'Shop'},
-      {link:'/shop-details/1',title:'Shop Details'},
-      {link:'/cart',title:'Cart'},
-      {link:'/wishlist',title:'Wishlist'},
-      {link:'/checkout',title:'Checkout'},
+    id: 2,
+    link: '/',
+    title: 'I tuoi prodotti',
+    dropdown: true,
+    dropdown_menus: [
+      { title: "Alimentare",          link: "/macchine-confezionatrici-per-alimenti" },
+      { title: "Cereali e Sementi",   link: "/macchine-confezionatrici-per-cereali-e-sementi" },
+      { title: "Chimica",             link: "/macchine-confezionatrici-per-prodotti-chimici" },
+      { title: "Combustibili",        link: "/macchine-confezionatrici-per-combustibili" },
+      { title: "Mangime",             link: "/macchine-confezionatrici-per-mangime" },
+      { title: "Pet Food",            link: "/macchine-confezionatrici-per-pet-food" },
+      { title: "Silvicoltura",        link: "/macchine-confezionatrici-per-silvicoltura" },
+      { title: "Minerali e Inerti",   link: "/macchine-confezionatrici-per-minerali" },
+      { title: "Lettiera per gatti",  link: "/macchine-confezionatrici-per-lettiera-per-gatti" },
+      { title: "Vedi tutti i settori →", link: "/prodotti" },
     ]
   },
   {
-    id:4,
-    link:'/blog',
-    title:'Blog',
-    dropdown:true,
-    dropdown_menus:[
-      {link:'/blog',title:'Blog List'},
-      {link:'/blog-grid',title:'Blog Grid'},
-      {link:'/blog-details',title:'Blog Details'},
-    ]
+    id: 3,
+    link: '/',
+    title: "Stili di Confezione",
+    dropdown: true,
+    dropdown_menus: [
+      { title: "Confezione a fondo quadro", link: "/stili/fondo-quadro" },
+      { title: "Daypack",                   link: "/stili/daypack" },
+      { title: "Confezione a cuscino",      link: "/stili/cuscino" },
+      { title: "Confezione con soffietto",  link: "/stili/soffietto" },
+      { title: "Stand-up Pouch",            link: "/stili/stand-up-pouch" },
+      { title: "Flow Pack / Orizzontale",   link: "/stili/flow-pack" },
+    ],
   },
   {
-    id:5,
-    link:'/contact',
-    title:'Contact'
+    id: 4,
+    link: '/impianti-completi-di-confezionamento',
+    title: "Impianti completi",
+    dropdown: false,
+  },
+  {
+    id: 5,
+    link: '/azienda',
+    title: "Chi siamo",
+    dropdown: false,
   }
-]
+];
 
 export default menu_data;

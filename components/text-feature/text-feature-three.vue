@@ -1,47 +1,90 @@
+<!-- Stili in: mftecno.css (globale) -->
 <template>
-  <div class="text-feature-three position-relative mt-30 pb-150 lg-pb-80">
-    <div class="container">
-      <div class="row">
-        <div class="col-xxl-5 col-lg-6 ms-auto d-flex flex-column order-lg-last wow fadeInRight">
-          <div class="title-one">
-            <div class="upper-title">About us</div>
-            <h2>Guideline for your financial grow.</h2>
-          </div>
-          <!-- /.title-one -->
-          <p class="text-lg mt-45 lg-mt-30 mb-35 lg-mb-30">Your success is our mission. As business advisors, we offer expert guidance, unlocking your potential for growth and profitability</p>
-          <div><nuxt-link href="/about-us" class="btn-four mt-15">More About us</nuxt-link></div>
-          <div class="counter-wrapper mt-60 lg-mt-40 pt-25 lg-pt-10">
-            <div class="row">
-              <div class="col-xl-6 col-sm-5">
-                <div class="counter-block-one mt-20">
-                  <div class="main-count fw-bold"><span class="counter">1.2</span>x</div>
-                  <p class="m0">Rapid wealth grow</p>
-                </div>
-                <!-- /.counter-block-one -->
-              </div>
-              <div class="col-xl-6 col-sm-7">
-                <div class="counter-block-one mt-20">
-                  <div class="main-count fw-bold">$<span class="counter">1.3</span>b+</div>
-                  <p class="m0">Cumulative trading volume</p>
-                </div>
-                <!-- /.counter-block-one -->
-              </div>
-            </div>
-          </div>
-          <!-- /.counter-wrapper -->
+  <section class="packaging-section py-section">
+
+
+    <!-- Sfondo decorativo -->
+    <div class="section-bg">
+      <img src="/images/home/sfondo-m.jpg" alt="" aria-hidden="true" class="bg-img" />
+    </div>
+
+    <div class="container position-relative">
+
+      <!-- Header -->
+      <div class="row align-items-start mb-5">
+        <div class="col-lg-8">
+          <h2 class="section-title">Tipologie di<br>Confezionamento</h2>
+          <p class="section-subtitle mt-3">Diverse configurazioni di sacchi e stili di packaging per adattarsi a ogni esigenza produttiva</p>
         </div>
-        <div class="col-xxl-6 col-lg-5 d-flex order-lg-first wow fadeInLeft">
-          <div class="media-wrapper w-100 position-relative">
-            <img src="/images/assets/screen_04.svg" alt="screen" class="lazy-img shapes screen_01">
-            <img src="/images/assets/screen_05.svg" alt="screen" class="lazy-img shapes screen_02">
-          </div>
+        <div class="col-lg-4 d-flex justify-content-end align-items-start pt-2">
+          <nuxt-link :to="localePath('/tipologie')" class="btn vedi-tutte-btn">
+            Vedi tutte
+          </nuxt-link>
         </div>
       </div>
+
+      <!-- Cards -->
+      <div class="row g-4">
+        <div v-for="type in packagingTypes" :key="type.id" class="col-lg-3 col-md-6">
+          <nuxt-link :to="localePath(type.link)" class="type-card">
+
+            <!-- Immagine prodotto centrata -->
+            <div class="type-img-wrap">
+              <img :src="type.image" :alt="type.title" class="type-img" />
+            </div>
+
+            <!-- Testo -->
+            <div class="type-body">
+              <h4 class="type-title">{{ type.title }}</h4>
+              <p class="type-desc">{{ type.description }}</p>
+              <div class="type-arrow">
+                <span class="call-btn">
+                  <span class="btn-arrow">→</span>
+                </span>
+              </div>
+            </div>
+
+          </nuxt-link>
+        </div>
+      </div>
+
+
     </div>
-    <img src="/images/shape/shape_06.svg" alt="shape" class="lazy-img shapes shape_01">
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath()
 
+const packagingTypes = [
+  {
+    id: 1,
+    title: "Confezione a fondo quadro",
+    description: "Base piatta per elevata stabilità e pallettizzazione efficiente",
+    image: "/images/home/tipologie/pack-01.png",
+    link: "/tipologie/fondo-quadro"
+  },
+  {
+    id: 2,
+    title: "Doypack",
+    description: "Sacco stand-up con fondo sagomato autoportante",
+    image: "/images/home/tipologie/pack-02.png",
+    link: "/tipologie/doypack"
+  },
+  {
+    id: 3,
+    title: "Confezione a cuscino",
+    description: "Formato pillow bag per confezionamento rapido e continuo",
+    image: "/images/home/tipologie/pack-03.png",
+    link: "/tipologie/cuscino"
+  },
+  {
+    id: 4,
+    title: "Confezione con soffietto",
+    description: "Sacco con soffietti laterali per maggiore capacità e stabilità",
+    image: "/images/home/tipologie/pack-04.png",
+    link: "/tipologie/soffietto"
+  },
+]
 </script>
+
