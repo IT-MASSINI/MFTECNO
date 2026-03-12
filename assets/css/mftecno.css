@@ -303,19 +303,29 @@ header.theme-main-menu:not(.fixed) {
     border-color: rgba(40, 71, 125, 0.10) !important;
   }
 
-  /* Hamburger: bianco quando menu chiuso su hero non-sticky */
-  .theme-main-menu:not(.fixed) .navbar-toggler span,
-  .theme-main-menu:not(.fixed) .navbar-toggler span::before,
-  .theme-main-menu:not(.fixed) .navbar-toggler span::after {
-    background: #ffffff !important;
-  }
+/* Hamburger: righe BIANCHE — su hero (non sticky) */
+.navbar-toggler.toggler--light,
+.navbar-toggler.toggler--light:focus {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: none !important;
+}
+.navbar-toggler.toggler--light span,
+.navbar-toggler.toggler--light span::before,
+.navbar-toggler.toggler--light span::after {
+  background-color: #ffffff !important;
+}
 
-  /* Hamburger: navy su sticky */
-  .theme-main-menu.fixed .navbar-toggler span,
-  .theme-main-menu.fixed .navbar-toggler span::before,
-  .theme-main-menu.fixed .navbar-toggler span::after {
-    background: var(--mft-navy) !important;
-  }
+/* Hamburger: righe NAVY — su sticky / pagine senza hero */
+.navbar-toggler.toggler--dark,
+.navbar-toggler.toggler--dark:focus {
+  border-color: rgba(40, 71, 125, 0.4) !important;
+  box-shadow: none !important;
+}
+.navbar-toggler.toggler--dark span,
+.navbar-toggler.toggler--dark span::before,
+.navbar-toggler.toggler--dark span::after {
+  background-color: var(--mft-navy) !important;
+}
 }
 
 
