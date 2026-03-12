@@ -94,12 +94,11 @@ const logos = [
   max-height: 48px;
   max-width: 100%;
   object-fit: contain;
-  /* grayscale di default, torna a colori all'hover */
-  filter: grayscale(1) opacity(0.65);
-  transition: filter 0.3s ease;
+  filter: none;
+  transition: transform 0.3s ease;
 }
 .logo-item:hover .logo-img {
-  filter: grayscale(0) opacity(1);
+  transform: scale(1.08);
 }
 
 /* ── Responsive ─────────────────────────────────── */

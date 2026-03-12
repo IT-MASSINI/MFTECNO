@@ -154,3 +154,47 @@
 
 <script setup lang="ts">
 </script>
+
+<style scoped>
+/* ── Voci menu nav (MENU + SUPPORTO) ── */
+.mft-footer__nav a {
+  transition: color 0.2s ease;
+}
+.mft-footer__nav a:hover {
+  color: var(--mft-orange, #ED7417) !important;
+}
+
+/* ── Link contatti (telefono + email) ── */
+.mft-footer__contact-link {
+  transition: color 0.2s ease;
+}
+.mft-footer__contact-link:hover {
+  color: var(--mft-orange, #ED7417) !important;
+}
+
+/* ── Link sedi (email USA) ── */
+.mft-footer__sede-address a {
+  transition: color 0.2s ease;
+}
+.mft-footer__sede-address a:hover {
+  color: var(--mft-orange, #ED7417) !important;
+}
+
+/* ── Social icons ── */
+.mft-footer__social-link {
+  transition: color 0.2s ease;
+}
+.mft-footer__social-link:hover {
+  color: var(--mft-orange, #ED7417) !important;
+}
+
+/* ── Link copyright bar + legal ── */
+.mft-footer__copyright-text a,
+.mft-footer__legal a {
+  transition: color 0.2s ease;
+}
+.mft-footer__copyright-text a:hover,
+.mft-footer__legal a:hover {
+  color: var(--mft-orange, #ED7417) !important;
+}
+</style>

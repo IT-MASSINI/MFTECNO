@@ -1103,6 +1103,27 @@ header.theme-main-menu:not(.fixed) {
   color: #ffffff;
 }
 
+/* Freccia dentro product-card: trasparente di default, nessun bordo */
+.product-card .call-btn {
+  padding: 0;
+  border: none;
+  background: transparent;
+  gap: 0;
+}
+.product-card .call-btn:hover {
+  background: transparent;
+  border-color: transparent;
+}
+.product-card .btn-arrow {
+  background: transparent;
+  color: var(--mft-navy);
+  border: none;
+}
+.product-card:hover .call-btn .btn-arrow {
+  background: var(--mft-orange);
+  color: #ffffff;
+}
+
 @media (max-width: 767.98px) {
   .products-row {
     flex-direction: column;
