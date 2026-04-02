@@ -44,7 +44,7 @@
             della tua linea<br>
             di packaging
           </h1>
-
+          <br/>
           <!-- Sottotitolo -->
           <p class="hero-subtitle-med">
             Affidati a un unico partner<br>
@@ -114,28 +114,28 @@ onUnmounted(() => {
 
 /* Slide attiva */
 .hero-bg-img--active {
-  opacity: 0.75;
+  opacity: 1;
 }
 
 /* Tablet: centra il soggetto */
 @media (max-width: 1199px) and (min-width: 768px) {
   .hero-bg-img {
     object-position: center center;
-    transform: scale(1.05);
+    transform: scale(1.00);
   }
 }
 
-/* Mobile: leggero zoom + soggetto leggermente a destra */
+/* Mobile: nessuno zoom aggiuntivo */
 @media (max-width: 767px) {
   .hero-bg-img {
     object-position: 65% center;
-    transform: scale(1.1);
+    transform: scale(1.00);
   }
 }
 
 /* Overlay ridotto: opacità abbassata rispetto all'originale */
 .hero-overlay--light {
-  opacity: 0.55; /* regola qui: 0.4 = molto leggero, 0.7 = scuro come prima */
+  opacity: 0.40; /* regola qui: 0.1 = quasi trasparente, 0.4 = più scuro */
 }
 
 /* Dots di navigazione */

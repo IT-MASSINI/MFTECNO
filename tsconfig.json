@@ -4,8 +4,11 @@
   "compilerOptions": {
     "paths": {
       "@/data/*": ["./data/*"],
+      "~/data/*": ["./data/*"],
       "@/types/*": ["./types/*"],
+      "~/types/*": ["./types/*"],
       "@/pinia/*": ["./pinia/*"],
+      "~/pinia/*": ["./pinia/*"]
     },
     "moduleResolution": "node"
   }

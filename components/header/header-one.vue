@@ -78,80 +78,54 @@
 		     ================================================ -->
 		<div class="inner-content gap-fix">
 			<div class="top-header position-relative">
-				<div class="d-flex align-items-center">
+				<!-- ══════════════════════════════════════════════════════
+				     STRUTTURA: logo | [menu desktop] | right-actions
+				     right-actions contiene SEMPRE: lente + preventivo + hamburger
+				     Così tutto il blocco azioni è sempre allineato a destra.
+				     ══════════════════════════════════════════════════════ -->
+				<div class="header-inner-row">
 
-					<!-- ==========================================
-					     LOGO — Gestione completa responsive + white
-					     
-					     Logica:
-					     - .logo-full    → visibile da tablet in su (≥768px)
-					     - .logo-small   → visibile solo su mobile (<768px)
-					     
-					     Varianti sorgente (via computed):
-					     - Non sticky → versioni _w (bianche, sopra hero/immagine)
-					     - Sticky     → versioni standard (colorate, su sfondo bianco)
-					     
-					     Scala CSS:
-					     - ≥1200px  → scale(1.3)
-					     - 840-1199 → scale(1.0)
-					     - 768-839  → scale(0.85)
-					     - <768px   → dimensione naturale SVG small
-					     ========================================== -->
-					<div class="logo order-lg-0">
+					<!-- LOGO -->
+					<div class="logo">
 						<nuxt-link :to="localePath('/')" class="d-flex align-items-center logo-link">
-
-							<!-- Logo completo: tablet + desktop -->
-							<img
-								:src="logoFullSrc"
-								alt="MF TECNO Logo"
-								class="logo-full"
-								width="160"
-								height="48"
-							/>
-
-							<!-- Logo piccolo: solo mobile -->
-							<img
-								:src="logoSmallSrc"
-								alt="MF TECNO"
-								class="logo-small"
-								width="40"
-								height="40"
-							/>
-
+							<img :src="logoFullSrc"   alt="MF TECNO Logo" class="logo-full"  />
+							<img :src="logoSmallSrc"  alt="MF TECNO"      class="logo-small" />
 						</nuxt-link>
 					</div>
 
-					<!-- Right widget: lente + preventivo -->
-					<div class="right-widget order-lg-3 ms-auto">
-						<ul class="d-flex align-items-center style-none gap-3">
+					<!-- MENU DESKTOP (collassa su mobile, visibile ≥992px) -->
+					<nav class="navbar navbar-expand-lg header-nav">
+						<div class="collapse navbar-collapse" id="navbarNav">
+							<header-nav-menus />
+						</div>
+					</nav>
 
-							<!-- Lente ricerca -->
-							<li class="search-btn-wrap">
-								<button
-									class="search-btn"
-									type="button"
-									data-bs-toggle="modal"
-									data-bs-target="#searchModal"
-									aria-label="Cerca"
-								>
-									<i class="bi bi-search"></i>
-								</button>
-							</li>
+					<!-- AZIONI DESTRA: lente + preventivo + hamburger -->
+					<div class="header-actions">
 
-							<!-- Bottone Preventivo Gratuito -->
-							<li class="d-none d-md-inline-flex">
-								<nuxt-link :to="localePath('/richiesta/?tiporich=4')" :class="`preventivo-btn ${isLightMode ? 'dark' : ''}`">
-									Preventivo Gratuito
-								</nuxt-link>
-							</li>
-
-						</ul>
-					</div>
-
-					<!-- Navbar -->
-					<nav class="navbar navbar-expand-lg p0 ms-lg-5 order-lg-2">
+						<!-- Lente ricerca — sempre visibile -->
 						<button
-							class="navbar-toggler d-block d-lg-none"
+							class="search-btn"
+							type="button"
+							data-bs-toggle="modal"
+							data-bs-target="#searchModal"
+							aria-label="Cerca"
+						>
+							<i class="bi bi-search"></i>
+						</button>
+
+						<!-- Bottone Preventivo — sempre visibile, testo adattivo -->
+						<nuxt-link
+							:to="localePath('/richiesta/?tiporich=4')"
+							:class="`preventivo-btn d-none d-lg-inline-flex ${isLightMode ? 'dark' : ''}`"
+							>
+							<span class="preventivo-full">Preventivo Gratuito</span>
+							<span class="preventivo-short">Preventivo</span>
+						</nuxt-link>
+
+						<!-- Hamburger — solo mobile (<992px) -->
+						<button
+							class="navbar-toggler"
 							type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#navbarNav"
@@ -161,10 +135,8 @@
 						>
 							<span></span>
 						</button>
-						<div class="collapse navbar-collapse" id="navbarNav">
-							<header-nav-menus />
-						</div>
-					</nav>
+
+					</div>
 
 				</div>
 			</div>

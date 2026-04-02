@@ -424,5 +424,12 @@
         top:calc(50% - 2px);
     }
     .dashboard-menu .nav-link::before {right: auto; left: 0; top:-2px;}
+    .btn-preventivo {
+        .text-full { display: none; }
+        .text-short { display: inline; }
+    }
   }
-  /*(max-width: 991px)*/
+.btn-preventivo {
+    .text-full { display: inline; }
+    .text-short { display: none; }
+}

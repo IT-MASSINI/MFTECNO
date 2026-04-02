@@ -9442,6 +9442,7 @@ body.compensate-for-scrollbar {
   direction: ltr;
   overflow: visible;
   -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   z-index: 99994;
 }
 
