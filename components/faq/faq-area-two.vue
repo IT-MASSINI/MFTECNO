@@ -27,12 +27,8 @@
           </svg>
         </button>
 
-        <!-- Track: i loghi sono duplicati per il loop seamless -->
-        <div
-          class="carousel-track"
-          ref="trackRef"
-          :style="trackStyle"
-        >
+        <!-- Track: 3 copie [A|B|C] — B è il set centrale di riferimento -->
+        <div class="carousel-track" ref="trackRef">
           <div
             v-for="(logo, i) in loopedLogos"
             :key="i"
@@ -57,9 +53,7 @@
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>
-        <div style="margin-top:40px"> 
 
-        </div>
         <!-- Fade mask sx/dx -->
         <div class="fade-left"  aria-hidden="true" />
         <div class="fade-right" aria-hidden="true" />
@@ -70,104 +64,147 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { clientLogos } from '~/data/clients'
 
 const localePath = useLocalePath()
 
-// ── Costanti ────────────────────────────────────────────────────────────────
-const LOGO_WIDTH   = 160   // px — larghezza slot logo
-const LOGO_GAP     = 48    // px — gap tra loghi
-const ITEM_WIDTH   = LOGO_WIDTH + LOGO_GAP
-const BASE_SPEED   = 0.4   // px per frame (auto-scroll lento)
-const SHIFT_AMOUNT = ITEM_WIDTH * 2  // quanti px sposta ogni click freccia
+// ─────────────────────────────────────────────────────────────────────────────
+// STRATEGIA: 3 copie [A | B | C]
+//
+// - Si parte all'inizio di B (offset = setWidth).
+// - Auto-scroll: offset cresce. Quando entra in C (offset >= setWidth*2),
+//   teleport istantaneo a B (offset -= setWidth). Stesso punto visivo → seamless.
+// - Click frecce: sposta l'offset. Dopo la transition, normalize() riporta
+//   l'offset nel range [setWidth, setWidth*2) senza animation → invisibile.
+//   Con 3 copie e SHIFT_ITEMS=2, lo spostamento non può mai uscire dall'intero
+//   track, quindi non si vede mai "vuoto".
+// ─────────────────────────────────────────────────────────────────────────────
 
-// ── Loghi duplicati per loop infinito ───────────────────────────────────────
-// Triplico: [originali][originali][originali] → posizione di partenza = set centrale
-const loopedLogos = computed(() => [
-  ...clientLogos,
-  ...clientLogos,
-  ...clientLogos,
-])
+const COPIES = 3
 
-// ── Stato posizione ──────────────────────────────────────────────────────────
-const offset     = ref(0)          // translateX corrente (negativo = scorri sx)
-const trackRef   = ref<HTMLElement | null>(null)
-const isPaused   = ref(false)
-const rafId      = ref<number>(0)
+const loopedLogos = computed(() =>
+  Array.from({ length: COPIES }, () => clientLogos).flat()
+)
 
-// Larghezza di un "set" completo di loghi (per il reset infinito)
-const setWidth = computed(() => clientLogos.length * ITEM_WIDTH)
+const trackRef = ref<HTMLElement | null>(null)
 
-// ── Stile dinamico del track ─────────────────────────────────────────────────
-const trackStyle = computed(() => ({
-  transform: `translateX(${-offset.value}px)`,
-  // transition breve solo per i click freccia — l'auto-scroll usa RAF senza transition
-  transition: isClicking.value ? 'transform 0.45s cubic-bezier(0.4,0,0.2,1)' : 'none',
-}))
+// Tutto lo stato è JS puro (no Vue ref nelle hot path)
+let offset        = 0
+let setWidth      = 0
+let rafId         = 0
+let paused        = false
+let transitioning = false
 
-const isClicking = ref(false)
+const BASE_SPEED    = 0.4    // px/frame
+const SHIFT_ITEMS   = 2      // item spostati per click freccia
+const TRANSITION_MS = 420    // durata animation click frecce
 
-// ── Posizione iniziale: partiamo dal secondo set (indice setWidth) ────────────
-onMounted(() => {
-  offset.value = setWidth.value   // inizia dal set centrale = loop seamless
+// ── measure: legge la larghezza reale di un singolo set dal DOM ───────────────
+function measure() {
+  if (!trackRef.value) return
+  // Il track contiene esattamente COPIES set → scrollWidth / COPIES = un set
+  setWidth = trackRef.value.scrollWidth / COPIES
+}
 
-  const step = () => {
-    if (!isPaused.value && !isClicking.value) {
-      offset.value += BASE_SPEED
+// ── setTransform: applica translateX direttamente sullo stile DOM ─────────────
+function setTransform(withTransition: boolean) {
+  if (!trackRef.value) return
+  trackRef.value.style.transition = withTransition
+    ? `transform ${TRANSITION_MS}ms cubic-bezier(0.4,0,0.2,1)`
+    : 'none'
+  trackRef.value.style.transform = `translateX(${-offset}px)`
+}
 
-      // Reset seamless: quando supero il terzo set, torna al set centrale
-      if (offset.value >= setWidth.value * 2) {
-        offset.value -= setWidth.value
-      }
-      // Bound sinistro (click ← oltre il limite)
-      if (offset.value < 0) {
-        offset.value += setWidth.value
-      }
+// ── normalize: teleport invisibile → riporta offset in [setWidth, 2*setWidth) ─
+// Usa il modulo per mantenere la posizione relativa dentro il set
+function normalize() {
+  if (setWidth <= 0) return
+  // Esempio: setWidth=1000, offset=2100 → (2100-1000)%1000+1000 = 1100 ✓
+  // Esempio: setWidth=1000, offset=800  → (800-1000)%1000+1000 → (-200%1000+1000)%1000+1000 = 800... fix:
+  const rel = ((offset - setWidth) % setWidth + setWidth) % setWidth
+  offset = setWidth + rel
+  setTransform(false)
+}
+
+// ── RAF tick: auto-scroll frame by frame ──────────────────────────────────────
+function tick() {
+  if (!paused && !transitioning) {
+    offset += BASE_SPEED
+    // Entra in C → teleport a B (stesso punto visivo, no animation)
+    if (offset >= setWidth * 2) {
+      offset -= setWidth
+      setTransform(false)
+    } else {
+      setTransform(false)
     }
-    rafId.value = requestAnimationFrame(step)
   }
+  rafId = requestAnimationFrame(tick)
+}
 
-  rafId.value = requestAnimationFrame(step)
+// ── Lifecycle ─────────────────────────────────────────────────────────────────
+onMounted(async () => {
+  await nextTick()
+  measure()
+  offset = setWidth   // parti dall'inizio del set B
+  setTransform(false)
+  rafId = requestAnimationFrame(tick)
+  window.addEventListener('resize', onResize)
 })
 
 onBeforeUnmount(() => {
-  cancelAnimationFrame(rafId.value)
+  cancelAnimationFrame(rafId)
+  window.removeEventListener('resize', onResize)
 })
 
-// ── Controlli ────────────────────────────────────────────────────────────────
-function pause()  { isPaused.value = true  }
-function resume() { isPaused.value = false }
-
-function shiftLeft() {
-  isClicking.value = true
-  offset.value = Math.max(0, offset.value - SHIFT_AMOUNT)
-  // garantisce loop dopo shift sinistro
-  if (offset.value < setWidth.value) {
-    offset.value += setWidth.value
+function onResize() {
+  const oldSetWidth = setWidth
+  measure()
+  if (oldSetWidth > 0 && setWidth > 0 && oldSetWidth !== setWidth) {
+    // Riscala l'offset per il nuovo setWidth mantenendo la posizione relativa
+    offset = (offset / oldSetWidth) * setWidth
+    normalize()
   }
-  setTimeout(() => { isClicking.value = false }, 460)
 }
 
+// ── Hover ─────────────────────────────────────────────────────────────────────
+function pause()  { paused = true  }
+function resume() { paused = false }
+
+// ── Click frecce ──────────────────────────────────────────────────────────────
 function shiftRight() {
-  isClicking.value = true
-  offset.value += SHIFT_AMOUNT
-  // garantisce loop dopo shift destro
-  if (offset.value >= setWidth.value * 2) {
-    offset.value -= setWidth.value
-  }
-  setTimeout(() => { isClicking.value = false }, 460)
+  if (transitioning) return
+  transitioning = true
+  const itemW = setWidth / clientLogos.length
+  offset += itemW * SHIFT_ITEMS
+  setTransform(true)
+  setTimeout(afterTransition, TRANSITION_MS + 20)
+}
+
+function shiftLeft() {
+  if (transitioning) return
+  transitioning = true
+  const itemW = setWidth / clientLogos.length
+  offset -= itemW * SHIFT_ITEMS
+  setTransform(true)
+  setTimeout(afterTransition, TRANSITION_MS + 20)
+}
+
+// Chiamata dopo ogni transition: normalizza e riabilita
+function afterTransition() {
+  normalize()
+  transitioning = false
 }
 </script>
 
 <style scoped>
-/* ── Sezione ────────────────────────────────────── */
+/* ── Sezione ─────────────────────────────────────── */
 .clients-section {
   padding: 72px 0 64px;
   background: #ffffff;
 }
 
-/* ── Titolo ─────────────────────────────────────── */
+/* ── Titolo ──────────────────────────────────────── */
 .clients-heading {
   font-size: clamp(1.2rem, 2.2vw, 1.55rem);
   font-weight: 700;
@@ -175,7 +212,6 @@ function shiftRight() {
   margin-bottom: 52px;
   line-height: 1.4;
 }
-
 .clients-heading-link {
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -184,23 +220,21 @@ function shiftRight() {
 }
 .clients-heading-link:hover { color: #28477D; }
 
-/* ── Viewport del carousel ──────────────────────── */
+/* ── Viewport ────────────────────────────────────── */
 .carousel-viewport {
   position: relative;
   overflow: hidden;
-  /* mostra esattamente 6 loghi (160px slot + 48px gap) e mezzo logo del 7° */
   width: 100%;
 }
 
-/* ── Track ──────────────────────────────────────── */
+/* ── Track ───────────────────────────────────────── */
 .carousel-track {
   display: flex;
   align-items: center;
   will-change: transform;
-  /* no width fissa: si estende quanto servono i loghi */
 }
 
-/* ── Singolo logo ───────────────────────────────── */
+/* ── Logo item ───────────────────────────────────── */
 .logo-item {
   flex: 0 0 160px;
   width: 160px;
@@ -209,7 +243,6 @@ function shiftRight() {
   align-items: center;
   justify-content: center;
 }
-
 .logo-img {
   max-height: 60px;
   max-width: 148px;
@@ -224,27 +257,25 @@ function shiftRight() {
   filter: grayscale(0%);
 }
 
-/* ── Fade ai bordi (effetto dissolvenza) ────────── */
+/* ── Fade bordi ──────────────────────────────────── */
 .fade-left,
 .fade-right {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 0; bottom: 0;
   width: 80px;
   pointer-events: none;
   z-index: 2;
 }
-.fade-left  { left: 0;  background: linear-gradient(to right,  #ffffff, transparent); }
-.fade-right { right: 0; background: linear-gradient(to left, #ffffff, transparent); }
+.fade-left  { left: 0;  background: linear-gradient(to right, #ffffff, transparent); }
+.fade-right { right: 0; background: linear-gradient(to left,  #ffffff, transparent); }
 
-/* ── Frecce ─────────────────────────────────────── */
+/* ── Frecce ──────────────────────────────────────── */
 .carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   border-radius: 50%;
   border: 1.5px solid #28477D;
   background: #ffffff;
@@ -257,10 +288,7 @@ function shiftRight() {
   box-shadow: 0 2px 8px rgba(28,28,26,.10);
   padding: 0;
 }
-.carousel-arrow svg {
-  width: 18px;
-  height: 18px;
-}
+.carousel-arrow svg { width: 18px; height: 18px; }
 .carousel-arrow:hover {
   background: #28477D;
   color: #ffffff;
@@ -269,22 +297,19 @@ function shiftRight() {
 .carousel-arrow--left  { left:  6px; }
 .carousel-arrow--right { right: 6px; }
 
-/* ── Responsive ─────────────────────────────────── */
+/* ── Responsive ──────────────────────────────────── */
 @media (max-width: 991.98px) {
   .logo-item  { flex: 0 0 130px; width: 130px; margin-right: 32px; }
   .logo-img   { max-height: 42px; max-width: 110px; }
-  .fade-left,
-  .fade-right { width: 48px; }
+  .fade-left, .fade-right { width: 48px; }
 }
-
 @media (max-width: 767.98px) {
-  .clients-section { padding: 48px 0; }
+  .clients-section  { padding: 48px 0; }
   .clients-heading  { font-size: 1.1rem; margin-bottom: 36px; }
   .logo-item  { flex: 0 0 100px; width: 100px; margin-right: 24px; }
   .logo-img   { max-height: 34px; max-width: 90px; }
   .carousel-arrow { width: 28px; height: 28px; }
   .carousel-arrow svg { width: 14px; height: 14px; }
-  .fade-left,
-  .fade-right { width: 32px; }
+  .fade-left, .fade-right { width: 32px; }
 }
 </style>
