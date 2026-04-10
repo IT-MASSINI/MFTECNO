@@ -11,8 +11,8 @@
       />
     </div>
 
-    <!-- Overlay navy sfumato da sinistra -->
-    <div class="banner-overlay" />
+    <!-- Overlay blu sfumato dal basso -->
+    <div class="banner-overlay-bottom" />
 
     <!-- Contenuto -->
     <div class="container banner-content-wrap">
@@ -71,9 +71,9 @@ const localePath = useLocalePath()
 .partner-banner {
   position: relative;
   overflow: hidden;
-  border-radius: 28px;           /* angoli arrotondati come nel mockup */
+  border-radius: 28px;
   margin: 0 auto;
-  max-width: 1320px;             /* si adatta al container Bootstrap */
+  max-width: 1320px;
 }
 
 /* ── Immagine di sfondo ─────────────────────────── */
@@ -86,20 +86,22 @@ const localePath = useLocalePath()
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  /* "top center" mostra le mani in alto come nel mockup */
+  object-position: top center;
 }
 
-/* ── Overlay navy sfumato ────────────────────────── */
-.banner-overlay {
+/* ── Overlay blu sfumato DAL BASSO ──────────────── */
+/* Trasparente in alto → blu navy pieno in basso     */
+.banner-overlay-bottom {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
-    90deg,
-    rgba(28, 52, 100, 0.92) 0%,
-    rgba(28, 52, 100, 0.80) 40%,
-    rgba(28, 52, 100, 0.45) 70%,
-    rgba(28, 52, 100, 0.15) 100%
+    to top,
+    rgba(26, 47, 90, 0.95) 0%,     /* fondo pieno in basso */
+    rgba(26, 47, 90, 0.75) 25%,    /* sfumatura centrale   */
+    rgba(26, 47, 90, 0.20) 60%,    /* quasi trasparente    */
+    rgba(26, 47, 90, 0.00) 100%    /* foto visibile in alto */
   );
 }
 
@@ -189,16 +191,27 @@ const localePath = useLocalePath()
     padding-left: 24px;
     padding-right: 24px;
   }
-  .banner-overlay {
+
+  /* Su mobile: sfumatura solo dal basso, più intensa */
+  .banner-overlay-bottom {
     background: linear-gradient(
-      180deg,
-      rgba(28, 52, 100, 0.85) 0%,
-      rgba(28, 52, 100, 0.75) 100%
+      to top,
+      rgba(26, 47, 90, 0.98) 0%,
+      rgba(26, 47, 90, 0.80) 40%,
+      rgba(26, 47, 90, 0.30) 70%,
+      rgba(26, 47, 90, 0.00) 100%
     );
   }
+  .banner-overlay-left {
+    background: linear-gradient(
+      to right,
+      rgba(26, 47, 90, 0.55) 0%,
+      rgba(26, 47, 90, 0.00) 60%
+    );
+  }
+
   .partner-banner { border-radius: 16px; }
 
-  /* Checklist allineata a sinistra come il titolo */
   .banner-check-list {
     align-items: flex-start;
   }

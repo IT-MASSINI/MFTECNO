@@ -11,7 +11,7 @@
           <br/>
           <div class="section-label fw-600 mb-2">MF Tecno</div>
           <h2 class="section-title">Impianti completi per il packaging industriale</h2>
-          <br/>
+
           <p class="section-body mt-3">
             MF TECNO progetta e realizza impianti completi per la pesatura,
             il confezionamento e la palettizzazione di prodotti sfusi,
@@ -33,7 +33,7 @@
             <nuxt-link :to="localePath('/contatti')" class="btn call-btn">
               Richiedi una call
               <span class="btn-arrow">
-                <i class="bi bi-arrow-right"></i>
+                <img src="/images/icon/icon_02.svg" class="call-icon-svg" alt="" />
               </span>
             </nuxt-link>
           </div>
@@ -51,7 +51,9 @@
 
           <!-- Badge performance — posizionato in CSS responsive -->
           <NuxtLink :to="localePath('/efficienza')" class="stat-badge">
-            <div class="stat-icon"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="stat-icon-wrap">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
             <div class="stat-body">
               <div class="stat-value">Risparmia +30%</div>
               <div class="stat-label">sull'Efficienza linea</div>

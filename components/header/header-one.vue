@@ -117,7 +117,7 @@
 						<!-- Bottone Preventivo — sempre visibile, testo adattivo -->
 						<nuxt-link
 							:to="localePath('/richiesta/?tiporich=4')"
-							:class="`preventivo-btn d-none d-lg-inline-flex ${isLightMode ? 'dark' : ''}`"
+							:class="`btn-orange d-none d-lg-inline-flex ${isLightMode ? 'dark' : ''}`"
 							>
 							<span class="preventivo-full">Preventivo Gratuito</span>
 							<span class="preventivo-short">Preventivo</span>

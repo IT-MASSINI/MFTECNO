@@ -11,18 +11,20 @@
         </div>
         <div class="col-lg-7 d-flex flex-column align-items-end justify-content-start pt-2">
           <p class="section-body mt-3 text-lg-end">Scopri la gamma di macchinari MF TECNO progettati per ogni fase della tua linea di packaging. Possiamo personalizzare ogni tipo di richiesta in base alle tue esigenze.</p>
-          <nuxt-link :to="localePath('/macchinari')" class="btn call-btn mt-2">
+          <nuxt-link :to="localePath('/macchinari')" class="btn call-btn solutions-vedi-tutti">
             Vedi Tutti
-            <span class="btn-arrow">
-              <i class="bi bi-arrow-right"></i>
-            </span>
+              <span class="btn-arrow solutions-arrow">
+                <img src="/images/icon/icon_02.svg" class="call-icon-svg" alt="" />
+              </span>
           </nuxt-link>
         </div>
       </div>
-
-      <!-- Cards row -->
+      <br />
+      <br />
+      <br />
+      <!-- Cards row — 4 colonne su desktop -->
       <div class="row g-4">
-        <div v-for="sol in solutions" :key="sol.id" class="col-lg-4 col-md-6">
+        <div v-for="sol in solutions" :key="sol.id" class="col-xl-3 col-lg-6 col-md-6 col-12">
           <nuxt-link :to="localePath(sol.link)" class="solution-card">
 
             <!-- Full-bleed image -->
@@ -54,9 +56,9 @@
 const localePath = useLocalePath()
 
 const solutions = [
-  { id: 1, title: "Confezionatrici Verticali", category: "Confezionamento", image: "/images/home/confezionatrici.jpg", link: "/soluzioni/confezionatrici" },
+  { id: 1, title: "Confezionatrici",           category: "Confezionamento", image: "/images/home/confezionatrici.jpg", link: "/soluzioni/confezionatrici" },
+  { id: 4, title: "Scatolatrici",              category: "Confezionamento", image: "/images/home/scatolatrici.jpg",    link: "/soluzioni/scatolatrici" },
   { id: 2, title: "Pallettizzatori",           category: "Fine Linea",       image: "/images/home/pallettizzatori.jpg",  link: "/soluzioni/palettizzatori" },
   { id: 3, title: "Avvolgitori",               category: "Fine Linea",       image: "/images/home/avvolgitori.jpg",     link: "/soluzioni/avvolgitori" },
 ]
 </script>
-

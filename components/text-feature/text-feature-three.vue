@@ -1,7 +1,6 @@
-<!-- Stili in: mftecno.css (globale) -->
+<!-- Stili in: mftecno.css (globale) — sezione 16. TEXT-FEATURE-THREE -->
 <template>
   <section class="packaging-section py-section">
-
 
     <!-- Sfondo decorativo -->
     <div class="section-bg">
@@ -17,12 +16,12 @@
           <p class="section-subtitle mt-3">Diverse configurazioni di sacchi e stili di packaging per adattarsi a ogni esigenza produttiva</p>
         </div>
         <div class="col-lg-4 d-flex justify-content-end align-items-start pt-2">
-          <nuxt-link :to="localePath('/tipologie')" class="btn vedi-tutte-btn">
+          <nuxt-link :to="localePath('/tipologie')" class="btn scopri-btn">
             Vedi tutte
           </nuxt-link>
         </div>
       </div>
-
+      <br/>
       <!-- Cards -->
       <div class="row g-4">
         <div v-for="type in packagingTypes" :key="type.id" class="col-lg-3 col-md-6">
@@ -38,16 +37,13 @@
               <h4 class="type-title">{{ type.title }}</h4>
               <p class="type-desc">{{ type.description }}</p>
               <div class="type-arrow">
-                <span class="call-btn">
-                  <span class="btn-arrow">→</span>
-                </span>
+                <img src="/images/icon/icon_02.svg" alt="" aria-hidden="true" class="arrow-icon" />
               </div>
             </div>
 
           </nuxt-link>
         </div>
       </div>
-
 
     </div>
   </section>
@@ -87,4 +83,3 @@ const packagingTypes = [
   },
 ]
 </script>
-

@@ -27,9 +27,9 @@
                 </a>
               </li>
               <li>
-                <a href="mailto:info@mftecno.com" class="mft-footer__contact-link">
+                <a href="mailto:info@massiniindustries.co" class="mft-footer__contact-link mft-footer__contact-email">
                   <i class="bi bi-envelope-fill mft-footer__contact-icon"></i>
-                  info@mftecno.com
+                  sales@mftecno.com
                 </a>
               </li>
             </ul>
@@ -172,6 +172,12 @@
   color: var(--mft-orange, #ED7417) !important;
 }
 
+/* ── Email contatto: più grande e sottolineata ── */
+.mft-footer__contact-email {
+  font-size: 1.2rem !important;
+  text-decoration: underline !important;
+}
+
 /* ── Link sedi (email USA) ── */
 .mft-footer__sede-address a {
   transition: color 0.2s ease;
@@ -188,10 +194,28 @@
   color: var(--mft-orange, #ED7417) !important;
 }
 
+/* ── Logo Massini: dimensione ridotta ── */
+.mft-footer__massini-logo {
+  max-height: 50px !important;
+  width: auto !important;
+   margin: 0 0 0 0 !important;
+}
+
+/* ── Brand bar + copyright: spazio quasi azzerato ── */
+.mft-footer__brand-bar {
+  padding-top: 24px !important;
+  padding-bottom: 2px !important;
+}
+.mft-footer__copyright-bar {
+  padding-top: 2px !important;
+  padding-bottom: 16px !important;
+}
+
 /* ── Link copyright bar + legal ── */
 .mft-footer__copyright-text a,
 .mft-footer__legal a {
   transition: color 0.2s ease;
+  margin: 0 0 0 0 !important;
 }
 .mft-footer__copyright-text a:hover,
 .mft-footer__legal a:hover {

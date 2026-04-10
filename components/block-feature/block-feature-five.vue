@@ -11,13 +11,14 @@
       </p>
 
       <div class="scopri-wrap mt-4">
-        <nuxt-link :to="localePath('/macchinari')" class="btn call-btn mt-2">
+        <nuxt-link :to="localePath('/macchinari')" class="btn call-btn solutions-vedi-tutti mt-2">
           Scoprili Tutti
-          <span class="btn-arrow">
-            <i class="bi bi-arrow-right"></i>
+          <span class="btn-arrow solutions-arrow">
+            <img src="/images/icon/icon_02.svg" class="call-icon-svg" alt="" />
           </span>
         </nuxt-link>
       </div>
+      <br/>
       <br/>
       <div class="products-row mt-5">
         <nuxt-link
@@ -32,9 +33,7 @@
           <h4 class="product-title">{{ product.title }}</h4>
           <p class="product-desc">{{ product.description }}</p>
               <div class="type-arrow">
-                <span class="call-btn">
-                  <span class="btn-arrow">→</span>
-                </span>
+                <img src="/images/icon/icon_02.svg" alt="arrow" class="product-arrow-icon" />
               </div>
         </nuxt-link>
       </div>

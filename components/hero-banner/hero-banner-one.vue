@@ -56,7 +56,7 @@
             <nuxt-link :to="localePath('/parliamone')" class="hero-btn">
               Parliamone
               <span class="btn-arrow">
-                <i class="bi bi-arrow-right"></i>
+                <img src="/images/icon/icon_02.svg" alt="arrow" class="btn-arrow-icon" />
               </span>
             </nuxt-link>
           </div>
@@ -163,5 +163,20 @@ onUnmounted(() => {
 .hero-dot--active {
   background: #ffffff;
   border-color: #ffffff;
+}
+
+/* Icona SVG nel bottone CTA */
+.btn-arrow-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  filter: brightness(0) invert(1);        /* bianco — stato default */
+  transition: filter 0.3s ease;           /* animazione fluida come il testo */
+}
+
+/* Al hover del bottone: freccia diventa navy #28477D (uguale al testo) */
+.hero-btn:hover .btn-arrow-icon {
+  filter: invert(22%) sepia(48%) saturate(900%) hue-rotate(192deg) brightness(90%) contrast(92%);
 }
 </style>

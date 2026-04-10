@@ -2,7 +2,7 @@
   <section class="cta-section py-section text-center">
     <div class="container">
       <h2 class="section-title">Vuoi parlare con noi?<br>Contatta il nostro team</h2>
-      <p class="section-body cta-subtitle mt-3 mb-5">
+      <p class="section-intro cta-subtitle mt-3 mb-5">
         Contatta il nostro team per ricevere risposte rapide e utili
       </p>
       <br/>
@@ -10,10 +10,10 @@
         <nuxt-link :to="localePath('/contatti')" class="scopri-btn">
           Scopri di più
         </nuxt-link>
-        <nuxt-link :to="localePath('/contatti')" class="btn call-btn">
+        <nuxt-link :to="localePath('/contatti')" class="btn call-btn solutions-vedi-tutti mt-2">
           Richiedi una call
-          <span class="btn-arrow">
-            <i class="bi bi-arrow-right"></i>
+          <span class="btn-arrow solutions-arrow">
+            <img src="/images/icon/icon_02.svg" class="call-icon-svg" alt="" />
           </span>
         </nuxt-link>
       </div>

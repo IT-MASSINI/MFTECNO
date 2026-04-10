@@ -7,7 +7,7 @@
       <div class="row align-items-start mb-5">
         <div class="col-lg-8">
           <h2 class="section-title">Ultime News</h2>
-          <p class="section-body mt-2">Leggi gli ultimi aggiornamenti, consigli e approfondimenti dal mondo MF TECNO</p>
+          <p class="section-intro mt-2">Leggi gli ultimi aggiornamenti, consigli e approfondimenti dal mondo MF TECNO</p>
         </div>
         <div class="col-lg-4 d-flex align-items-center justify-content-lg-end justify-content-start pt-lg-2 mt-3 mt-lg-0">
           <nuxt-link :to="localePath('/news')" class="btn call-btn">
@@ -18,6 +18,7 @@
           </nuxt-link>
         </div>
       </div>
+      <br/>
       <br/>
       <br/>
       <!-- Cards row -->

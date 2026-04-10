@@ -30,7 +30,7 @@
   --mft-orange:      #ED7417;
   --mft-orange-dark: #c95f0e;
   --mft-navy:        #28477D;
-  --mft-navy-dark:   #10305f;
+  --mft-navy-dark:   #183f7a;
   --mft-navy-deep:   #1a2f5a;
   --mft-black:       #1C1C1A;
   --mft-bg-grey:     #F5F5F5;
@@ -261,7 +261,9 @@
 .theme-main-menu.fixed .navbar-nav .nav-link:hover,
 .theme-main-menu.fixed .navbar-nav .nav-item.dropdown:hover > .nav-link,
 .theme-main-menu.fixed .navbar-nav .nav-item.show > .nav-link {
-  color: var(--mft-orange) !important;
+  color: #2A2D30 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
 }
 
 /* :deep equivalents (per Vue scoped — usare queste classi globalmente) */
@@ -896,6 +898,32 @@ header.theme-main-menu:not(.fixed) {
   color: var(--mft-navy);
 }
 
+/* ============================================================
+   BOTTONE VARIANTE INVERSA — arancione → blu al hover
+   Uso: class="btn-orange" (oppure "preventivo-btn btn-orange-alt")
+   ============================================================ */
+
+.btn-orange {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 26px;
+  border: none;
+  border-radius: 50px;
+  background: var(--mft-orange);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-orange:hover {
+  background: var(--mft-navy);
+  color: #ffffff;
+}
+
 /* Hero — Responsive layout (testo e altezza banner) */
 @media (max-width: 991px) {
   .hero-content-wrap { padding-top: 130px; padding-bottom: 80px; }
@@ -922,27 +950,38 @@ header.theme-main-menu:not(.fixed) {
    
    Classe        ≥1200px   840-1199px  768-839px  <768px
    ─────────────────────────────────────────────────────────
-   section-label  1.5rem    1.2rem      1.1rem     1rem
-   section-title  4rem      3rem        2.4rem     2rem
-   section-body   1.4rem    1.2rem      1.1rem     1rem
-   feature-list   1.6rem    1.3rem      1.15rem    1rem
+   section-label    1.5rem    1.2rem      1.1rem     1rem
+   section-intro    1.4rem    1.2rem      1.1rem     1rem
+   section-title      4rem      3rem      2.4rem     2rem
+   section-subtitle 1.4rem    1.2rem      1.1rem     1rem
+   section-body     1.6rem    1.3rem      1.15rem    1rem
+   feature-list     1.6rem    1.3rem      1.15rem    1rem
    ============================================================ */
 
 .section-label {
   color: var(--mft-navy);
   letter-spacing: 1px;
 }
+.section-intro {
+  padding: 0px 0px 0px 10px;
+  color: var(--text-muted);
+}
 .section-title {
   font-weight: 800;
   color: var(--mft-navy-dark);
   line-height: 1.2;
 }
+.section-subtitle {
+  padding: 0px 0px 0px 10px;
+  color: var(--text-muted);
+}
 .section-body {
+  padding: 10px 0px 0px 0px;
   color: var(--text-muted);
 }
 .feature-list {
   list-style: none;
-  padding: 0;
+  padding: 10px 0px 0px 0px;
   color: var(--mft-navy);
 }
 .feature-list li { padding: 6px 0; }
@@ -954,31 +993,39 @@ header.theme-main-menu:not(.fixed) {
 
 /* Scale responsive — Desktop grande */
 @media (min-width: 1200px) {
-  .section-label   { font-size: 1.5rem; }
-  .section-title   { font-size: 4rem; }
-  .section-body    { font-size: 1.4rem; }
-  .feature-list li { font-size: 1.6rem; }
+  .section-label     { font-size: 1.5rem; }
+  .section-intro     { font-size: 1.4rem; }
+  .section-title     { font-size: 4rem; }
+  .section-subtitle  { font-size: 1.1rem; }
+  .section-body      { font-size: 1.6rem; }
+  .feature-list li   { font-size: 1.6rem; }
 }
 /* Notebook */
 @media (min-width: 840px) and (max-width: 1199.98px) {
-  .section-label   { font-size: 1.2rem; }
-  .section-title   { font-size: 3rem; }
-  .section-body    { font-size: 1.2rem; }
-  .feature-list li { font-size: 1.3rem; }
+  .section-label     { font-size: 1.2rem; }
+  .section-intro     { font-size: 1.2rem; }
+  .section-title     { font-size: 3rem; }
+  .section-subtitle  { font-size: 1rem; }
+  .section-body      { font-size: 1.3rem; }
+  .feature-list li   { font-size: 1.3rem; }
 }
 /* Tablet stretto */
 @media (min-width: 768px) and (max-width: 839.98px) {
-  .section-label   { font-size: 1.1rem; }
-  .section-title   { font-size: 2.4rem; }
-  .section-body    { font-size: 1.1rem; }
-  .feature-list li { font-size: 1.15rem; }
+  .section-label     { font-size: 1.1rem; }
+  .section-intro     { font-size: 1rem; }
+  .section-title     { font-size: 2.4rem; }
+  .section-subtitle  { font-size: 0.95rem; }
+  .section-body      { font-size: 1.15rem; }
+  .feature-list li   { font-size: 1.15rem; }
 }
 /* Mobile */
 @media (max-width: 767.98px) {
-  .section-label   { font-size: 1rem; }
-  .section-title   { font-size: 2rem; }
-  .section-body    { font-size: 1rem; }
-  .feature-list li { font-size: 1rem; }
+  .section-label     { font-size: 1rem; }
+  .section-intro     { font-size: 0.9rem; }
+  .section-title     { font-size: 2rem; }
+  .section-subtitle  { font-size: 0.9rem; }
+  .section-body      { font-size: 1rem; }
+  .feature-list li   { font-size: 1rem; }
 }
 
 
@@ -1010,7 +1057,7 @@ header.theme-main-menu:not(.fixed) {
   border: 2.5px solid transparent;
   border-radius: 50px;
   color: var(--mft-navy);
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 500;
   text-decoration: none;
   letter-spacing: 0.3px;
@@ -1062,7 +1109,7 @@ header.theme-main-menu:not(.fixed) {
   border: 2.5px solid var(--mft-navy);
   border-radius: 50px;
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
   letter-spacing: 0.3px;
@@ -1073,7 +1120,7 @@ header.theme-main-menu:not(.fixed) {
 .scopri-btn:hover {
   background: var(--mft-orange);
   border-color: var(--mft-orange);
-  color: var(--mft-navy);
+  color: #ffffff;;
 }
 
 /* vedi-tutte-btn — pill outline navy */
@@ -1098,7 +1145,7 @@ header.theme-main-menu:not(.fixed) {
 
 /* Scale bottoni — Notebook */
 @media (min-width: 840px) and (max-width: 1199.98px) {
-  .scopri-btn     { padding: 12px 28px; font-size: 0.95rem; }
+  .scopri-btn     { padding: 12px 28px; font-size: 1rem; }
   .call-btn       { padding: 12px 28px; font-size: 0.95rem; }
   .call-btn-cards { padding: 12px 28px; font-size: 0.95rem; }
 }
@@ -1122,7 +1169,7 @@ header.theme-main-menu:not(.fixed) {
   text-decoration: none;
   border-radius: 40px;
   overflow: hidden;
-  aspect-ratio: 3 / 3.8;
+  aspect-ratio: 3 / 2.9;   /* 2/3 dell'altezza originale (era 3/3.8) */
   width: 100%;
   cursor: pointer;
 }
@@ -1169,7 +1216,7 @@ header.theme-main-menu:not(.fixed) {
   font-size: clamp(1.1rem, 2vw, 1.35rem);
   font-weight: 500;
   color: #ffffff;
-  margin: 0 0 12px;
+  margin: 0 0 20px;
   line-height: 1.3;
 }
 .card-divider {
@@ -1198,10 +1245,47 @@ header.theme-main-menu:not(.fixed) {
 }
 
 @media (max-width: 991.98px) {
-  .solution-card { aspect-ratio: 4 / 4; }
+  .solution-card { aspect-ratio: 4 / 2.67; }  /* era 4/4, ridotto a 2/3 */
 }
 @media (max-width: 767.98px) {
-  .solution-card { aspect-ratio: 4 / 3.5; }
+  .solution-card { aspect-ratio: 4 / 2.33; }  /* era 4/3.5, ridotto a 2/3 */
+}
+
+/* ── Overrides specifici per block-feature-four (solutions section) ──
+   1. "Vedi Tutti": font leggermente più grande
+   2. Freccia: nessun pallino, solo icona blu senza sfondo
+   ───────────────────────────────────────────────────────────────────── */
+.solutions-vedi-tutti {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Rimuove completamente il cerchio — solo freccia blu visibile */
+.solutions-arrow {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  color: var(--mft-navy) !important;
+  font-size: 1.4rem !important;
+}
+
+/* Hover: freccia resta blu, nessun cerchio */
+.solutions-vedi-tutti:hover .solutions-arrow {
+  background: transparent !important;
+  color: var(--mft-navy) !important;
+}
+
+/* Colora l'icona SVG in navy (#28477D) */
+.solutions-vedi-tutti .call-icon-svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(26%) sepia(40%)
+          saturate(700%) hue-rotate(195deg) brightness(0.9);
 }
 
 
@@ -1312,6 +1396,21 @@ header.theme-main-menu:not(.fixed) {
   color: #ffffff;
 }
 
+/* Icona freccia SVG — product-card (block-feature-five) */
+.product-arrow-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+  object-fit: contain;
+  /* Grigio visibile su sfondo bianco */
+  filter: brightness(0) saturate(100%) invert(60%);
+  transition: filter 0.25s ease;
+}
+/* Al hover della card: sfondo grigio → freccia blu navy */
+.product-card:hover .product-arrow-icon {
+  filter: brightness(0) saturate(100%) invert(26%) sepia(40%) saturate(700%) hue-rotate(195deg) brightness(0.9);
+}
+
 @media (max-width: 767.98px) {
   .products-row {
     flex-direction: column;
@@ -1342,19 +1441,34 @@ header.theme-main-menu:not(.fixed) {
 /* Stat badge — posizionamento responsivo progressivo */
 .stat-badge {
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 0;
   padding: 16px 20px;
   display: flex;
   align-items: center;
   gap: 12px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-  border-left: 4px solid var(--mft-orange);
+  /* border-left rimosso */
   text-decoration: none;
   min-width: 240px;
   max-width: 300px;
-  transition: box-shadow 0.2s ease, right 0.15s ease, bottom 0.15s ease;
+  transition: box-shadow 0.2s ease;
+  animation: jumpThree 3.5s ease-in-out infinite; /* ← AGGIUNTO */
 }
 .stat-badge:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.20); }
+
+.stat-icon-wrap {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: var(--mft-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+  flex-shrink: 0;
+}
 
 @media (min-width: 1400px) {
   .image-col  { padding-bottom: 28px; }
@@ -1379,6 +1493,31 @@ header.theme-main-menu:not(.fixed) {
 @media (max-width: 575.98px) {
   .image-col  { padding-bottom: 0; }
   .stat-badge { position: static; margin-top: 14px; width: 100%; max-width: 100%; min-width: unset; }
+}
+
+/* ── call-btn icon_02.svg — text-feature-two ──────────────────
+   Nessun cerchio: solo icona freccia navy, identica a "Vedi Tutti"
+   ──────────────────────────────────────────────────────────── */
+.text-feature-two .btn-arrow {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+}
+.text-feature-two .call-icon-svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  object-fit: contain;
+  /* Converte il colore SVG in navy (#28477D) */
+  filter: brightness(0) saturate(100%) invert(26%) sepia(40%)
+          saturate(700%) hue-rotate(195deg) brightness(0.9);
+}
+/* Hover: nessun cerchio, icona resta navy */
+.text-feature-two .call-btn:hover .btn-arrow {
+  background: transparent !important;
 }
 
 .stat-icon  { font-size: 2.2rem; color: #22a94f; flex-shrink: 0; }
@@ -1423,32 +1562,45 @@ header.theme-main-menu:not(.fixed) {
   flex-direction: column;
   background: #ffffff;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;       /* permette all'immagine di fuoriuscire */
   text-decoration: none;
   height: 100%;
   padding: 28px 24px 24px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 12px rgba(40, 71, 125, 0.07);
+  position: relative;      /* ancora per l'img assoluta */
 }
 .type-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 32px rgba(40, 71, 125, 0.14);
 }
 
+/* Segnaposto: riserva lo spazio nella card senza ingrandirsi */
 .type-img-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 180px;
+  position: relative;
+  min-height: 190px;
+  flex-shrink: 0;
   margin-bottom: 16px;
+  top: 40px;
 }
+
+/* Immagine in overlay: più grande, fuoriesce dalla card verso l'alto */
 .type-img {
-  max-height: 180px;
-  max-width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 280px;
+  width: auto;
+  max-width: none;
   object-fit: contain;
   transition: transform 0.35s ease;
+  z-index: 2;
+  pointer-events: none;
 }
-.type-card:hover .type-img { transform: scale(1.05); }
+.type-card:hover .type-img {
+  transform: translateX(-50%) scale(1.06);
+}
 
 .type-body { display: flex; flex-direction: column; flex: 1; }
 .type-title {
@@ -1469,16 +1621,24 @@ header.theme-main-menu:not(.fixed) {
 .type-arrow {
   margin-top: auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  padding: 0;
 }
-.type-card:hover .call-btn {
-  background: #fff;
-  border-color: transparent;
-  color: var(--mft-navy);
+
+/* Icona SVG freccia — sempre blu navy, anche al hover */
+.type-card .arrow-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(26%) sepia(40%)
+          saturate(700%) hue-rotate(195deg) brightness(0.9);
+  transition: transform 0.25s ease;
 }
-.type-card:hover .btn-arrow {
-  background: var(--mft-orange);
-  color: #ffffff;
+.type-card:hover .arrow-icon {
+  filter: brightness(0) saturate(100%) invert(26%) sepia(40%)
+          saturate(700%) hue-rotate(195deg) brightness(0.9);
+  transform: translateX(4px);
 }
 
 
