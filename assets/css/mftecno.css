@@ -2034,3 +2034,196 @@ header.theme-main-menu:not(.fixed) {
 
 /* Fine sezione IMA Mega Panel */
 }
+
+/* ============================================================
+   FORCE-LIGHT — Navbar trasparente su sfondo bianco
+   Classe aggiunta quando forceSticky=true e non ancora .fixed.
+   Rende visibili logo e menu su pagine senza hero-foto.
+   ============================================================ */
+
+/* Sfondo: rimane trasparente (come senza hero) ma aggiunge
+   una sottile border-bottom per separare dalla pagina */
+.theme-main-menu.force-light {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+  box-shadow: none !important;
+}
+
+/* Link menu principali → testo scuro #2A2D30 */
+.theme-main-menu.force-light .navbar-nav .nav-link,
+.theme-main-menu.force-light .nav-link {
+  color: #2A2D30 !important;
+}
+
+/* Hover → arancione (coerente con il resto del sito) */
+.theme-main-menu.force-light .navbar-nav .nav-link:hover,
+.theme-main-menu.force-light .navbar-nav .nav-item.dropdown:hover > .nav-link,
+.theme-main-menu.force-light .navbar-nav .nav-item.show > .nav-link {
+  color: var(--mft-orange) !important;
+}
+
+/* Topbar link → scuri */
+.theme-main-menu.force-light .top-link {
+  color: #2A2D30 !important;
+  opacity: 0.75;
+}
+.theme-main-menu.force-light .top-link:hover {
+  color: var(--mft-orange) !important;
+  opacity: 1;
+}
+
+/* Icone social topbar → scure */
+.theme-main-menu.force-light .social-icons a,
+.theme-main-menu.force-light .social-icons i {
+  color: #2A2D30 !important;
+  opacity: 0.65;
+}
+.theme-main-menu.force-light .social-icons a:hover {
+  color: var(--mft-orange) !important;
+  opacity: 1;
+}
+
+/* Separatore topbar → scuro */
+.theme-main-menu.force-light .top-separator {
+  background: rgba(42, 45, 48, 0.25) !important;
+}
+
+/* Selettore lingua → testo scuro */
+.theme-main-menu.force-light .lang-trigger,
+.theme-main-menu.force-light .lang-label,
+.theme-main-menu.force-light .lang-arrow {
+  color: #2A2D30 !important;
+}
+
+/* Search icon → scura */
+.theme-main-menu.force-light .search-btn {
+  color: #2A2D30 !important;
+}
+.theme-main-menu.force-light .search-btn:hover {
+  color: var(--mft-orange) !important;
+}
+
+/* Hamburger mobile → scuro */
+.theme-main-menu.force-light .navbar-toggler span,
+.theme-main-menu.force-light .navbar-toggler span::before,
+.theme-main-menu.force-light .navbar-toggler span::after {
+  background: #2A2D30 !important;
+}
+
+/* Bottone "Preventivo Gratuito" — su force-light rimane arancione */
+.theme-main-menu.force-light .btn-orange {
+  background: var(--mft-orange) !important;
+  color: #ffffff !important;
+}
+
+/* Fine FORCE-LIGHT */
+
+/* ============================================================
+   FORCE-LIGHT — Correzione barretta e colori ima-trigger
+   Il selettore :not(.fixed) assegna colori bianchi (per hero).
+   Con .force-light su sfondo bianco vanno sovrascritti in scuro.
+   ============================================================ */
+
+/* Testo hover/active del trigger menu → scuro invece di bianco */
+.theme-main-menu.force-light .ima-trigger:hover,
+.theme-main-menu.force-light .ima-trigger.active {
+  color: var(--mft-orange) !important;
+}
+
+/* Barretta animata sotto la voce menu → arancione invece di bianca */
+.theme-main-menu.force-light .ima-trigger::after {
+  background: var(--mft-orange) !important;
+}
+
+/* Fine correzione force-light ima-trigger */
+
+/* ============================================================
+   FORCE-LIGHT — override: hover e barretta sempre #2A2D30
+   ============================================================ */
+.theme-main-menu.force-light .ima-trigger:hover,
+.theme-main-menu.force-light .ima-trigger.active {
+  color: #2A2D30 !important;
+}
+.theme-main-menu.force-light .ima-trigger::after {
+  background: #2A2D30 !important;
+}
+
+/* FORCE-LIGHT — hover testo nav-link sempre scuro */
+.theme-main-menu.force-light .navbar-nav .nav-link:hover,
+.theme-main-menu.force-light .navbar-nav .nav-item.dropdown:hover > .nav-link,
+.theme-main-menu.force-light .navbar-nav .nav-item.show > .nav-link,
+.theme-main-menu.force-light .ima-trigger:hover,
+.theme-main-menu.force-light .ima-trigger.active {
+  color: #2A2D30 !important;
+  text-decoration: none !important;
+}
+
+/* FORCE-LIGHT — voci menu: blu navy a riposo, scuro #2A2D30 su hover */
+.theme-main-menu.force-light .navbar-nav .nav-link,
+.theme-main-menu.force-light .ima-trigger {
+  color: #28477D !important;
+}
+.theme-main-menu.force-light .navbar-nav .nav-link:hover,
+.theme-main-menu.force-light .navbar-nav .nav-item.dropdown:hover > .nav-link,
+.theme-main-menu.force-light .navbar-nav .nav-item.show > .nav-link,
+.theme-main-menu.force-light .ima-trigger:hover,
+.theme-main-menu.force-light .ima-trigger.active {
+  color: #2A2D30 !important;
+  text-decoration: none !important;
+}
+
+
+/* ============================================================
+   18. SHOP CATALOG — spf-card hover & filter dropdown radius
+   ============================================================ */
+
+/* ── Hover CARD: propaga il colore blu al btn-arrow interno ──
+   Funziona con qualsiasi classe wrapper della card del catalogo
+   purché contenga un elemento .btn-arrow                        */
+.spf-card:hover .btn-arrow,
+.catalog-card:hover .btn-arrow,
+.machine-card:hover .btn-arrow,
+.shop-card:hover .btn-arrow {
+  background: var(--mft-navy);   /* blu navy al hover della card */
+  color: #ffffff;
+}
+
+/* Se il btn-arrow usa border (cerchio outline), colora anche quello */
+.spf-card:hover .btn-arrow,
+.catalog-card:hover .btn-arrow,
+.machine-card:hover .btn-arrow,
+.shop-card:hover .btn-arrow {
+  border-color: var(--mft-navy);
+}
+
+/* ── Dropdown filtri: bordi più arrotondati ──
+   Seleziona il trigger (select / custom dropdown) e il pannello */
+.spf-filters .filter-dropdown,
+.spf-filters select,
+.catalog-filters .filter-dropdown,
+.catalog-filters select,
+.shop-filters .filter-dropdown,
+.shop-filters select,
+/* fallback generico — qualsiasi select nella barra filtri */
+[class*="filter"] select,
+[class*="filter"] .dropdown-toggle,
+[class*="filter"] .filter-btn {
+  border-radius: 50px !important;   /* pill arrotondato */
+}
+
+/* Pannello aperto della dropdown filtri */
+.spf-filters .filter-menu,
+.catalog-filters .filter-menu,
+.shop-filters .filter-menu,
+[class*="filter"] .dropdown-menu {
+  border-radius: 16px !important;
+}
+
+/* ── Search input: bordi arrotondati ── */
+.spf-search input,
+.catalog-search input,
+.shop-search input,
+[class*="search"] input[type="text"],
+[class*="search"] input[type="search"] {
+  border-radius: 50px !important;
+}

@@ -3,6 +3,11 @@
 //  Fonte: https://www.mftecno.com/it/insaccatrici-automatiche-piccoli-formati/
 // ============================================================
 
+export interface IProdottoGruppo {
+  gruppo: string;
+  voci: string[];
+}
+
 export interface IMachine {
   id: number;
   slug: string;
@@ -18,6 +23,7 @@ export interface IMachine {
   product: string;
   features: string[];
   categoria: string;
+  prodotti: IProdottoGruppo[];
   tipoInsacco: string[];
   video: string[];
   dimension: string[];
@@ -46,6 +52,20 @@ const piccoli_formati_data: IMachine[] = [
       "Cambio formato rapido",
     ],
     categoria: "Pouch",
+    prodotti: [
+      {
+        gruppo: "Alimentare",
+        voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"]
+      },
+      {
+        gruppo: "Mangimi",
+        voci: ["Pellet", "Farine", "Mix Zootecnici"]
+      },
+      {
+        gruppo: "Pet Food",
+        voci: ["Pet Food"]
+      }
+    ],
     tipoInsacco: ["Doypack", "Fondo quadro", "Totani"],
     video: ["https://www.youtube.com/embed/e9qDy2YpRLU"
            ],
@@ -76,6 +96,20 @@ const piccoli_formati_data: IMachine[] = [
       "Tecnologia meccanica ed elettronica evoluta",
     ],
     categoria: "Pouch",
+prodotti: [
+      {
+        gruppo: "Alimentare",
+        voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"]
+      },
+      {
+        gruppo: "Mangimi",
+        voci: ["Pellet", "Farine", "Mix Zootecnici"]
+      },
+      {
+        gruppo: "Pet Food",
+        voci: ["Pet Food"]
+      }
+    ],
     tipoInsacco: ["Doypack", "Fondo quadro"],
     video: ["https://www.youtube.com/embed/y8GxIrwCjyA",
             "https://www.youtube.com/embed/ttIXssNJJg8",
@@ -108,6 +142,20 @@ const piccoli_formati_data: IMachine[] = [
       "Semplicità d'uso e versatilità",
     ],
     categoria: "Pouch",
+    prodotti: [
+      {
+        gruppo: "Alimentare",
+        voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"]
+      },
+      {
+        gruppo: "Mangimi",
+        voci: ["Pellet", "Farine", "Mix Zootecnici"]
+      },
+      {
+        gruppo: "Pet Food",
+        voci: ["Pet Food"]
+      }
+    ],    
     tipoInsacco: ["Doypack", "Fondo quadro"],
     video: ["https://www.youtube.com/embed/blpSWSjOX7k",
             "https://www.youtube.com/embed/OvarTSOQcSc"
@@ -144,6 +192,12 @@ const piccoli_formati_data: IMachine[] = [
       "Prodotti granulari e polverosi coem farina, zucchero e sale",
     ],
     categoria: "Step by Step",
+    prodotti: [
+      {
+        gruppo: "Alimentare",
+        voci: ["Farina", "Sale", "Zucchero"]
+      }
+    ],
     tipoInsacco: ["Doppio fondo quadro"],
     video: ["https://www.youtube.com/embed/n6ZLELNaeHk"],
     dimension: [

@@ -1,7 +1,8 @@
 {
-  // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",   // ← aggiunto
+    "moduleResolution": "bundler", // ← era "node"
     "paths": {
       "@/data/*": ["./data/*"],
       "~/data/*": ["./data/*"],
@@ -9,7 +10,6 @@
       "~/types/*": ["./types/*"],
       "@/pinia/*": ["./pinia/*"],
       "~/pinia/*": ["./pinia/*"]
-    },
-    "moduleResolution": "node"
+    }
   }
 }
