@@ -6,12 +6,12 @@
         Contatta il nostro team per ricevere risposte rapide e utili
       </p>
       <br/>
-      <div class="d-flex justify-content-center gap-3 flex-wrap btn-group-wrap">
-        <nuxt-link :to="localePath('/contatti')" class="scopri-btn">
-          Scopri di più
+      <div class="d-flex justify-content-center gap-5 flex-wrap btn-group-wrap">
+        <nuxt-link :to="localePath('/preventivo')" class="scopri-btn">
+          Richiedi un Preventivo
         </nuxt-link>
         <nuxt-link :to="localePath('/contatti')" class="btn call-btn solutions-vedi-tutti mt-2">
-          Richiedi una call
+          Contattaci
           <span class="btn-arrow solutions-arrow">
             <img src="/images/icon/icon_02.svg" class="call-icon-svg" alt="" />
           </span>
@@ -30,7 +30,7 @@ const localePath = useLocalePath()
 <style scoped>
 /* CTA Section — fancy-banner-three */
 .cta-section {
-  background: #ffffff;
+  background: #f5f5f5;
 }
 
 .cta-subtitle {

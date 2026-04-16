@@ -247,7 +247,7 @@
 .theme-main-menu:not(.fixed) .navbar-nav .nav-link:hover,
 .theme-main-menu:not(.fixed) .navbar-nav .nav-item.dropdown:hover > .nav-link,
 .theme-main-menu:not(.fixed) .navbar-nav .nav-item.show > .nav-link {
-  color: var(--mft-orange) !important;
+  color: #ffffff !important;
 }
 
 /* Header sticky (dopo scroll) */
@@ -262,8 +262,33 @@
 .theme-main-menu.fixed .navbar-nav .nav-item.dropdown:hover > .nav-link,
 .theme-main-menu.fixed .navbar-nav .nav-item.show > .nav-link {
   color: #2A2D30 !important;
-  text-decoration: underline !important;
-  text-underline-offset: 4px !important;
+  text-decoration: none !important; /* rimosso: ora gestito via ::after animato */
+}
+
+/* Sottolineatura animata — nav-link semplici (non ima-trigger) */
+.navbar-nav .nav-item:not(.ima-has-panel) > .nav-link {
+  position: relative;
+}
+.navbar-nav .nav-item:not(.ima-has-panel) > .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 14px; 
+  left: 0;
+  width: 0;
+  height: 2px;
+  transition: width 0.25s ease;
+}
+/* Colore linea: bianco su hero, scuro su sticky */
+.theme-main-menu:not(.fixed) .navbar-nav .nav-item:not(.ima-has-panel) > .nav-link::after {
+  background: #ffffff;
+}
+.theme-main-menu.fixed .navbar-nav .nav-item:not(.ima-has-panel) > .nav-link::after {
+  background: #2A2D30;
+}
+/* Attivazione hover e route attiva */
+.navbar-nav .nav-item:not(.ima-has-panel) > .nav-link:hover::after,
+.navbar-nav .nav-item:not(.ima-has-panel) > .nav-link.active::after {
+  width: 100%;
 }
 
 /* :deep equivalents (per Vue scoped — usare queste classi globalmente) */
@@ -666,7 +691,7 @@ header.theme-main-menu:not(.fixed) {
   align-items: center;
   padding: 11px 26px;
   border: none;
-  border-radius: 50px;
+  border-radius: 40px;
   color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
@@ -697,7 +722,7 @@ header.theme-main-menu:not(.fixed) {
   align-items: center;
   gap: 12px;
   padding: 12px 20px;
-  border-radius: 50px;
+  border-radius: 40px;
   background: var(--mft-navy);
   color: #ffffff;
   font-size: 0.90rem;
@@ -912,7 +937,7 @@ header.theme-main-menu:not(.fixed) {
   gap: 14px;
   padding: 14px 28px;
   border: 2.5px solid rgba(255, 255, 255, 0.65);
-  border-radius: 50px;
+  border-radius: 40px;
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 500;
@@ -953,7 +978,7 @@ header.theme-main-menu:not(.fixed) {
   align-items: center;
   padding: 11px 26px;
   border: none;
-  border-radius: 50px;
+  border-radius: 40px;
   background: var(--mft-orange);
   color: #ffffff;
   font-size: 1rem;
@@ -1100,7 +1125,7 @@ header.theme-main-menu:not(.fixed) {
   gap: 14px;
   padding: 14px 28px;
   border: 2.5px solid transparent;
-  border-radius: 50px;
+  border-radius: 40px;
   color: var(--mft-navy);
   font-size: 1.3rem;
   font-weight: 500;
@@ -1126,7 +1151,7 @@ header.theme-main-menu:not(.fixed) {
   gap: 14px;
   padding: 14px 28px;
   border: 2.5px solid transparent;
-  border-radius: 50px;
+  border-radius: 40px;
   color: var(--mft-navy);
   font-size: 1rem;
   font-weight: 500;
@@ -1152,7 +1177,7 @@ header.theme-main-menu:not(.fixed) {
   gap: 14px;
   padding: 14px 32px;
   border: 2.5px solid var(--mft-navy);
-  border-radius: 50px;
+  border-radius: 40px;
   color: #ffffff;
   font-size: 1.2rem;
   font-weight: 600;
@@ -1174,7 +1199,7 @@ header.theme-main-menu:not(.fixed) {
   align-items: center;
   padding: 12px 28px;
   border: 2px solid var(--mft-navy);
-  border-radius: 50px;
+  border-radius: 40px;
   background: transparent;
   color: var(--mft-navy);
   font-size: 0.95rem;
@@ -1205,20 +1230,22 @@ header.theme-main-menu:not(.fixed) {
 
 
 /* ============================================================
-   13. BLOCK-FEATURE-FOUR — Solution Cards
+   13. BLOCK-FEATURE-FOUR — Solution Cards (layout 2x2)
    ============================================================ */
 
 .solution-card {
   position: relative;
   display: block;
   text-decoration: none;
-  border-radius: 40px;
+  border-radius: 24px;
   overflow: hidden;
-  aspect-ratio: 3 / 2.9;   /* 2/3 dell'altezza originale (era 3/3.8) */
+  aspect-ratio: 16 / 9;     /* card orizzontale 2x2 come da mockup */
   width: 100%;
   cursor: pointer;
+  isolation: isolate;        /* confina lo stacking context per gli z-index interni */
 }
 
+/* ── Immagine di sfondo ───────────────────────────────────── */
 .card-bg-img {
   position: absolute;
   inset: 0;
@@ -1226,83 +1253,162 @@ header.theme-main-menu:not(.fixed) {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.45s ease;
+  transition: transform 0.5s ease;
   z-index: 0;
 }
 .solution-card:hover .card-bg-img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
-.card-footer-overlay {
+/* ── Overlay scuro (migliora leggibilità testo) ───────────── */
+.card-overlay {
   position: absolute;
-  bottom: 0;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 25, 50, 0.55) 0%,
+    rgba(15, 25, 50, 0.35) 50%,
+    rgba(15, 25, 50, 0.65) 100%
+  );
+  z-index: 1;
+  transition: background 0.4s ease;
+}
+.solution-card:hover .card-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 25, 50, 0.70) 0%,
+    rgba(15, 25, 50, 0.50) 50%,
+    rgba(15, 25, 50, 0.80) 100%
+  );
+}
+
+/* ── Riga superiore: titolo + freccia ─────────────────────── */
+.card-top-row {
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(28, 52, 100, 0)    0%,
-    rgba(28, 52, 100, 0.55) 35%,
-    rgba(28, 52, 100, 0.95) 100%
-  );
-  padding: 48px 24px 24px;
-  z-index: 1;
-  border-radius: 0 0 20px 20px;
-}
-
-.card-footer-inner {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+  padding: 28px 28px 0;
+  z-index: 2;
 }
 
-.card-title-wrap { flex: 1; }
 .card-sol-title {
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
   font-weight: 500;
   color: #ffffff;
-  margin: 0 0 20px;
-  line-height: 1.3;
-}
-.card-divider {
-  height: 1.5px;
-  background: rgba(255, 255, 255, 0.45);
-  border-radius: 2px;
+  margin: 0;
+  line-height: 1.25;
+  max-width: 75%;
+  letter-spacing: -0.01em;
 }
 
+/* ── Pulsante freccia in alto a destra ────────────────────── */
 .card-arrow-btn {
   flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  font-size: 1rem;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  margin-bottom: 4px;
-}
-.solution-card:hover .card-arrow-btn {
-  background: var(--mft-orange);
-  border-color: var(--mft-orange);
+  font-size: 1.15rem;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
-@media (max-width: 991.98px) {
-  .solution-card { aspect-ratio: 4 / 2.67; }  /* era 4/4, ridotto a 2/3 */
+/* Hover: la freccia diventa blu (orange) come da richiesta */
+.solution-card:hover .card-arrow-btn {
+  background-color: var(--mft-orange);
+  border-color: var(--mft-orange);
+  color: #ffffff;
+  transform: translate(2px, -2px);
 }
-@media (max-width: 767.98px) {
-  .solution-card { aspect-ratio: 4 / 2.33; }  /* era 4/3.5, ridotto a 2/3 */
+
+/* ── Riga inferiore: descrizione ──────────────────────────── */
+.card-bottom-row {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 28px 28px;
+  z-index: 2;
+}
+
+.card-sol-desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+  max-width: 85%;
+  /* Limita a 3 righe con ellissi */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 991.98px) {
+  .solution-card    { aspect-ratio: 16 / 10; }
+  .card-top-row,
+  .card-bottom-row  { padding-left: 22px; padding-right: 22px; }
+  .card-top-row     { padding-top: 22px; }
+  .card-bottom-row  { padding-bottom: 22px; }
+}
+
+@media (max-width: 575.98px) {
+  .solution-card    { aspect-ratio: 4 / 3; border-radius: 20px; }
+  .card-arrow-btn   { width: 40px; height: 40px; font-size: 1rem; }
+  .card-sol-desc    { font-size: 0.88rem; -webkit-line-clamp: 2; }
 }
 
 /* ── Overrides specifici per block-feature-four (solutions section) ──
-   1. "Vedi Tutti": font leggermente più grande
+   1. "Scoprili Tutti": font leggermente più grande + hover underline stile menu
    2. Freccia: nessun pallino, solo icona blu senza sfondo
    ───────────────────────────────────────────────────────────────────── */
 .solutions-vedi-tutti {
   font-size: 1.3rem;
   font-weight: 600;
+  /* Reset pill: nessun bordo, nessun background */
+  border: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  /* Posizionamento per la linea ::after */
+  position: relative;
+}
+
+/* Linea animata sotto il testo — stile menu header */
+.solutions-vedi-tutti::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--mft-navy);
+  transition: width 0.25s ease;
+}
+.solutions-vedi-tutti:hover::after {
+  width: 100%;
+}
+
+/* Hover: nessun background, nessun bordo — solo la linea */
+.solutions-vedi-tutti:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--mft-navy);
 }
 
 /* Rimuove completamente il cerchio — solo freccia blu visibile */
@@ -1341,7 +1447,7 @@ header.theme-main-menu:not(.fixed) {
 .product-section {
   padding-top: 80px;
   padding-bottom: 100px;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
 }
 
 .scopri-wrap  { text-align: center; }
@@ -1374,10 +1480,16 @@ header.theme-main-menu:not(.fixed) {
   padding: 32px 28px 28px;
   border-radius: 24px;
   background-color: transparent;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.3s ease;
   cursor: pointer;
+  /* Isola il layer GPU: previene reflow del testo durante l'animazione */
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
 }
-.product-card:hover { background-color: #ecedf2; }
+.product-card:hover {
+  background-color: #ecedf2;
+  transform: translateY(-4px);
+}
 
 .product-icon {
   width: 90px;
@@ -1387,6 +1499,10 @@ header.theme-main-menu:not(.fixed) {
   justify-content: center;
   margin-top: 0;
   margin-bottom: 8px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.product-card:hover .product-icon {
+  transform: scale(1.18);
 }
 .product-icon img {
   width: 100%;
@@ -1401,14 +1517,25 @@ header.theme-main-menu:not(.fixed) {
   color: var(--mft-navy);
   margin-top: 0;
   margin-bottom: 24px;
+  -webkit-font-smoothing: antialiased;
+}
+/* Blocca il bold flash causato da override Babun/Bootstrap su :hover */
+.product-card:hover .product-title,
+.product-card:focus .product-title {
+  font-weight: 700 !important;
 }
 .product-desc {
   font-size: 0.92rem;
+  font-weight: 400;
   color: #666;
   line-height: 1.5;
   text-align: center;
   margin-bottom: 20px;
   flex: 1;
+}
+.product-card:hover .product-desc,
+.product-card:focus .product-desc {
+  font-weight: 400 !important;
 }
 .product-arrow {
   font-size: 1.3rem;
@@ -1480,7 +1607,7 @@ header.theme-main-menu:not(.fixed) {
 .feature-img {
   width: 100%;
   display: block;
-  border-radius: 50px;
+  border-radius: 40px;
 }
 
 /* Stat badge — posizionamento responsivo progressivo */
@@ -1740,7 +1867,7 @@ header.theme-main-menu:not(.fixed) {
 .ima-trigger::after {
   content: '';
   position: absolute;
-  bottom: -3px;
+  bottom: 14px;        /* ← era -3px */
   left: 0;
   width: 0;
   height: 2px;
@@ -1749,6 +1876,10 @@ header.theme-main-menu:not(.fixed) {
 }
 .ima-trigger:hover::after,
 .ima-trigger.active::after { width: 100%; }
+
+/* Colori hero/sticky — sovrascrive il background fisso sopra */
+.theme-main-menu:not(.fixed) .ima-trigger::after { background: #ffffff; }
+.theme-main-menu.fixed       .ima-trigger::after { background: #2A2D30; }
 
 /* Freccia chevron */
 .ima-trigger .ima-arrow {
@@ -1792,7 +1923,9 @@ header.theme-main-menu:not(.fixed) {
   width: 100vw;
   background: #ffffff;
   z-index: 9990;
-  box-shadow: 0 12px 40px rgba(28, 28, 26, 0.15);
+  box-shadow: 0 8px 32px rgba(28, 28, 26, 0.18);
+  border-top: none !important;
+  margin-top: 0 !important;
   /* top impostato inline via :style in Vue */
 }
 
@@ -2212,7 +2345,7 @@ header.theme-main-menu:not(.fixed) {
 [class*="filter"] select,
 [class*="filter"] .dropdown-toggle,
 [class*="filter"] .filter-btn {
-  border-radius: 50px !important;   /* pill arrotondato */
+  border-radius: 40px !important;   /* pill arrotondato */
 }
 
 /* Pannello aperto della dropdown filtri */
@@ -2229,5 +2362,5 @@ header.theme-main-menu:not(.fixed) {
 .shop-search input,
 [class*="search"] input[type="text"],
 [class*="search"] input[type="search"] {
-  border-radius: 50px !important;
+  border-radius: 40px !important;
 }

@@ -165,6 +165,30 @@ onUnmounted(() => {
   border-color: #ffffff;
 }
 
+/* ── Bottone CTA celeste (uguale a .banner-cta in feedback-one.vue) ── */
+.hero-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 14px 36px !important;
+  border: 2.5px solid #48cbff !important;
+  border-radius: 50px !important;
+  background: #48cbff !important;
+  color: #ffffff !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.2px !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
+}
+.hero-btn:hover {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #28477D !important;
+}
+
 /* Icona SVG nel bottone CTA */
 .btn-arrow-icon {
   width: 20px;
@@ -172,10 +196,10 @@ onUnmounted(() => {
   display: inline-block;
   vertical-align: middle;
   filter: brightness(0) invert(1);        /* bianco — stato default */
-  transition: filter 0.3s ease;           /* animazione fluida come il testo */
+  transition: filter 0.3s ease;
 }
 
-/* Al hover del bottone: freccia diventa navy #28477D (uguale al testo) */
+/* Al hover: freccia diventa navy #28477D */
 .hero-btn:hover .btn-arrow-icon {
   filter: invert(22%) sepia(48%) saturate(900%) hue-rotate(192deg) brightness(90%) contrast(92%);
 }

@@ -1,65 +1,65 @@
 <template>
-  <section class="partner-banner">
+  <div class="partner-banner-outer">
+    <section class="partner-banner">
 
-    <!-- Immagine di sfondo -->
-    <div class="banner-bg-wrap">
-      <img
-        src="/images/home/sfondo-banner.jpg"
-        alt="Partner_MFTecno"
-        class="banner-bg-img"
-        aria-hidden="true"
-      />
-    </div>
-
-    <!-- Overlay blu sfumato dal basso -->
-    <div class="banner-overlay-bottom" />
-
-    <!-- Contenuto -->
-    <div class="container banner-content-wrap">
-      <div class="row align-items-center gy-5">
-
-        <!-- Colonna sinistra — titolo + CTA -->
-        <div class="col-lg-5">
-          <span class="banner-badge">Perché scegliere MF TECNO</span>
-          <h2 class="banner-title mt-3">
-            Il Partner giusto<br />per la tua produzione
-          </h2>
-          <nuxt-link :to="localePath('/contatti')" class="banner-cta mt-4 d-inline-block">
-            CONTATTACI
-          </nuxt-link>
-        </div>
-
-        <!-- Colonna destra — checklist -->
-        <div class="col-lg-7">
-          <ul class="banner-check-list">
-            <li>
-              <i class="bi bi-check2" aria-hidden="true"></i>
-              Produzione All-in-house
-            </li>
-            <li>
-              <i class="bi bi-check2" aria-hidden="true"></i>
-              Esperienza industriale consolidata
-            </li>
-            <li>
-              <i class="bi bi-check2" aria-hidden="true"></i>
-              Soluzioni su misura
-            </li>
-            <li>
-              <i class="bi bi-check2" aria-hidden="true"></i>
-              Presenza Internazionale
-            </li>
-            <li>
-              <i class="bi bi-check2" aria-hidden="true"></i>
-              Assistenza tecnica dedicata
-            </li>
-          </ul>
-        </div>
-
+      <!-- Immagine di sfondo -->
+      <div class="banner-bg-wrap">
+        <img
+          src="/images/home/sfondo-banner.jpg"
+          alt="Partner_MFTecno"
+          class="banner-bg-img"
+          aria-hidden="true"
+        />
       </div>
-    </div>
-  </section>
-  <br/>
-  <br/>
+
+      <!-- Overlay blu sfumato dal basso -->
+      <div class="banner-overlay-bottom" />
+
+      <!-- Contenuto -->
+      <div class="container banner-content-wrap">
+        <div class="row align-items-center gy-5">
+
+          <!-- Colonna sinistra — titolo + CTA -->
+          <div class="col-lg-5">
+            <span class="banner-badge">Perché scegliere MF TECNO</span>
+            <h2 class="banner-title mt-3">
+              Il Partner giusto<br />per la tua produzione
+            </h2>
+            <nuxt-link :to="localePath('/contatti')" class="banner-cta mt-4 d-inline-block">
+              CONTATTACI
+            </nuxt-link>
+          </div>
+
+          <!-- Colonna destra — checklist -->
+          <div class="col-lg-7">
+            <ul class="banner-check-list">
+              <li>
+                <i class="bi bi-check2" aria-hidden="true"></i>
+                Produzione All-in-house
+              </li>
+              <li>
+                <i class="bi bi-check2" aria-hidden="true"></i>
+                Esperienza industriale consolidata
+              </li>
+              <li>
+                <i class="bi bi-check2" aria-hidden="true"></i>
+                Soluzioni su misura
+              </li>
+              <li>
+                <i class="bi bi-check2" aria-hidden="true"></i>
+                Presenza Internazionale
+              </li>
+              <li>
+                <i class="bi bi-check2" aria-hidden="true"></i>
+                Assistenza tecnica dedicata
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -67,6 +67,12 @@ const localePath = useLocalePath()
 </script>
 
 <style scoped>
+/* ── Wrapper esterno con sfondo grigio ──────────── */
+.partner-banner-outer {
+  background: #f5f5f5;
+  padding: 60px 20px;
+}
+
 /* ── Wrapper principale ─────────────────────────── */
 .partner-banner {
   position: relative;
@@ -181,10 +187,12 @@ const localePath = useLocalePath()
 
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 991.98px) {
+  .partner-banner-outer { padding: 48px 16px; }
   .banner-content-wrap { padding-top: 56px; padding-bottom: 56px; }
   .partner-banner { border-radius: 20px; }
 }
 @media (max-width: 767.98px) {
+  .partner-banner-outer { padding: 32px 12px; }
   .banner-content-wrap {
     padding-top: 40px;
     padding-bottom: 40px;

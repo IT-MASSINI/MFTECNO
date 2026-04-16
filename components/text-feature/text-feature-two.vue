@@ -26,13 +26,14 @@
             <li><i class="bi bi-check2-circle text-accent me-2"></i>Assistenza tecnica rapida e continuativa</li>
           </ul>
 
-          <div class="mt-4 d-flex gap-3 flex-wrap btn-group-wrap">
+          <div class="mt-4 d-flex gap-5 flex-wrap btn-group-wrap">
             <nuxt-link :to="localePath('/chi-siamo')" class="scopri-btn">
               Scopri di più
             </nuxt-link>
-            <nuxt-link :to="localePath('/contatti')" class="btn call-btn">
+            
+            <nuxt-link :to="localePath('/macchinari')" class="btn call-btn solutions-vedi-tutti mt-2">
               Richiedi una call
-              <span class="btn-arrow">
+              <span class="btn-arrow solutions-arrow">
                 <img src="/images/icon/icon_02.svg" class="call-icon-svg" alt="" />
               </span>
             </nuxt-link>

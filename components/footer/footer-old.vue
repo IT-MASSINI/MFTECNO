@@ -8,7 +8,7 @@
 
           <!-- COL 1 — Logo + indirizzo + contatti -->
           <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="mft-footer__brand" style="margin-bottom: 12px;">
+            <div class="mft-footer__brand">
               <nuxt-link href="/" class="mft-footer__logo-link">
                 <img src="/images/logo/logo_mftecno.svg" alt="MF Tecno Packaging Systems" class="mft-footer__logo">
               </nuxt-link>
@@ -21,15 +21,15 @@
 
             <ul class="mft-footer__contact-list style-none">
               <li>
-                <a href="tel:+390758043623" class="mft-footer__contact-link mft-footer__contact-phone">
-                  <img src="/images/icon/phone-icon.svg" alt="" class="mft-footer__contact-icon" aria-hidden="true">
+                <a href="tel:+390758043623" class="mft-footer__contact-link">
+                  <i class="bi bi-telephone-fill mft-footer__contact-icon"></i>
                   +39 075 8043623
                 </a>
               </li>
               <li>
-                <a href="mailto:info@mftecno.com" class="mft-footer__contact-link mft-footer__contact-email">
-                  <img src="/images/icon/mail-icon.svg" alt="" class="mft-footer__contact-icon" aria-hidden="true">
-                  info@mftecno.com
+                <a href="mailto:info@massiniindustries.co" class="mft-footer__contact-link mft-footer__contact-email">
+                  <i class="bi bi-envelope-fill mft-footer__contact-icon"></i>
+                  sales@mftecno.com
                 </a>
               </li>
             </ul>
@@ -37,7 +37,7 @@
 
           <!-- COL 2 — Menu -->
           <div class="col-xl-2 col-lg-2 col-md-3 col-6">
-            <h6 class="mft-footer__col-title">Menu</h6>
+            <h6 class="mft-footer__col-title">MENU</h6>
             <ul class="mft-footer__nav style-none">
               <li><nuxt-link href="/macchinari">Macchinari</nuxt-link></li>
               <li><nuxt-link href="/i-tuoi-prodotti">I tuoi prodotti</nuxt-link></li>
@@ -49,7 +49,7 @@
 
           <!-- COL 3 — Supporto -->
           <div class="col-xl-2 col-lg-2 col-md-3 col-6">
-            <h6 class="mft-footer__col-title">Supporto</h6>
+            <h6 class="mft-footer__col-title">SUPPORTO</h6>
             <ul class="mft-footer__nav style-none">
               <li><nuxt-link href="/assistenza">Assistenza</nuxt-link></li>
               <li><nuxt-link href="/contatti">Contatti</nuxt-link></li>
@@ -63,7 +63,7 @@
           <!-- COL 4 — Sedi -->
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="mft-footer__sede mb-30">
-              <h6 class="mft-footer__col-title">Sede Usa</h6>
+              <h6 class="mft-footer__col-title">SEDE USA</h6>
               <address class="mft-footer__sede-address">
                 P.O. Box 849<br>
                 Hughson, CA 95326<br>
@@ -73,11 +73,49 @@
               </address>
             </div>
             <div class="mft-footer__sede">
-              <h6 class="mft-footer__col-title">Sede Brasile</h6>
+              <h6 class="mft-footer__col-title">SEDE BRASILE</h6>
               <address class="mft-footer__sede-address">
                 Rua Waldemiro José Borges, 2502,<br>
                 Galpão 6, Itinga, Joinville/SC
               </address>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOCIAL + NEWSLETTER ── -->
+    <div class="mft-footer__social-row">
+      <div class="container">
+        <div class="row align-items-start g-4">
+
+          <!-- Social -->
+          <div class="col-lg-6">
+            <h6 class="mft-footer__col-title">SOCIAL</h6>
+            <ul class="mft-footer__social style-none">
+              <li><a href="#" aria-label="LinkedIn"  class="mft-footer__social-link"><i class="bi bi-linkedin"></i></a></li>
+              <li><a href="#" aria-label="YouTube"   class="mft-footer__social-link"><i class="bi bi-youtube"></i></a></li>
+              <li><a href="#" aria-label="Instagram" class="mft-footer__social-link"><i class="bi bi-instagram"></i></a></li>
+              <li><a href="#" aria-label="Facebook"  class="mft-footer__social-link"><i class="bi bi-facebook"></i></a></li>
+              <li><a href="#" aria-label="TikTok"    class="mft-footer__social-link"><i class="bi bi-tiktok"></i></a></li>
+              <li><a href="#" aria-label="WhatsApp"  class="mft-footer__social-link"><i class="bi bi-whatsapp"></i></a></li>
+            </ul>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="col-lg-6">
+            <h6 class="mft-footer__col-title">NEWSLETTER</h6>
+            <div class="mft-footer__newsletter">
+              <input
+                type="email"
+                placeholder="Inserisci la tua email"
+                class="mft-footer__newsletter-input"
+                aria-label="Email newsletter"
+              >
+              <button class="mft-footer__newsletter-btn" aria-label="Iscriviti">
+                <i class="bi bi-arrow-right"></i>
+              </button>
             </div>
           </div>
 
@@ -102,23 +140,11 @@
           <a href="https://massiniindustries.com" target="_blank">MASSINI INDUSTRIES</a>,
           all rights reserved.
         </p>
-
-        <!-- Legal links centrato -->
         <ul class="mft-footer__legal style-none d-flex align-items-center flex-wrap">
           <li><nuxt-link href="/privacy">Privacy &amp; Terms</nuxt-link></li>
           <li><nuxt-link href="/cookies">Cookies</nuxt-link></li>
           <li><nuxt-link href="/governance">Governance</nuxt-link></li>
           <li><nuxt-link href="/whistlelink">Whistlelink</nuxt-link></li>
-        </ul>
-
-        <!-- Social icons a destra -->
-        <ul class="mft-footer__social style-none d-flex align-items-center">
-          <li><a href="#" aria-label="LinkedIn"  class="mft-footer__social-link"><i class="bi bi-linkedin"></i></a></li>
-          <li><a href="#" aria-label="YouTube"   class="mft-footer__social-link"><i class="bi bi-youtube"></i></a></li>
-          <li><a href="#" aria-label="Instagram" class="mft-footer__social-link"><i class="bi bi-instagram"></i></a></li>
-          <li><a href="#" aria-label="Facebook"  class="mft-footer__social-link"><i class="bi bi-facebook"></i></a></li>
-          <li><a href="#" aria-label="TikTok"    class="mft-footer__social-link"><i class="bi bi-tiktok"></i></a></li>
-          <li><a href="#" aria-label="WhatsApp"  class="mft-footer__social-link"><i class="bi bi-whatsapp"></i></a></li>
         </ul>
       </div>
     </div>
@@ -130,94 +156,30 @@
 </script>
 
 <style scoped>
-/* ── Sfondo footer ── */
-.mft-footer {
-  background-color: #f5f5f5 !important;
-}
-
-/* ── Blocco principale ── */
-.mft-footer__main {
-  padding-top: 60px;
-  padding-bottom: 48px;
-}
-
-/* ── Titoli colonna footer (Menu, Supporto, Sede Usa, Sede Brasile) ──
-   Override: niente uppercase, niente trattino decorativo sotto. */
-.mft-footer__col-title {
-  text-transform: none !important;   /* rispetta il casing del template */
-  letter-spacing: normal !important; /* annulla spaziatura da stile uppercase del tema */
-}
-.mft-footer__col-title::before,
-.mft-footer__col-title::after {
-  content: none !important;          /* rimuove il trattino celeste sotto il titolo */
-  display: none !important;
-  background: none !important;
-  border: none !important;
-}
-
-/* ── Voci menu nav (MENU + SUPPORTO) — leggermente più grandi ── */
+/* ── Voci menu nav (MENU + SUPPORTO) ── */
 .mft-footer__nav a {
-  font-size: 1rem !important;
   transition: color 0.2s ease;
 }
 .mft-footer__nav a:hover {
   color: var(--mft-orange, #ED7417) !important;
 }
 
-/* ── Link contatti: colore grigio-blu ── */
+/* ── Link contatti (telefono + email) ── */
 .mft-footer__contact-link {
-  color: #757b85 !important;
   transition: color 0.2s ease;
 }
 .mft-footer__contact-link:hover {
   color: var(--mft-orange, #ED7417) !important;
 }
 
-/* ── Indirizzo sotto il logo ── */
-.mft-footer__address {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-style: normal; /* rimuove il corsivo default di <address> */
-  color: inherit;
-}
-
-/* ── Telefono: grande e ben visibile ── */
-.mft-footer__contact-phone {
-  font-size: 1.25rem !important;
-  font-weight: 600 !important;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ── Email: grande e sottolineata ── */
+/* ── Email contatto: più grande e sottolineata ── */
 .mft-footer__contact-email {
-  font-size: 1.25rem !important;
-  font-weight: 600 !important;
+  font-size: 1.2rem !important;
   text-decoration: underline !important;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ── Icone SVG contatti ── */
-.mft-footer__contact-icon {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-/* ── Indirizzi sedi: testo più piccolo ── */
-.mft-footer__sede-address {
-  font-size: 0.8rem !important;
 }
 
 /* ── Link sedi (email USA) ── */
 .mft-footer__sede-address a {
-  font-size: 0.8rem !important;
   transition: color 0.2s ease;
 }
 .mft-footer__sede-address a:hover {
@@ -225,73 +187,35 @@
 }
 
 /* ── Social icons ── */
-.mft-footer__social {
-  gap: 4px;
-  margin: 0;
-  padding: 0;
-}
-.mft-footer__social li {
-  list-style: none;
-}
 .mft-footer__social-link {
   transition: color 0.2s ease;
-  font-size: 1.1rem;
-  padding: 4px 6px;
-  display: flex;
-  align-items: center;
 }
 .mft-footer__social-link:hover {
   color: var(--mft-orange, #ED7417) !important;
 }
 
-/* ── Logo Massini ── */
+/* ── Logo Massini: dimensione ridotta ── */
 .mft-footer__massini-logo {
-  max-height: 40px !important;
+  max-height: 50px !important;
   width: auto !important;
+   margin: 0 0 0 0 !important;
 }
 
-/* ── Brand bar: nessuna riga separatrice ── */
+/* ── Brand bar + copyright: spazio quasi azzerato ── */
 .mft-footer__brand-bar {
-  padding-top: 32px !important;
-  padding-bottom: 1px !important;
-  margin-top: 8px;
+  padding-top: 24px !important;
+  padding-bottom: 2px !important;
 }
-
-/* ── Copyright bar: tre elementi equidistanti ── */
 .mft-footer__copyright-bar {
-  padding-top: 1px !important;
+  padding-top: 2px !important;
   padding-bottom: 16px !important;
-}
-
-/* Override Bootstrap justify-content-between:
-   copyright a sx, legal al centro, social a dx */
-.mft-footer__copyright-bar .container {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-/* ── Legal links ── */
-.mft-footer__legal {
-  gap: 0;
-  margin: 0 auto !important; /* centra tra copyright e social */
-  padding: 0;
-}
-.mft-footer__legal li {
-  list-style: none;
-}
-.mft-footer__legal li + li::before {
-  content: '|';
-  margin: 0 6px;
-  opacity: 0.4;
 }
 
 /* ── Link copyright bar + legal ── */
 .mft-footer__copyright-text a,
 .mft-footer__legal a {
   transition: color 0.2s ease;
+  margin: 0 0 0 0 !important;
 }
 .mft-footer__copyright-text a:hover,
 .mft-footer__legal a:hover {

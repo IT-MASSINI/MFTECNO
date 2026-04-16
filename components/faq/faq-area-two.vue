@@ -10,9 +10,9 @@
         aziende con cui collaboriamo:
       </p>
 
-      <!-- Carousel wrapper -->
+      <!-- Carousel wrapper: layout flex [freccia | viewport | freccia] -->
       <div
-        class="carousel-viewport"
+        class="carousel-wrapper"
         @mouseenter="pause"
         @mouseleave="resume"
       >
@@ -27,20 +27,30 @@
           </svg>
         </button>
 
-        <!-- Track: 3 copie [A|B|C] — B è il set centrale di riferimento -->
-        <div class="carousel-track" ref="trackRef">
+        <!-- Viewport: contiene SOLO il track + le fade mask -->
+        <div class="carousel-viewport">
+          <!-- Track: 3 copie [A|B|C] — B è il set centrale di riferimento -->
           <div
-            v-for="(logo, i) in loopedLogos"
-            :key="i"
-            class="logo-item"
+            class="carousel-track"
+            ref="trackRef"
           >
-            <img
-              :src="logo.src"
-              :alt="logo.alt"
-              class="logo-img"
-              draggable="false"
-            />
+            <div
+              v-for="(logo, i) in loopedLogos"
+              :key="i"
+              class="logo-item"
+            >
+              <img
+                :src="logo.src"
+                :alt="logo.alt"
+                class="logo-img"
+                draggable="false"
+              />
+            </div>
           </div>
+
+          <!-- Fade mask sx/dx -->
+          <div class="fade-left"  aria-hidden="true" />
+          <div class="fade-right" aria-hidden="true" />
         </div>
 
         <!-- Freccia destra -->
@@ -53,10 +63,6 @@
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>
-
-        <!-- Fade mask sx/dx -->
-        <div class="fade-left"  aria-hidden="true" />
-        <div class="fade-right" aria-hidden="true" />
       </div>
 
     </div>
@@ -117,11 +123,8 @@ function setTransform(withTransition: boolean) {
 }
 
 // ── normalize: teleport invisibile → riporta offset in [setWidth, 2*setWidth) ─
-// Usa il modulo per mantenere la posizione relativa dentro il set
 function normalize() {
   if (setWidth <= 0) return
-  // Esempio: setWidth=1000, offset=2100 → (2100-1000)%1000+1000 = 1100 ✓
-  // Esempio: setWidth=1000, offset=800  → (800-1000)%1000+1000 → (-200%1000+1000)%1000+1000 = 800... fix:
   const rel = ((offset - setWidth) % setWidth + setWidth) % setWidth
   offset = setWidth + rel
   setTransform(false)
@@ -131,7 +134,6 @@ function normalize() {
 function tick() {
   if (!paused && !transitioning) {
     offset += BASE_SPEED
-    // Entra in C → teleport a B (stesso punto visivo, no animation)
     if (offset >= setWidth * 2) {
       offset -= setWidth
       setTransform(false)
@@ -161,7 +163,6 @@ function onResize() {
   const oldSetWidth = setWidth
   measure()
   if (oldSetWidth > 0 && setWidth > 0 && oldSetWidth !== setWidth) {
-    // Riscala l'offset per il nuovo setWidth mantenendo la posizione relativa
     offset = (offset / oldSetWidth) * setWidth
     normalize()
   }
@@ -190,7 +191,6 @@ function shiftLeft() {
   setTimeout(afterTransition, TRANSITION_MS + 20)
 }
 
-// Chiamata dopo ogni transition: normalizza e riabilita
 function afterTransition() {
   normalize()
   transitioning = false
@@ -201,7 +201,7 @@ function afterTransition() {
 /* ── Sezione ─────────────────────────────────────── */
 .clients-section {
   padding: 72px 0 64px;
-  background: #ffffff;
+  background: #f5f5f5;
 }
 
 /* ── Titolo ──────────────────────────────────────── */
@@ -220,11 +220,20 @@ function afterTransition() {
 }
 .clients-heading-link:hover { color: #28477D; }
 
-/* ── Viewport ────────────────────────────────────── */
+/* ── Wrapper: layout a 3 colonne [arrow | viewport | arrow] ───────────────── */
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ── Viewport: occupa lo spazio residuo tra le frecce ─────────────────────── */
 .carousel-viewport {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0; /* fix classico flexbox per evitare overflow del contenuto */
 }
 
 /* ── Track ───────────────────────────────────────── */
@@ -262,54 +271,58 @@ function afterTransition() {
 .fade-right {
   position: absolute;
   top: 0; bottom: 0;
-  width: 80px;
+  width: 60px;
   pointer-events: none;
   z-index: 2;
 }
-.fade-left  { left: 0;  background: linear-gradient(to right, #ffffff, transparent); }
-.fade-right { right: 0; background: linear-gradient(to left,  #ffffff, transparent); }
+.fade-left  { left: 0;  background: linear-gradient(to right, #f5f5f5, transparent); }
+.fade-right { right: 0; background: linear-gradient(to left,  #f5f5f5, transparent); }
 
-/* ── Frecce ──────────────────────────────────────── */
+/* ── Frecce: NON più absolute, ora sono parte del flex layout ───────────── */
 .carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
+  flex: 0 0 auto;             /* non si restringe, non si allarga */
   width: 36px; height: 36px;
   border-radius: 50%;
-  border: 1.5px solid #28477D;
-  background: #ffffff;
+  /* Stato normale: trasparente, solo l'icona blu visibile */
+  border: 1.5px solid transparent;
+  background: transparent;
   color: #28477D;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(28,28,26,.10);
+  transition: background 0.2s ease, color 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: none;
   padding: 0;
 }
-.carousel-arrow svg { width: 18px; height: 18px; }
-.carousel-arrow:hover {
+.carousel-arrow svg { width: 20px; height: 20px; }
+
+/* Stato hover/focus: sfondo + bordo blu, icona bianca */
+.carousel-arrow:hover,
+.carousel-arrow:focus-visible {
   background: #28477D;
+  border-color: #28477D;
   color: #ffffff;
   box-shadow: 0 4px 14px rgba(40,71,125,.22);
+  outline: none;
 }
-.carousel-arrow--left  { left:  6px; }
-.carousel-arrow--right { right: 6px; }
 
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 991.98px) {
+  .carousel-wrapper { gap: 10px; }
   .logo-item  { flex: 0 0 130px; width: 130px; margin-right: 32px; }
   .logo-img   { max-height: 42px; max-width: 110px; }
-  .fade-left, .fade-right { width: 48px; }
+  .fade-left, .fade-right { width: 40px; }
 }
 @media (max-width: 767.98px) {
   .clients-section  { padding: 48px 0; }
   .clients-heading  { font-size: 1.1rem; margin-bottom: 36px; }
+  .carousel-wrapper { gap: 6px; }
   .logo-item  { flex: 0 0 100px; width: 100px; margin-right: 24px; }
   .logo-img   { max-height: 34px; max-width: 90px; }
   .carousel-arrow { width: 28px; height: 28px; }
-  .carousel-arrow svg { width: 14px; height: 14px; }
-  .fade-left, .fade-right { width: 32px; }
+  .carousel-arrow svg { width: 16px; height: 16px; }
+  .fade-left, .fade-right { width: 24px; }
 }
 </style>

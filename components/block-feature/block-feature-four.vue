@@ -1,4 +1,4 @@
-<!-- Stili in: mftecno.css (globale) -->
+<!-- Stili in: mftecno.css (globale) + override locali per freccia stile news -->
 <template>
   <section class="solutions-section py-section bg-light-grey">
     <div class="container">
@@ -19,28 +19,29 @@
           </nuxt-link>
         </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <!-- Cards row — 4 colonne su desktop -->
+
+      <!-- Cards row — 2x2 su desktop, 1 colonna su mobile -->
       <div class="row g-4">
-        <div v-for="sol in solutions" :key="sol.id" class="col-xl-3 col-lg-6 col-md-6 col-12">
+        <div v-for="sol in solutions" :key="sol.id" class="col-lg-6 col-12">
           <nuxt-link :to="localePath(sol.link)" class="solution-card">
 
             <!-- Full-bleed image -->
             <img :src="sol.image" :alt="sol.title" class="card-bg-img" />
 
-            <!-- Bottom overlay with title + arrow -->
-            <div class="card-footer-overlay">
-              <div class="card-footer-inner">
-                <div class="card-title-wrap">
-                  <h3 class="card-sol-title">{{ sol.title }}</h3>
-                  <div class="card-divider"></div>
-                </div>
-                <div class="card-arrow-btn">
-                  <i class="bi bi-arrow-up-right"></i>
-                </div>
+            <!-- Dark overlay su tutta la card -->
+            <div class="card-overlay"></div>
+
+            <!-- Top row: titolo a sinistra + freccia a destra -->
+            <div class="card-top-row">
+              <h3 class="card-sol-title">{{ sol.title }}</h3>
+              <div class="card-arrow-btn">
+                <i class="bi bi-arrow-up-right"></i>
               </div>
+            </div>
+
+            <!-- Bottom row: descrizione -->
+            <div class="card-bottom-row">
+              <p class="card-sol-desc">{{ sol.description }}</p>
             </div>
 
           </nuxt-link>
@@ -56,9 +57,55 @@
 const localePath = useLocalePath()
 
 const solutions = [
-  { id: 1, title: "Confezionatrici",           category: "Confezionamento", image: "/images/home/confezionatrici.jpg", link: "/soluzioni/confezionatrici" },
-  { id: 4, title: "Scatolatrici",              category: "Confezionamento", image: "/images/home/scatolatrici.jpg",    link: "/soluzioni/scatolatrici" },
-  { id: 2, title: "Pallettizzatori",           category: "Fine Linea",       image: "/images/home/pallettizzatori.jpg",  link: "/soluzioni/palettizzatori" },
-  { id: 3, title: "Avvolgitori",               category: "Fine Linea",       image: "/images/home/avvolgitori.jpg",     link: "/soluzioni/avvolgitori" },
+  {
+    id: 1,
+    title: "Confezionatrici",
+    category: "Confezionamento",
+    image: "/images/home/confezionatrici.jpg",
+    link: "/soluzioni/confezionatrici",
+    description: "Soluzioni complete per il confezionamento primario e secondario, progettate per garantire efficienza, precisione e flessibilità su ogni linea produttiva."
+  },
+  {
+    id: 4,
+    title: "Scatolatrici",
+    category: "Confezionamento",
+    image: "/images/home/scatolatrici.jpg",
+    link: "/soluzioni/scatolatrici",
+    description: "Macchine scatolatrici automatiche per la formatura, il riempimento e la chiusura di scatole americane e wrap-around, su misura per ogni esigenza."
+  },
+  {
+    id: 2,
+    title: "Pallettizzatori",
+    category: "Fine Linea",
+    image: "/images/home/pallettizzatori.jpg",
+    link: "/soluzioni/palettizzatori",
+    description: "Sistemi di pallettizzazione cartesiani e antropomorfi per ottimizzare il fine linea, riducendo tempi di ciclo e garantendo massima affidabilità."
+  },
+  {
+    id: 3,
+    title: "Avvolgitori",
+    category: "Fine Linea",
+    image: "/images/home/avvolgitori.jpg",
+    link: "/soluzioni/avvolgitori",
+    description: "Avvolgitori a braccio rotante e tavola rotante per la stabilizzazione del pallet, con soluzioni scalabili per ogni volume di produzione."
+  },
 ]
 </script>
+
+<style scoped>
+/* ── Override stile freccia: allineato a blog-area-one.vue ──
+   Di default .card-arrow-btn (globale) ha bordo bianco su sfondo trasparente
+   e icona bianca. Qui lo sovrascriviamo per ottenere lo stesso look delle
+   card "news": sfondo bianco, icona navy, hover arancione pieno.         */
+.solution-card .card-arrow-btn {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: transparent !important;
+  color: var(--mft-navy) !important;
+}
+
+.solution-card:hover .card-arrow-btn {
+  background: var(--mft-orange) !important;
+  border-color: var(--mft-orange) !important;
+  color: #ffffff !important;
+}
+</style>

@@ -37,7 +37,7 @@
 
           <!-- COL 2 — Menu -->
           <div class="col-xl-2 col-lg-2 col-md-3 col-6">
-            <h6 class="mft-footer__col-title">MENU</h6>
+            <h6 class="mft-footer__col-title">Menu</h6>
             <ul class="mft-footer__nav style-none">
               <li><nuxt-link href="/macchinari">Macchinari</nuxt-link></li>
               <li><nuxt-link href="/i-tuoi-prodotti">I tuoi prodotti</nuxt-link></li>

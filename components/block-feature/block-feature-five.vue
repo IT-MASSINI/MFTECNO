@@ -1,6 +1,6 @@
 <!-- Stili in: mftecno.css (globale) -->
 <template>
-  <section class="product-section py-section bg-white text-center">
+  <section class="product-section py-section text-center">
     <div class="container">
 
       <h2 class="section-title">Per ogni Prodotto,<br>la soluzione giusta pensata per te</h2>
