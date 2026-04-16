@@ -99,8 +99,8 @@ const localePath = useLocalePath()
   background: linear-gradient(
     to top,
     rgba(26, 47, 90, 0.95) 0%,     /* fondo pieno in basso */
-    rgba(26, 47, 90, 0.75) 25%,    /* sfumatura centrale   */
-    rgba(26, 47, 90, 0.20) 60%,    /* quasi trasparente    */
+    rgba(26, 47, 90, 0.55) 30%,    /* sfumatura centrale   */
+    rgba(26, 47, 90, 0.08) 65%,    /* quasi trasparente    */
     rgba(26, 47, 90, 0.00) 100%    /* foto visibile in alto */
   );
 }
@@ -137,9 +137,9 @@ const localePath = useLocalePath()
   align-items: center;
   justify-content: center;
   padding: 14px 36px;
-  border: 2.5px solid rgba(255, 255, 255, 0.70);
+  border: 2.5px solid #48cbff;
   border-radius: 50px;
-  background: transparent;
+  background: #48cbff;
   color: #ffffff;
   font-size: 0.88rem;
   font-weight: 700;
@@ -197,8 +197,8 @@ const localePath = useLocalePath()
     background: linear-gradient(
       to top,
       rgba(26, 47, 90, 0.98) 0%,
-      rgba(26, 47, 90, 0.80) 40%,
-      rgba(26, 47, 90, 0.30) 70%,
+      rgba(26, 47, 90, 0.65) 45%,
+      rgba(26, 47, 90, 0.15) 72%,
       rgba(26, 47, 90, 0.00) 100%
     );
   }

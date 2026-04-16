@@ -256,7 +256,7 @@
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08) !important;
 }
 .theme-main-menu.fixed .navbar-nav .nav-link {
-  color: var(--mft-navy) !important;
+  color: #2A2D30 !important;
 }
 .theme-main-menu.fixed .navbar-nav .nav-link:hover,
 .theme-main-menu.fixed .navbar-nav .nav-item.dropdown:hover > .nav-link,
@@ -729,15 +729,16 @@ header.theme-main-menu:not(.fixed) {
   cursor: pointer;
   display: flex;
   align-items: center;
-  transition: opacity 0.2s;
+  color: #ffffff;             /* colore sul button, eredita all'icona */
+  transition: color 0.2s, opacity 0.2s;
 }
 .search-btn .bi-search {
   font-size: 1.1rem;
-  color: #ffffff;
+  /* colore ereditato dal .search-btn genitore */
 }
 .search-btn:hover { opacity: 0.7; }
 
-.theme-main-menu.fixed .search-btn .bi-search {
+.theme-main-menu.fixed .search-btn {
   color: var(--mft-black);
 }
 
@@ -1761,6 +1762,9 @@ header.theme-main-menu:not(.fixed) {
 .theme-main-menu:not(.fixed) .ima-trigger:hover,
 .theme-main-menu:not(.fixed) .ima-trigger.active {
   color: #ffffff !important;
+}
+.theme-main-menu.fixed .ima-trigger {
+  color: #2A2D30 !important;
 }
 .theme-main-menu.fixed .ima-trigger:hover,
 .theme-main-menu.fixed .ima-trigger.active {
