@@ -5,7 +5,7 @@
 
       <h2 class="section-title">Per ogni Prodotto,<br>la soluzione giusta pensata per te</h2>
 
-      <p class="section-subtitle mt-3">
+      <p class="section-body mt-3">
         Dai prodotti alimentari ai materiali chimici e combustibili solidi,<br>
         i macchinari MF TECNO sono progettati per gestire un'ampia varietà di prodotti sfusi.
       </p>

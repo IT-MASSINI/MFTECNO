@@ -49,7 +49,7 @@
 
           <!-- COL 3 — Supporto -->
           <div class="col-xl-2 col-lg-2 col-md-3 col-6">
-            <h6 class="mft-footer__col-title">SUPPORTO</h6>
+            <h6 class="mft-footer__col-title">Supporto</h6>
             <ul class="mft-footer__nav style-none">
               <li><nuxt-link href="/assistenza">Assistenza</nuxt-link></li>
               <li><nuxt-link href="/contatti">Contatti</nuxt-link></li>
@@ -63,7 +63,7 @@
           <!-- COL 4 — Sedi -->
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="mft-footer__sede mb-30">
-              <h6 class="mft-footer__col-title">SEDE USA</h6>
+              <h6 class="mft-footer__col-title">Sede Usa</h6>
               <address class="mft-footer__sede-address">
                 P.O. Box 849<br>
                 Hughson, CA 95326<br>
@@ -73,7 +73,7 @@
               </address>
             </div>
             <div class="mft-footer__sede">
-              <h6 class="mft-footer__col-title">SEDE BRASILE</h6>
+              <h6 class="mft-footer__col-title">Sede Brasile</h6>
               <address class="mft-footer__sede-address">
                 Rua Waldemiro José Borges, 2502,<br>
                 Galpão 6, Itinga, Joinville/SC
@@ -141,13 +141,27 @@
   padding-bottom: 48px;
 }
 
+/* ── Titoli colonna footer (Menu, Supporto, Sede Usa, Sede Brasile) ──
+   Override: niente uppercase, niente trattino decorativo sotto. */
+.mft-footer__col-title {
+  text-transform: none !important;   /* rispetta il casing del template */
+  letter-spacing: normal !important; /* annulla spaziatura da stile uppercase del tema */
+}
+.mft-footer__col-title::before,
+.mft-footer__col-title::after {
+  content: none !important;          /* rimuove il trattino celeste sotto il titolo */
+  display: none !important;
+  background: none !important;
+  border: none !important;
+}
+
 /* ── Voci menu nav (MENU + SUPPORTO) — leggermente più grandi ── */
 .mft-footer__nav a {
   font-size: 1rem !important;
   transition: color 0.2s ease;
 }
 .mft-footer__nav a:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Link contatti: colore grigio-blu ── */
@@ -156,7 +170,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__contact-link:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Indirizzo sotto il logo ── */
@@ -207,7 +221,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__sede-address a:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Social icons ── */
@@ -227,12 +241,12 @@
   align-items: center;
 }
 .mft-footer__social-link:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Logo Massini ── */
 .mft-footer__massini-logo {
-  max-height: 50px !important;
+  max-height: 40px !important;
   width: auto !important;
 }
 
@@ -281,6 +295,6 @@
 }
 .mft-footer__copyright-text a:hover,
 .mft-footer__legal a:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 </style>

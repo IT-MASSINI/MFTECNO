@@ -36,6 +36,12 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://www.mftecno.com'  // sostituisci con il dominio reale produzione
+    }
+  },
+  
   app: {
     head: {
       title: "MF Tecno - Packaging Systems",

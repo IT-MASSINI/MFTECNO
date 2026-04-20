@@ -1,6 +1,12 @@
 // ============================================================
 //  MF TECNO — Dati insaccatrici automatiche piccoli formati
 //  Fonte: https://www.mftecno.com/it/insaccatrici-automatiche-piccoli-formati/
+//
+//  CAMPI AGGIUNTI per gestione breadcrumb SEO + download PDF:
+//    · category / categorySlug       → 1° livello navigabile (es. "Macchinari")
+//    · subcategory / subcategorySlug → 2° livello (es. "Insaccatrici a Bocca Aperta")
+//    · segment / segmentSlug         → 3° livello (es. "Piccoli Formati")
+//    · pdfUrl                        → path al pdf tecnico (opzionale)
 // ============================================================
 
 export interface IProdottoGruppo {
@@ -29,6 +35,17 @@ export interface IMachine {
   dimension: string[];
   bags: string;
   bagMaterial: string;
+
+  // ── SEO / Breadcrumb (NEW) ────────────────────────────────
+  category: string;            // Es. "Macchinari"
+  categorySlug: string;        // Es. "macchinari"
+  subcategory: string;         // Es. "Insaccatrici a Bocca Aperta"
+  subcategorySlug: string;     // Es. "insaccatrici-a-bocca-aperta"
+  segment: string;             // Es. "Piccoli Formati"
+  segmentSlug: string;         // Es. "insaccatrici-automatiche-piccoli-formati"
+
+  // ── Download PDF scheda tecnica (NEW, opzionale) ──────────
+  pdfUrl?: string;             // Es. "/pdf/macchinari/mf-tecno-sbs-2000.pdf"
 }
 
 const piccoli_formati_data: IMachine[] = [
@@ -53,28 +70,26 @@ const piccoli_formati_data: IMachine[] = [
     ],
     categoria: "Pouch",
     prodotti: [
-      {
-        gruppo: "Alimentare",
-        voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"]
-      },
-      {
-        gruppo: "Mangimi",
-        voci: ["Pellet", "Farine", "Mix Zootecnici"]
-      },
-      {
-        gruppo: "Pet Food",
-        voci: ["Pet Food"]
-      }
+      { gruppo: "Alimentare", voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"] },
+      { gruppo: "Mangimi",    voci: ["Pellet", "Farine", "Mix Zootecnici"] },
+      { gruppo: "Pet Food",   voci: ["Pet Food"] },
     ],
     tipoInsacco: ["Doypack", "Fondo quadro", "Totani"],
-    video: ["https://www.youtube.com/embed/e9qDy2YpRLU"
-           ],
-    dimension: [
-      "Min. 90 x 190mm",
-      "Max. 235 x 430 mm",
-    ],
+    video: ["https://www.youtube.com/embed/e9qDy2YpRLU"],
+    dimension: ["Min. 90 x 190mm", "Max. 235 x 430 mm"],
     bags: "a doppio fondo quadro, a fondo quadro, a soffietto",
     bagMaterial: "carta, carta polietinata, carta/PE",
+
+    // ── Breadcrumb / SEO ──
+    category: "Macchinari",
+    categorySlug: "macchinari",
+    subcategory: "Insaccatrici a Bocca Aperta",
+    subcategorySlug: "insaccatrici-a-bocca-aperta",
+    segment: "Piccoli Formati",
+    segmentSlug: "insaccatrici-automatiche-piccoli-formati",
+
+    // ── PDF (placeholder: aggiorna con il file reale quando disponibile) ──
+    pdfUrl: "/pdf/macchinari/mf-pouch-3000-flexi.pdf",
   },
   {
     id: 2,
@@ -96,31 +111,30 @@ const piccoli_formati_data: IMachine[] = [
       "Tecnologia meccanica ed elettronica evoluta",
     ],
     categoria: "Pouch",
-prodotti: [
-      {
-        gruppo: "Alimentare",
-        voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"]
-      },
-      {
-        gruppo: "Mangimi",
-        voci: ["Pellet", "Farine", "Mix Zootecnici"]
-      },
-      {
-        gruppo: "Pet Food",
-        voci: ["Pet Food"]
-      }
+    prodotti: [
+      { gruppo: "Alimentare", voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"] },
+      { gruppo: "Mangimi",    voci: ["Pellet", "Farine", "Mix Zootecnici"] },
+      { gruppo: "Pet Food",   voci: ["Pet Food"] },
     ],
     tipoInsacco: ["Doypack", "Fondo quadro"],
-    video: ["https://www.youtube.com/embed/y8GxIrwCjyA",
-            "https://www.youtube.com/embed/ttIXssNJJg8",
-            "https://www.youtube.com/embed/n9snveqk9Gg"
-           ],
-    dimension: [
-      "Min. 90 x 190mm",
-      "Max. 235 x 430 mm",
+    video: [
+      "https://www.youtube.com/embed/y8GxIrwCjyA",
+      "https://www.youtube.com/embed/ttIXssNJJg8",
+      "https://www.youtube.com/embed/n9snveqk9Gg",
     ],
+    dimension: ["Min. 90 x 190mm", "Max. 235 x 430 mm"],
     bags: "a doppio fondo quadro, a fondo quadro, a soffietto",
     bagMaterial: "carta, carta polietinata, carta/PE",
+
+    // ── Breadcrumb / SEO ──
+    category: "Macchinari",
+    categorySlug: "macchinari",
+    subcategory: "Insaccatrici a Bocca Aperta",
+    subcategorySlug: "insaccatrici-a-bocca-aperta",
+    segment: "Piccoli Formati",
+    segmentSlug: "insaccatrici-automatiche-piccoli-formati",
+
+    pdfUrl: "/pdf/macchinari/mf-pouch-3000.pdf",
   },
   {
     id: 3,
@@ -143,40 +157,39 @@ prodotti: [
     ],
     categoria: "Pouch",
     prodotti: [
-      {
-        gruppo: "Alimentare",
-        voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"]
-      },
-      {
-        gruppo: "Mangimi",
-        voci: ["Pellet", "Farine", "Mix Zootecnici"]
-      },
-      {
-        gruppo: "Pet Food",
-        voci: ["Pet Food"]
-      }
-    ],    
-    tipoInsacco: ["Doypack", "Fondo quadro"],
-    video: ["https://www.youtube.com/embed/blpSWSjOX7k",
-            "https://www.youtube.com/embed/OvarTSOQcSc"
-           ],
-    dimension: [
-      "Min. 90 x 190mm",
-      "Max. 235 x 430 mm",
+      { gruppo: "Alimentare", voci: ["Semilavorati per Pasticceria", "Frutta Secca", "Snack"] },
+      { gruppo: "Mangimi",    voci: ["Pellet", "Farine", "Mix Zootecnici"] },
+      { gruppo: "Pet Food",   voci: ["Pet Food"] },
     ],
+    tipoInsacco: ["Doypack", "Fondo quadro"],
+    video: [
+      "https://www.youtube.com/embed/blpSWSjOX7k",
+      "https://www.youtube.com/embed/OvarTSOQcSc",
+    ],
+    dimension: ["Min. 90 x 190mm", "Max. 235 x 430 mm"],
     bags: "a doppio fondo quadro, a fondo quadro, a soffietto",
     bagMaterial: "carta, carta polietinata, carta/PE",
+
+    // ── Breadcrumb / SEO ──
+    category: "Macchinari",
+    categorySlug: "macchinari",
+    subcategory: "Insaccatrici a Bocca Aperta",
+    subcategorySlug: "insaccatrici-a-bocca-aperta",
+    segment: "Piccoli Formati",
+    segmentSlug: "insaccatrici-automatiche-piccoli-formati",
+
+    pdfUrl: "/pdf/macchinari/mf-pouch-1000.pdf",
   },
   {
     id: 4,
     slug: "sbs-2000-sacchi-doppio-fondo-quadro",
     img: "/images/small-bags/sbs2000.png",
-      gallery: [
-        "/images/small-bags/sbs2000.png",
-        "/images/small-bags/sbs2000.png",
-        "/images/small-bags/sbs2000.png",
-        "/images/small-bags/pouch1000.png",
-  ],
+    gallery: [
+      "/images/small-bags/sbs2000.png",
+      "/images/small-bags/sbs2000.png",
+      "/images/small-bags/sbs2000.png",
+      "/images/small-bags/pouch1000.png",
+    ],
     serie: "STEP BY STEP",
     title: "SBS 2000",
     subtitle: "Insaccatrice per sacchi a doppio fondo quadro",
@@ -185,27 +198,32 @@ prodotti: [
     speedLabel: "di velocità",
     description:
       "Insaccatrice a moto intermittente per sacchi a doppio fondo quadro. Progettata per piccoli formati e alte produzioni. Ideata per zucchero, farina e sale.",
-    product: "La insaccatrice **MF TECNO SBS 2000** è una soluzione ideata per il confezionamento di **sacchi di carta a doppio fondo quandrato soffiettati per piccoli formati**.\n\nE' indicata per prodotti **granulari e polverosi come farina, zucchero e sale**.",
+    product:
+      "La insaccatrice **MF TECNO SBS 2000** è una soluzione ideata per il confezionamento di **sacchi di carta a doppio fondo quandrato soffiettati per piccoli formati**.\n\nE' indicata per prodotti **granulari e polverosi come farina, zucchero e sale**.",
     features: [
       "Fino a 35 BPM di velocità",
-      "Alte produzioni",
-      "Prodotti granulari e polverosi coem farina, zucchero e sale",
+      "Alte Produzioni",
+      "Prodotti granulari e polverosi come farina, zucchero e sale",
     ],
     categoria: "Step by Step",
     prodotti: [
-      {
-        gruppo: "Alimentare",
-        voci: ["Farina", "Sale", "Zucchero"]
-      }
+      { gruppo: "Alimentare", voci: ["Farina", "Sale", "Zucchero"] },
     ],
     tipoInsacco: ["Doppio fondo quadro"],
     video: ["https://www.youtube.com/embed/n6ZLELNaeHk"],
-    dimension: [
-      "Min. 90 x 190mm",
-      "Max. 235 x 430 mm",
-    ],
+    dimension: ["Min. 90 x 190mm", "Max. 235 x 430 mm"],
     bags: "a doppio fondo quadro, a fondo quadro, a soffietto",
     bagMaterial: "carta, carta polietinata, carta/PE",
+
+    // ── Breadcrumb / SEO ──
+    category: "Macchinari",
+    categorySlug: "macchinari",
+    subcategory: "Insaccatrici a Bocca Aperta",
+    subcategorySlug: "insaccatrici-a-bocca-aperta",
+    segment: "Piccoli Formati",
+    segmentSlug: "insaccatrici-automatiche-piccoli-formati",
+
+    pdfUrl: "/pdf/macchinari/mf-tecno-sbs-2000.pdf",
   },
 ];
 

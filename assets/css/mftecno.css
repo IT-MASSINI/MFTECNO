@@ -335,29 +335,254 @@ header.theme-main-menu:not(.fixed) {
     border-color: rgba(40, 71, 125, 0.10) !important;
   }
 
-  /* Hamburger: righe BIANCHE — su hero (non sticky) */
-  .navbar-toggler.toggler--light,
-  .navbar-toggler.toggler--light:focus {
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    box-shadow: none !important;
-  }
-  .navbar-toggler.toggler--light span,
-  .navbar-toggler.toggler--light span::before,
-  .navbar-toggler.toggler--light span::after {
-    background-color: #ffffff !important;
-  }
+}
 
-  /* Hamburger: righe NAVY — su sticky / pagine senza hero */
-  .navbar-toggler.toggler--dark,
-  .navbar-toggler.toggler--dark:focus {
-    border-color: rgba(40, 71, 125, 0.4) !important;
-    box-shadow: none !important;
-  }
-  .navbar-toggler.toggler--dark span,
-  .navbar-toggler.toggler--dark span::before,
-  .navbar-toggler.toggler--dark span::after {
-    background-color: var(--mft-navy) !important;
-  }
+/* ══════════════════════════════════════════════════════════════
+   HAMBURGER "MENU" stile IMA Group  —  .hamburger-dots
+   ──────────────────────────────────────────────────────────────
+   REQUISITI:
+   - Solo la scritta "MENU" (niente pallini, niente linee)
+   - Hero (mobile, non sticky):
+       · chiuso default: MENU bianco, sfondo trasparente
+       · chiuso hover:   pill #48cbff con testo BIANCO
+       · aperto default: X BIANCA, sfondo trasparente
+       · aperto hover:   pill #48cbff con X BIANCA
+   - Sticky (.fixed):
+       · chiuso default: MENU color --mft-black (= colore lente 🔍)
+       · chiuso hover:   pill #f5f5f5 con testo #2A2D30
+       · aperto default: X #2A2D30, sfondo trasparente
+       · aperto hover:   pill #f5f5f5 con X #2A2D30
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Pulsante base ── */
+.navbar-toggler.hamburger-dots {
+  /* Reset Bootstrap / Babun */
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  --bs-navbar-toggler-icon-bg: none;
+
+  /* Pill IMA-style: testo centrato, padding orizzontale contenuto */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 14px;
+  min-width: 56px;
+  min-height: 30px;
+  position: relative;
+  cursor: pointer;
+
+  /* Forma pill arrotondata (visibile solo su hover via background) */
+  border-radius: 999px;
+
+  /* Colore di default = sopra hero → BIANCO */
+  color: #ffffff;
+  background-color: transparent !important;
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* Neutralizza qualunque .navbar-toggler-icon residuo iniettato da Bootstrap */
+.navbar-toggler.hamburger-dots .navbar-toggler-icon {
+  display: none !important;
+  background-image: none !important;
+}
+
+/* ── KILL-SWITCH tema Babun nello STATO CHIUSO ── */
+.theme-main-menu .navbar-toggler.hamburger-dots[aria-expanded="false"]::before,
+.theme-main-menu .navbar-toggler.hamburger-dots[aria-expanded="false"]::after,
+.theme-main-menu .navbar-toggler.hamburger-dots:not([aria-expanded])::before,
+.theme-main-menu .navbar-toggler.hamburger-dots:not([aria-expanded])::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  transform: none !important;
+}
+
+/* I <span> interni non devono essere stirati */
+.theme-main-menu .navbar-toggler.hamburger-dots > span {
+  position: static !important;
+  left: auto !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  text-indent: 0 !important;
+  background: transparent !important;
+  opacity: 1 !important;
+}
+
+/* Reset dimensioni (il tema Babun forzava 48×44 arancione) */
+.theme-main-menu .navbar-toggler.hamburger-dots {
+  width: auto !important;
+  height: auto !important;
+}
+
+.navbar-toggler.hamburger-dots:active { transform: scale(0.96); }
+
+.navbar-toggler.hamburger-dots:focus,
+.navbar-toggler.hamburger-dots:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NASCONDI pallini e linee — lasciamo nel DOM solo la label "MENU"
+   ══════════════════════════════════════════════════════════════ */
+.hamburger-dots .dots-row,
+.hamburger-dots .dot {
+  display: none !important;
+}
+
+/* ── Label "MENU" (stato chiuso) ── */
+.hamburger-dots .dots-label {
+  font-family: var(--font-heading, inherit);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: currentColor;
+  user-select: none;
+  text-transform: uppercase;
+}
+
+/* Label CHIUDI non usata: nascondiamo sempre */
+.hamburger-dots .dots-label--close { display: none !important; }
+
+/* ══════════════════════════════════════════════════════════════
+   STATI CROMATICI DEFAULT (stato chiuso) — hero / sticky / force-light
+   ══════════════════════════════════════════════════════════════ */
+
+/* STICKY (.fixed) → stesso identico colore della lente 🔍 */
+.theme-main-menu.fixed .navbar-toggler.hamburger-dots {
+  color: var(--mft-black);
+}
+
+/* FORCE-LIGHT (pagina senza hero) → stesso tono */
+.theme-main-menu.force-light .navbar-toggler.hamburger-dots {
+  color: #2A2D30;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HOVER — stato chiuso
+   ══════════════════════════════════════════════════════════════ */
+
+/* HERO chiuso hover → pill azzurra, testo BIANCO */
+.navbar-toggler.hamburger-dots:hover,
+.navbar-toggler.hamburger-dots:focus-visible {
+  background-color: #48cbff !important;
+  color: #ffffff !important;
+  opacity: 1;
+  border-radius: 999px;
+}
+
+/* STICKY chiuso hover → pill grigio chiaro #f5f5f5, testo #2A2D30 */
+.theme-main-menu.fixed .navbar-toggler.hamburger-dots:hover,
+.theme-main-menu.fixed .navbar-toggler.hamburger-dots:focus-visible {
+  background-color: #f5f5f5 !important;
+  color: #2A2D30 !important;
+  opacity: 1;
+}
+
+/* FORCE-LIGHT chiuso hover → stesso comportamento sticky */
+.theme-main-menu.force-light .navbar-toggler.hamburger-dots:hover,
+.theme-main-menu.force-light .navbar-toggler.hamburger-dots:focus-visible {
+  background-color: #f5f5f5 !important;
+  color: #2A2D30 !important;
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STATO APERTO — aria-expanded="true"
+   → Nasconde la label, mostra SOLO una X centrale
+   → Default: sfondo TRASPARENTE (niente pill)
+   → Hover:   compare la pill colorata
+   ══════════════════════════════════════════════════════════════ */
+
+/* Nascondi label quando aperto (in tutti i contesti) */
+.navbar-toggler.hamburger-dots[aria-expanded="true"] .dots-row,
+.navbar-toggler.hamburger-dots[aria-expanded="true"] .dots-label {
+  display: none !important;
+}
+
+/* Dimensione box quadrata stabile per la X + pill */
+.navbar-toggler.hamburger-dots[aria-expanded="true"] {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 8px;
+  border-radius: 999px;
+}
+
+/* ── APERTO DEFAULT su HERO → X bianca, sfondo trasparente ── */
+.navbar-toggler.hamburger-dots[aria-expanded="true"] {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+/* ── APERTO DEFAULT su STICKY → X #2A2D30, sfondo trasparente ── */
+.theme-main-menu.fixed .navbar-toggler.hamburger-dots[aria-expanded="true"] {
+  color: #2A2D30 !important;
+  background-color: transparent !important;
+}
+
+/* ── APERTO DEFAULT su FORCE-LIGHT → idem sticky ── */
+.theme-main-menu.force-light .navbar-toggler.hamburger-dots[aria-expanded="true"] {
+  color: #2A2D30 !important;
+  background-color: transparent !important;
+}
+
+/* ── APERTO HOVER su HERO → pill #48cbff, X bianca ── */
+.navbar-toggler.hamburger-dots[aria-expanded="true"]:hover,
+.navbar-toggler.hamburger-dots[aria-expanded="true"]:focus-visible {
+  background-color: #48cbff !important;
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+/* ── APERTO HOVER su STICKY → pill #f5f5f5, X #2A2D30 ── */
+.theme-main-menu.fixed .navbar-toggler.hamburger-dots[aria-expanded="true"]:hover,
+.theme-main-menu.fixed .navbar-toggler.hamburger-dots[aria-expanded="true"]:focus-visible {
+  background-color: #f5f5f5 !important;
+  color: #2A2D30 !important;
+  opacity: 1;
+}
+
+/* ── APERTO HOVER su FORCE-LIGHT → idem sticky ── */
+.theme-main-menu.force-light .navbar-toggler.hamburger-dots[aria-expanded="true"]:hover,
+.theme-main-menu.force-light .navbar-toggler.hamburger-dots[aria-expanded="true"]:focus-visible {
+  background-color: #f5f5f5 !important;
+  color: #2A2D30 !important;
+  opacity: 1;
+}
+
+/* Le 2 barre della X — usano currentColor quindi ereditano il color giusto */
+.theme-main-menu .navbar-toggler.hamburger-dots[aria-expanded="true"]::before,
+.theme-main-menu .navbar-toggler.hamburger-dots[aria-expanded="true"]::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 22px !important;
+  height: 2px !important;
+  background: currentColor !important;
+  border-radius: 1px;
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+
+.theme-main-menu .navbar-toggler.hamburger-dots[aria-expanded="true"]::before {
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+}
+.theme-main-menu .navbar-toggler.hamburger-dots[aria-expanded="true"]::after {
+  transform: translate(-50%, -50%) rotate(-45deg) !important;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -994,6 +1219,32 @@ header.theme-main-menu:not(.fixed) {
   color: #ffffff;
 }
 
+/* ============================================================
+   BOTTONE VARIANTE CYANO — #48cbff → blu al hover
+   Uso: class="btn-cyano"
+   ============================================================ */
+
+.btn-cyano {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 26px;
+  border: none;
+  border-radius: 40px;
+  background: #48cbff;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-cyano:hover {
+  background:  #ffffff;
+  color: var(--mft-navy);
+}
+
 /* Hero — Responsive layout (testo e altezza banner) */
 @media (max-width: 991px) {
   .hero-content-wrap { padding-top: 130px; padding-bottom: 80px; }
@@ -1024,7 +1275,7 @@ header.theme-main-menu:not(.fixed) {
    section-intro    1.4rem    1.2rem      1.1rem     1rem
    section-title      4rem      3rem      2.4rem     2rem
    section-subtitle 1.4rem    1.2rem      1.1rem     1rem
-   section-body     1.6rem    1.3rem      1.15rem    1rem
+   section-body     1.25rem   1.15rem     0.95rem    0.9rem
    feature-list     1.6rem    1.3rem      1.15rem    1rem
    ============================================================ */
 
@@ -1067,7 +1318,7 @@ header.theme-main-menu:not(.fixed) {
   .section-intro     { font-size: 1.4rem; }
   .section-title     { font-size: 4rem; }
   .section-subtitle  { font-size: 1.1rem; }
-  .section-body      { font-size: 1.6rem; }
+  .section-body      { font-size: 1.25rem; }
   .feature-list li   { font-size: 1.6rem; }
 }
 /* Notebook */
@@ -1076,7 +1327,7 @@ header.theme-main-menu:not(.fixed) {
   .section-intro     { font-size: 1.2rem; }
   .section-title     { font-size: 3rem; }
   .section-subtitle  { font-size: 1rem; }
-  .section-body      { font-size: 1.3rem; }
+  .section-body      { font-size: 1.15rem; }
   .feature-list li   { font-size: 1.3rem; }
 }
 /* Tablet stretto */
@@ -1085,7 +1336,7 @@ header.theme-main-menu:not(.fixed) {
   .section-intro     { font-size: 1rem; }
   .section-title     { font-size: 2.4rem; }
   .section-subtitle  { font-size: 0.95rem; }
-  .section-body      { font-size: 1.15rem; }
+  .section-body      { font-size: 0.95rem; }
   .feature-list li   { font-size: 1.15rem; }
 }
 /* Mobile */
@@ -1094,7 +1345,7 @@ header.theme-main-menu:not(.fixed) {
   .section-intro     { font-size: 0.9rem; }
   .section-title     { font-size: 2rem; }
   .section-subtitle  { font-size: 0.9rem; }
-  .section-body      { font-size: 1rem; }
+  .section-body      { font-size: 0.9rem; }
   .feature-list li   { font-size: 1rem; }
 }
 
@@ -1191,6 +1442,109 @@ header.theme-main-menu:not(.fixed) {
   background: var(--mft-orange);
   border-color: var(--mft-orange);
   color: #ffffff;;
+}
+
+/* =======================================================
+   BOTTONI PRODOTTO — con icona a sinistra
+   Derivati da scopri-btn / call-btn ma con slot per icona leading.
+   Usati in: pagine dettaglio prodotto (es. Contattaci, Scarica PDF)
+======================================================= */
+ 
+/* ── .mft-btn-primary-icon — pill pieno navy + icona sinistra bianca ── */
+.mft-btn-primary-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border: 2.5px solid var(--mft-navy);
+  border-radius: 40px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  background: var(--mft-navy);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  font-family: "Satoshi", sans-serif;
+}
+.mft-btn-primary-icon:hover,
+.mft-btn-primary-icon:focus-visible {
+  background: var(--mft-orange);
+  border-color: var(--mft-orange);
+  color: #ffffff;
+}
+.mft-btn-primary-icon .mft-btn-icon-left {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: inherit;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+ 
+/* ── .mft-btn-ghost-icon — trasparente navy + icona sinistra + freccia destra ── */
+.mft-btn-ghost-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 2.5px solid transparent;
+  border-radius: 40px;
+  color: var(--mft-navy);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Satoshi", sans-serif;
+}
+.mft-btn-ghost-icon:hover,
+.mft-btn-ghost-icon:focus-visible {
+  background: #ffffff;
+  border-color: #e0e0e0;
+  color: var(--mft-navy);
+}
+.mft-btn-ghost-icon .mft-btn-icon-left {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--mft-navy);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.mft-btn-ghost-icon .mft-btn-icon-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-left: 6px;
+  color: var(--mft-navy);
+  font-size: 1rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+.mft-btn-ghost-icon:hover .mft-btn-icon-right {
+  transform: translateX(4px);
+  color: var(--mft-orange);
+}
+ 
+/* ── Responsive ── */
+@media (max-width: 575.98px) {
+  .mft-btn-primary-icon,
+  .mft-btn-ghost-icon {
+    font-size: 0.95rem;
+    padding: 12px 22px;
+  }
 }
 
 /* vedi-tutte-btn — pill outline navy */
@@ -1511,7 +1865,7 @@ header.theme-main-menu:not(.fixed) {
 }
 
 .product-title {
-  font-size: 1.25rem;
+  font-size: 2.4rem;
   font-weight: 700;
   font-style: italic;
   color: var(--mft-navy);
@@ -1612,7 +1966,7 @@ header.theme-main-menu:not(.fixed) {
 
 /* Stat badge — posizionamento responsivo progressivo */
 .stat-badge {
-  background: #ffffff;
+  background: #48cbff;
   border-radius: 0;
   padding: 16px 20px;
   display: flex;
@@ -1696,7 +2050,7 @@ header.theme-main-menu:not(.fixed) {
 .stat-body  { display: flex; flex-direction: column; gap: 2px; }
 .stat-value { font-size: 1.1rem; font-weight: 800; color: var(--mft-navy); }
 .stat-label { font-size: 0.95rem; font-weight: 600; color: var(--mft-navy); }
-.stat-link  { font-size: 0.80rem; color: #9D9D9D; text-align: right; margin-top: 2px; }
+.stat-link  { font-size: 0.80rem; color: #ffffff; text-align: right; margin-top: 2px; }
 
 @media (min-width: 1200px) {
   .stat-value { font-size: 1.4rem; }
@@ -1783,7 +2137,7 @@ header.theme-main-menu:not(.fixed) {
   line-height: 1.3;
 }
 .type-desc {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #6b7a8d;
   line-height: 1.6;
   flex: 1;
@@ -2238,13 +2592,6 @@ header.theme-main-menu:not(.fixed) {
 }
 .theme-main-menu.force-light .search-btn:hover {
   color: var(--mft-orange) !important;
-}
-
-/* Hamburger mobile → scuro */
-.theme-main-menu.force-light .navbar-toggler span,
-.theme-main-menu.force-light .navbar-toggler span::before,
-.theme-main-menu.force-light .navbar-toggler span::after {
-  background: #2A2D30 !important;
 }
 
 /* Bottone "Preventivo Gratuito" — su force-light rimane arancione */

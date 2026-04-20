@@ -19,7 +19,7 @@
           </nuxt-link>
         </div>
       </div>
-
+      <br/>
       <!-- Cards row — 2x2 su desktop, 1 colonna su mobile -->
       <div class="row g-4">
         <div v-for="sol in solutions" :key="sol.id" class="col-lg-6 col-12">

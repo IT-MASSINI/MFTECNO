@@ -77,7 +77,7 @@ const localePath = useLocalePath()
 .partner-banner {
   position: relative;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: 30px;
   margin: 0 auto;
   max-width: 1320px;
 }
@@ -92,7 +92,6 @@ const localePath = useLocalePath()
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* "top center" mostra le mani in alto come nel mockup */
   object-position: top center;
 }
 
@@ -105,7 +104,7 @@ const localePath = useLocalePath()
   background: linear-gradient(
     to top,
     rgba(26, 47, 90, 0.95) 0%,     /* fondo pieno in basso */
-    rgba(26, 47, 90, 0.55) 30%,    /* sfumatura centrale   */
+    rgba(26, 47, 90, 0.55) 15%,    /* sfumatura centrale   */
     rgba(26, 47, 90, 0.08) 65%,    /* quasi trasparente    */
     rgba(26, 47, 90, 0.00) 100%    /* foto visibile in alto */
   );
@@ -116,8 +115,8 @@ const localePath = useLocalePath()
   padding-left: 80px;
   position: relative;
   z-index: 2;
-  padding-top: 72px;
-  padding-bottom: 72px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 /* ── Badge label ────────────────────────────────── */
@@ -143,9 +142,9 @@ const localePath = useLocalePath()
   align-items: center;
   justify-content: center;
   padding: 14px 36px;
-  border: 2.5px solid #48cbff;
+  border: 2px solid #ffffff;
   border-radius: 50px;
-  background: #48cbff;
+  background: transparent;
   color: #ffffff;
   font-size: 0.88rem;
   font-weight: 700;
@@ -155,9 +154,9 @@ const localePath = useLocalePath()
   transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 .banner-cta:hover {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #28477D;
+  background: #48cbff;
+  border-color: #48cbff;
+  color: #ffffff;
 }
 
 /* ── Checklist ──────────────────────────────────── */

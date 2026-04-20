@@ -1,40 +1,44 @@
 <template>
   <!-- ============================================================
        MF TECNO — Pagina Dettaglio Insaccatrice
-       Struttura: Hero · Breadcrumb · Specifiche · Tab · Video
-                  CTA · Prodotti correlati · Partner Banner
+       Struttura: Breadcrumb · Hero (card+info) · Specifiche · Tab
+                  · Video · CTA · Prodotti correlati · Partner Banner
+       SEO: JSON-LD BreadcrumbList + Product (schema.org)
+       Layout: catalog (header sempre bianco, padding-top gestito)
        Palette: #28477D blu · #ED7417 arancione · #1C1C1A nero
   ============================================================ -->
   <div v-if="machine" class="pd-page">
 
-    <!-- ══════════════════════════════════════════════════════════
-         0. TESTATA — componente breadcrumb-one condiviso
-    ══════════════════════════════════════════════════════════ -->
-    <breadcrumb-three
-      :title="`${machine.subtitle}\n${machine.title}`"
-      :subtitle="machine.description"
-      page="Shop"
-      bg_img="/images/small-bags/header.jpg"
-      shape=""
-    />
+    <div style="height: 90px;">
+
+    </div>
 
     <!-- ══════════════════════════════════════════════════════════
-         1. HERO — immagine sinistra · info destra
+         0. BREADCRUMB navigabile + SEO (schema.org/BreadcrumbList)
+    ══════════════════════════════════════════════════════════ -->
+    <section class="pd-breadcrumb-wrap">
+      <div class="container">
+        <Breadcrumb :items="breadcrumbItems" />
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         1. HERO PRODOTTO — card immagine sinistra · info destra
     ══════════════════════════════════════════════════════════ -->
     <section class="pd-hero">
       <div class="container">
         <div class="pd-hero-grid">
 
-          <!-- Colonna sx: immagine principale + thumbnail -->
+          <!-- Colonna sx: card bianca con immagine principale + thumbnail -->
           <div class="pd-hero-gallery">
-            <div class="pd-hero-img-wrap">
+            <div class="pd-hero-card">
               <img
                 :src="activeImg"
                 :alt="machine.title"
                 class="pd-hero-img"
               />
             </div>
-            <!-- Thumbnails (se disponibili più immagini in futuro) -->
+            <!-- Thumbnails (se disponibili più immagini) -->
             <div class="pd-hero-thumbs" v-if="machine.gallery && machine.gallery.length > 1">
               <button
                 v-for="(img, i) in machine.gallery"
@@ -42,6 +46,7 @@
                 class="pd-thumb-btn"
                 :class="{ active: activeImg === img }"
                 @click="activeImg = img"
+                :aria-label="`Vedi immagine ${i + 1} di ${machine.title}`"
               >
                 <img :src="img" :alt="`${machine.title} ${i+1}`" />
               </button>
@@ -68,18 +73,37 @@
               </li>
             </ul>
 
-            <!-- CTA buttons -->
+            <!-- CTA buttons — stile globale mftecno.css -->
             <div class="pd-cta-row">
-              <NuxtLink :to="localePath('contatti')" class="pd-btn-primary">
-                <i class="bi bi-envelope"></i>
-                Contattaci
+              <!-- Contattaci — pill pieno navy con icona busta -->
+              <NuxtLink
+                :to="localePath('contatti')"
+                class="mft-btn-primary-icon"
+              >
+                <span class="mft-btn-icon-left">
+                  <i class="bi bi-envelope"></i>
+                </span>
+                <span>Contattaci</span>
               </NuxtLink>
-              <button class="pd-btn-pdf-link">
-                Scarica pdf
-                <span class="pd-pdf-arrow">
+
+              <!-- Scarica pdf — ghost con icona documento + freccia (solo se pdfUrl presente) -->
+              <a
+                v-if="machine.pdfUrl"
+                :href="machine.pdfUrl"
+                target="_blank"
+                rel="noopener"
+                download
+                class="mft-btn-ghost-icon"
+                :aria-label="`Scarica la scheda tecnica di ${machine.title} (PDF)`"
+              >
+                <span class="mft-btn-icon-left">
+                  <i class="bi bi-file-earmark-text"></i>
+                </span>
+                <span>Scarica pdf</span>
+                <span class="mft-btn-icon-right">
                   <i class="bi bi-arrow-right"></i>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -517,8 +541,12 @@ import piccoli_formati_data from '~/data/piccoli-formati-data'
 import piccoli_formati_tabs from '~/data/piccoli-formati-tabs'
 import { marked } from 'marked'
 
+// ── Usa il layout "catalog": header sempre bianco, padding-top gestito ──
+definePageMeta({ layout: 'catalog' })
+
 const route = useRoute()
 const localePath = useLocalePath()
+const runtimeConfig = useRuntimeConfig()
 
 // ── Markdown renderer ──────────────────────────────────────
 const renderMd = (text: string): string => {
@@ -610,7 +638,57 @@ const relatedMachines = [
   },
 ]
 
-// ── SEO ────────────────────────────────────────────────────
+// ── Breadcrumb navigabile (alimenta UI + JSON-LD SEO) ──────
+const breadcrumbItems = useProductBreadcrumb(machine)
+
+// ── SEO: meta + JSON-LD schema.org ─────────────────────────
+// Il base URL serve per costruire URL assolute richieste da Google
+// per il BreadcrumbList. Se non hai runtimeConfig.public.siteUrl
+// configurato in nuxt.config.ts, usa fallback vuoto (Google accetta
+// anche URL relative, ma quelle assolute sono fortemente raccomandate).
+const siteUrl = (runtimeConfig.public?.siteUrl as string) || ''
+
+const breadcrumbJsonLd = computed(() => {
+  if (!machine.value) return null
+  // NB: includiamo SOLO gli elementi "veri" (link o pagina corrente), Home inclusa.
+  const items = breadcrumbItems.value.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.label,
+    // L'item URL è richiesto da Google per ogni voce tranne l'ultima (pagina corrente)
+    ...(item.to ? { item: `${siteUrl}${localePath(item.to)}` } : {})
+  }))
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items
+  }
+})
+
+const productJsonLd = computed(() => {
+  if (!machine.value) return null
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: machine.value.title,
+    description: machine.value.description,
+    category: `${machine.value.subcategory} / ${machine.value.segment}`,
+    brand: {
+      '@type': 'Brand',
+      name: 'MF TECNO'
+    },
+    image: machine.value.img
+      ? `${siteUrl}${machine.value.img}`
+      : undefined,
+    sku: machine.value.slug,
+    manufacturer: {
+      '@type': 'Organization',
+      name: 'MASSINI Industries',
+      url: siteUrl || undefined
+    }
+  }
+})
+
 useHead(() => ({
   title: machine.value
     ? `${machine.value.title} | MF TECNO Packaging Systems`
@@ -620,6 +698,22 @@ useHead(() => ({
       name: 'description',
       content: machine.value?.description ?? ''
     }
+  ],
+  script: [
+    // JSON-LD BreadcrumbList per SEO Google
+    ...(breadcrumbJsonLd.value
+      ? [{
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify(breadcrumbJsonLd.value)
+        }]
+      : []),
+    // JSON-LD Product per rich snippets
+    ...(productJsonLd.value
+      ? [{
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify(productJsonLd.value)
+        }]
+      : [])
   ]
 }))
 </script>
@@ -634,72 +728,21 @@ useHead(() => ({
 .pd-page {
   font-family: "Satoshi", sans-serif;
   color: #28477D;
+  background-color: #f5f5f5;
 }
 
-/* ── Bottoni ── */
-.pd-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--mft-navy, #28477D);
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  padding: 11px 26px;
-  border-radius: 50px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.pd-btn-primary:hover {
-  background: var(--mft-orange, #ED7417);
-  color: #ffffff;
-  transform: translateY(-1px);
+/* ══════════════════════════════════════════════════
+   0. BREADCRUMB — wrapper (il componente ha il suo CSS)
+══════════════════════════════════════════════════ */
+.pd-breadcrumb-wrap {
+  padding: 28px 0 8px;
 }
 
-/* Bottone Scarica PDF — stile call-btn (text-feature-two) */
-.pd-btn-pdf-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 28px;
-  border: 2.5px solid transparent;
-  border-radius: 50px;
-  color: var(--mft-navy, #28477D);
-  font-size: 1rem;
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  font-family: "Satoshi", sans-serif;
-  text-decoration: none;
-  letter-spacing: 0.3px;
-  transition: all 0.3s ease;
+@media (max-width: 767.98px) {
+  .pd-breadcrumb-wrap { padding: 18px 0 4px; }
 }
-.pd-btn-pdf-link:hover {
-  background: #ffffff;
-  border-color: #e0e0e0;
-  color: var(--mft-navy, #28477D);
-}
-.pd-btn-pdf-link:hover .pd-pdf-arrow {
-  background: var(--mft-orange, #ED7417);
-  color: #ffffff;
-}
-.pd-pdf-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--mft-card-blue, #cedbee);
-  color: var(--mft-navy, #28477D);
-  font-size: 0.85rem;
-  flex-shrink: 0;
-  transition: background 0.3s ease, color 0.3s ease;
-}
+
+
 
 .pd-btn-outline-white {
   display: inline-flex;
@@ -758,15 +801,20 @@ useHead(() => ({
 /* Gallery */
 .pd-hero-gallery { display: flex; flex-direction: column; gap: 16px; }
 
-.pd-hero-img-wrap {
-  background: #F5F5F5;
-  border-radius: 8px;
-  padding: 32px;
+.pd-hero-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 48px;
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(40, 71, 125, 0.06);
+}
+
+@media (max-width: 575.98px) {
+  .pd-hero-card { padding: 28px; border-radius: 12px; }
 }
 
 .pd-hero-img {
@@ -785,13 +833,14 @@ useHead(() => ({
 .pd-thumb-btn {
   width: 72px;
   height: 72px;
-  background: #F5F5F5;
+  background: #ffffff;
   border: 2px solid transparent;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
-  padding: 4px;
+  padding: 6px;
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 4px rgba(40, 71, 125, 0.05);
 }
 .pd-thumb-btn.active,
 .pd-thumb-btn:hover { border-color: #28477D; }
@@ -859,8 +908,14 @@ useHead(() => ({
 .pd-cta-row {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 18px;
   flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+@media (max-width: 575.98px) {
+  .pd-cta-row { gap: 12px; }
+  .pd-cta-row > * { width: 100%; justify-content: center; }
 }
 
 /* ══════════════════════════════════════════════════

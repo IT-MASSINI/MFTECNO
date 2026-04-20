@@ -172,9 +172,9 @@ onUnmounted(() => {
   justify-content: center !important;
   gap: 10px !important;
   padding: 14px 36px !important;
-  border: 2.5px solid #48cbff !important;
+  border: 2px solid #ffffff !important;
   border-radius: 50px !important;
-  background: #48cbff !important;
+  background: transparent !important;
   color: #ffffff !important;
   font-size: 0.88rem !important;
   font-weight: 700 !important;
@@ -184,9 +184,9 @@ onUnmounted(() => {
   transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
 }
 .hero-btn:hover {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #28477D !important;
+  background: #48cbff !important;
+  border-color: #48cbff !important;
+  color: #ffffff !important;
 }
 
 /* Icona SVG nel bottone CTA */
@@ -199,8 +199,5 @@ onUnmounted(() => {
   transition: filter 0.3s ease;
 }
 
-/* Al hover: freccia diventa navy #28477D */
-.hero-btn:hover .btn-arrow-icon {
-  filter: invert(22%) sepia(48%) saturate(900%) hue-rotate(192deg) brightness(90%) contrast(92%);
-}
+
 </style>

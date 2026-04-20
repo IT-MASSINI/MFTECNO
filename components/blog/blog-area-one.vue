@@ -7,7 +7,7 @@
       <div class="row align-items-start mb-5">
         <div class="col-lg-8">
           <h2 class="section-title">Ultime News</h2>
-          <p class="section-intro mt-2">
+          <p class="section-body mt-2">
             Leggi gli ultimi aggiornamenti, consigli e approfondimenti dal mondo MF TECNO
           </p>
         </div>

@@ -26,6 +26,9 @@
             <li><i class="bi bi-check2-circle text-accent me-2"></i>Assistenza tecnica rapida e continuativa</li>
           </ul>
 
+          <div style="height: 10px;">
+
+          </div>
           <div class="mt-4 d-flex gap-5 flex-wrap btn-group-wrap">
             <nuxt-link :to="localePath('/chi-siamo')" class="scopri-btn">
               Scopri di più

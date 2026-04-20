@@ -117,23 +117,29 @@
 						<!-- Bottone Preventivo — sempre visibile, testo adattivo -->
 						<nuxt-link
 							:to="localePath('/richiesta/?tiporich=4')"
-							:class="`btn-orange d-none d-lg-inline-flex ${isLightMode ? 'dark' : ''}`"
+							:class="`btn-cyano d-none d-lg-inline-flex ${isLightMode ? 'dark' : ''}`"
 							>
 							<span class="preventivo-full">Preventivo Gratuito</span>
 							<span class="preventivo-short">Preventivo</span>
 						</nuxt-link>
 
-						<!-- Hamburger — solo mobile (<992px) -->
+						<!-- Hamburger "tre pallini + MENU" — solo mobile (<992px) -->
 						<button
-							class="navbar-toggler"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#navbarNav"
-							aria-controls="navbarNav"
-							aria-expanded="false"
-							aria-label="Toggle navigation"
+						class="navbar-toggler hamburger-dots"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarNav"
+						aria-controls="navbarNav"
+						aria-expanded="false"
+						aria-label="Apri menu"
 						>
-							<span></span>
+							<span class="dots-row" aria-hidden="true">
+								<span class="dot"></span>
+								<span class="dot"></span>
+								<span class="dot"></span>
+							</span>
+							<span class="dots-label dots-label--open">MENU</span>
+							<span class="dots-label dots-label--close">CHIUDI</span>
 						</button>
 
 					</div>

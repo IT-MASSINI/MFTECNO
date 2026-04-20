@@ -161,7 +161,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__nav a:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Link contatti: colore grigio-blu ── */
@@ -170,7 +170,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__contact-link:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Indirizzo sotto il logo ── */
@@ -221,7 +221,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__sede-address a:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Social icons ── */
@@ -241,7 +241,7 @@
   align-items: center;
 }
 .mft-footer__social-link:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
 }
 
 /* ── Logo Massini ── */
@@ -295,6 +295,107 @@
 }
 .mft-footer__copyright-text a:hover,
 .mft-footer__legal a:hover {
-  color: var(--mft-orange, #ED7417) !important;
+  color: var(--mft-orange, #48cbff) !important;
+}
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE / TABLET (≤ 768px)
+   Copyright bar su 3 righe:
+   1) Copyright allineato a sinistra
+   2) Legal links tutti su una riga (con separatori)
+   3) Social icons tutti su una riga
+   ════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Container copyright: da riga singola → colonna,
+     ogni figlio occupa la larghezza piena */
+  .mft-footer__copyright-bar .container {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
+    text-align: left;
+  }
+
+  /* 1) Copyright allineato a sinistra */
+  .mft-footer__copyright-text {
+    text-align: left !important;
+    width: 100%;
+    margin: 0 !important;
+  }
+
+  /* 2) Legal links: forza riga unica, centrati,
+        nessun a-capo, separatori | visibili.
+        FIX: il tema Babun applica display:block agli <li> dei footer,
+        va forzato inline-flex per farli stare in riga. */
+  .mft-footer__legal {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;      /* tutto sulla stessa riga */
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    list-style: none !important;
+  }
+  .mft-footer__legal li {
+    display: inline-flex !important;   /* override display:block ereditato */
+    align-items: center !important;
+    white-space: nowrap !important;    /* nessun wrap sul testo del singolo link */
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto !important;         /* niente shrink né grow, larghezza naturale */
+  }
+  .mft-footer__legal li a {
+    white-space: nowrap !important;
+    padding: 0 !important;
+    font-size: 0.82rem;                /* compatto per entrare su 375px */
+    line-height: 1.4;
+  }
+  .mft-footer__legal li + li::before {
+    content: '|';
+    display: inline-block;
+    margin: 0 7px !important;          /* separatore | */
+    opacity: 0.4;
+  }
+
+  /* 3) Social icons: tutti in riga, centrati.
+        Stesso fix anti display:block del tema Babun. */
+  .mft-footer__social {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100%;
+    gap: 10px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+  .mft-footer__social li {
+    display: inline-flex !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto !important;
+  }
+}
+
+/* Breakpoint molto stretto (< 380px):
+   se i legal links non ci stanno, riduci ulteriormente */
+@media (max-width: 380px) {
+  .mft-footer__legal li a {
+    font-size: 0.74rem !important;
+  }
+  .mft-footer__legal li + li::before {
+    margin: 0 4px !important;
+  }
+  .mft-footer__social {
+    gap: 6px !important;
+  }
 }
 </style>
