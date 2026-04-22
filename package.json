@@ -30,7 +30,6 @@
     "@yeger/vue-masonry-wall": "^5.0.8",
     "bootstrap": "^5.3.8",
     "marked": "^17.0.5",
-    "nuxt-security": "^2.5.1",
     "pinia": "^2.1.7",
     "sass": "^1.70.0",
     "swiper": "^12.1.2",

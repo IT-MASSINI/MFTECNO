@@ -19,6 +19,9 @@
 //  • nuxt-security RIMOSSO per evitare conflitti
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Flag per attivare comportamenti solo in produzione
+const isProduction = process.env.NODE_ENV === 'production'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-04-13',
   devtools: { enabled: true },
@@ -77,10 +80,6 @@ export default defineNuxtConfig({
 
   // ─────────────────────────────────────────────────────────────────────────
   //  SITE CONFIG - base per sitemap, robots, canonical
-  //  ---------------------------------------------------------------------------
-  //  URL canonico è SEMPRE www.mftecno.com, anche quando il sito viene
-  //  visualizzato da mftecno.pages.dev (preview). Questo previene duplicate
-  //  content e consolida l'authority SEO sul dominio principale.
   // ─────────────────────────────────────────────────────────────────────────
   site: {
     url: 'https://www.mftecno.com',
@@ -90,50 +89,28 @@ export default defineNuxtConfig({
   },
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  SITEMAP AVANZATA - priorità, frequenza, hreflang multilingua
+  //  SITEMAP - autoLastmod + sitemap index multilingua
   // ─────────────────────────────────────────────────────────────────────────
   sitemap: {
     autoLastmod: true,
     xsl: false,
 
-    // Genera una sitemap per ogni locale + sitemap index
-    // (Google preferisce sitemap per-lingua per siti multilingua)
-    sitemaps: {
-      it: { sources: ['/api/__sitemap__/urls/it'] },
-      en: { sources: ['/api/__sitemap__/urls/en'] },
-      es: { sources: ['/api/__sitemap__/urls/es'] },
-      br: { sources: ['/api/__sitemap__/urls/br'] },
-      fr: { sources: ['/api/__sitemap__/urls/fr'] },
-      de: { sources: ['/api/__sitemap__/urls/de'] },
-    },
-
     // Default per tutte le URL generate
     defaults: {
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date().toISOString(),
-    },
-
-    // Override per URL specifiche (rotte ad alto valore SEO)
-    urls: async () => {
-      return [
-        { loc: '/', priority: 1.0, changefreq: 'daily' },
-        { loc: '/prodotti', priority: 0.9, changefreq: 'weekly' },
-        { loc: '/blog', priority: 0.8, changefreq: 'daily' },
-        { loc: '/contatti', priority: 0.6, changefreq: 'monthly' },
-      ]
     },
   },
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  ROBOTS.TXT - indicizza tutto tranne API e preview
+  //  ROBOTS.TXT - indicizza tutto tranne API
   // ─────────────────────────────────────────────────────────────────────────
   robots: {
     userAgent: '*',
     disallow: ['/api/'],
     sitemap: 'https://www.mftecno.com/sitemap.xml',
 
-    // Gruppi specifici per bot (opzionale ma potente per SEO)
+    // Gruppi specifici per bot
     groups: [
       {
         userAgent: ['Googlebot', 'Googlebot-Image'],
@@ -141,7 +118,7 @@ export default defineNuxtConfig({
         disallow: ['/api/'],
       },
       {
-        // Blocca scraper AI che non portano traffico (opzionale)
+        // Blocca scraper AI (opzionale - rimuovi se non vuoi bloccarli)
         userAgent: ['GPTBot', 'ChatGPT-User', 'CCBot', 'anthropic-ai', 'Claude-Web'],
         disallow: ['/'],
       },
@@ -154,7 +131,6 @@ export default defineNuxtConfig({
   image: {
     format: ['avif', 'webp', 'jpg'],
     quality: 80,
-    // Densità retina: genera 1x e 2x per schermi hi-DPI
     densities: [1, 2],
     screens: {
       xs: 320,
@@ -165,7 +141,6 @@ export default defineNuxtConfig({
       xxl: 1536,
     },
     provider: 'ipx',
-    // Preset per immagini prodotto (ottimizzato per Google Images)
     presets: {
       productCard: {
         modifiers: {
@@ -188,15 +163,21 @@ export default defineNuxtConfig({
   },
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  NITRO - preset cloudflare-pages (necessario per _headers)
+  //  NITRO - preset cloudflare-pages SOLO in produzione
+  //  ---------------------------------------------------------------------------
+  //  IMPORTANTE: il preset cloudflare-pages viene applicato solo quando
+  //  NODE_ENV=production (cioè durante `nuxt build` e `nuxt generate`).
+  //
+  //  In sviluppo (`nuxt dev`) il preset resta undefined (default 'node'),
+  //  così NON si attiva l'emulazione Cloudflare che richiede wrangler e
+  //  non si verificano più gli errori "#app-manifest" di Pre-transform.
   // ─────────────────────────────────────────────────────────────────────────
   nitro: {
-    preset: 'cloudflare-pages',
+    preset: isProduction ? 'cloudflare-pages' : undefined,
     prerender: {
       crawlLinks: true,
       routes: ['/', '/sitemap.xml', '/robots.txt'],
       failOnError: false,
-      // Aggiunge delay tra prerender per non sovraccaricare (ottimale per SEO tools esterni)
       concurrency: 5,
     },
     compressPublicAssets: {
@@ -206,7 +187,7 @@ export default defineNuxtConfig({
   },
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  ROUTE RULES - prerender + ISR + header per-route
+  //  ROUTE RULES
   // ─────────────────────────────────────────────────────────────────────────
   routeRules: {
     '/': { prerender: true },
@@ -250,7 +231,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#28477D' },
         { name: 'color-scheme', content: 'light dark' },
 
-        // ── Robots: segnale forte a Googlebot per snippet grandi ──────────
+        // ── Robots ────────────────────────────────────────────────────────
         {
           name: 'robots',
           content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
@@ -260,13 +241,13 @@ export default defineNuxtConfig({
           content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
         },
 
-        // ── Description baseline (sovrascrivibile per-page con useSeoMeta) ─
+        // ── Description baseline ──────────────────────────────────────────
         {
           name: 'description',
           content: 'MF TECNO: soluzioni di confezionamento industriale, insaccatrici automatiche e sistemi di packaging. Made in Italy.',
         },
 
-        // ── Open Graph - sharing Facebook, LinkedIn, WhatsApp ─────────────
+        // ── Open Graph ────────────────────────────────────────────────────
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'MF Tecno' },
         { property: 'og:locale', content: 'it_IT' },
@@ -282,13 +263,11 @@ export default defineNuxtConfig({
 
         // ── Twitter Card ──────────────────────────────────────────────────
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:site', content: '@mftecno' }, // cambia con l'handle reale
         { name: 'twitter:image', content: 'https://www.mftecno.com/og-image.jpg' },
 
         // ── SEO avanzato ──────────────────────────────────────────────────
         { name: 'author', content: 'MF Tecno Packaging System' },
         { name: 'publisher', content: 'MF Tecno Packaging System' },
-        { name: 'generator', content: 'Nuxt 3' },
       ],
 
       link: [
@@ -297,14 +276,13 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
 
-        // ── Performance hints: migliorano LCP e FID (ranking Core Web Vitals)
+        // ── Performance hints ─────────────────────────────────────────────
         { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' },
         { rel: 'dns-prefetch', href: 'https://www.google-analytics.com' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
       ],
 
-      // Bootstrap JS via import bundled (vedi app.vue)
       script: [
         // JSON-LD Organization - schema.org per Knowledge Graph di Google
         {
@@ -317,7 +295,6 @@ export default defineNuxtConfig({
             logo: 'https://www.mftecno.com/logo.png',
             description: 'Soluzioni di confezionamento industriale e insaccatrici automatiche.',
             sameAs: [
-              // Aggiungi i tuoi social reali
               'https://www.linkedin.com/company/mftecno',
             ],
             address: {
@@ -343,7 +320,7 @@ export default defineNuxtConfig({
   ],
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  VITE - ottimizzazione build per Core Web Vitals
+  //  VITE
   // ─────────────────────────────────────────────────────────────────────────
   vite: {
     css: {
@@ -356,19 +333,18 @@ export default defineNuxtConfig({
       },
     },
     build: {
-      cssCodeSplit: true,           // CSS split per-route (meno CSS non usato)
-      cssMinify: 'lightningcss',    // più aggressivo di esbuild
-      // Target browser moderni = bundle JS più piccolo = FID migliore
+      cssCodeSplit: true,
+      cssMinify: 'lightningcss',
       target: 'es2020',
     },
   },
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  EXPERIMENTAL - feature che migliorano SEO/performance
+  //  EXPERIMENTAL
   // ─────────────────────────────────────────────────────────────────────────
   experimental: {
-    payloadExtraction: true,        // payload in file separato (cache migliore)
-    renderJsonPayloads: true,       // JSON payload invece di JS (meno parsing)
-    viewTransition: true,           // animazioni fluide tra pagine (UX)
+    payloadExtraction: true,
+    renderJsonPayloads: true,
+    viewTransition: true,
   },
 })
