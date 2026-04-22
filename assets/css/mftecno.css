@@ -37,6 +37,7 @@
   --mft-bg-blue:     #e8edf4;
   --mft-card-blue:   #cedbee;
   --text-muted:      #6c757d;
+  --mft-cyano:       #ED7417;
 }
 
 
@@ -1240,9 +1241,16 @@ header.theme-main-menu:not(.fixed) {
   cursor: pointer;
 }
 
-.btn-cyano:hover {
-  background:  #ffffff;
-  color: var(--mft-navy);
+/* ============================================================
+   BTN-CYANO — Hover invertito su header sticky / force-light
+   ============================================================ */
+.theme-main-menu.fixed .btn-cyano:hover,
+.theme-main-menu.fixed .btn-cyano:focus-visible,
+.theme-main-menu.force-light .btn-cyano:hover,
+.theme-main-menu.force-light .btn-cyano:focus-visible {
+  background: var(--mft-navy);
+  color: #ffffff;
+  outline: none;
 }
 
 /* Hero — Responsive layout (testo e altezza banner) */
@@ -1440,7 +1448,7 @@ header.theme-main-menu:not(.fixed) {
 }
 .scopri-btn:hover {
   background: var(--mft-orange);
-  border-color: var(--mft-orange);
+  border-color: var(--mft-orange);  /* var(--mft-orange) */
   color: #ffffff;;
 }
 
