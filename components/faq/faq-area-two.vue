@@ -10,13 +10,13 @@
         aziende con cui collaboriamo:
       </p>
 
-      <!-- Carousel wrapper: layout flex [freccia | viewport | freccia] -->
+      <!-- Carousel wrapper: ora è position:relative per ancorare le frecce esterne -->
       <div
         class="carousel-wrapper"
         @mouseenter="pause"
         @mouseleave="resume"
       >
-        <!-- Freccia sinistra -->
+        <!-- Freccia sinistra: posizionata FUORI dal viewport -->
         <button
           class="carousel-arrow carousel-arrow--left"
           aria-label="Scorri a sinistra"
@@ -27,7 +27,7 @@
           </svg>
         </button>
 
-        <!-- Viewport: contiene SOLO il track + le fade mask -->
+        <!-- Viewport: ora prende tutta la larghezza del wrapper -->
         <div class="carousel-viewport">
           <!-- Track: 3 copie [A|B|C] — B è il set centrale di riferimento -->
           <div
@@ -53,7 +53,7 @@
           <div class="fade-right" aria-hidden="true" />
         </div>
 
-        <!-- Freccia destra -->
+        <!-- Freccia destra: posizionata FUORI dal viewport -->
         <button
           class="carousel-arrow carousel-arrow--right"
           aria-label="Scorri a destra"
@@ -198,9 +198,9 @@ function afterTransition() {
 </script>
 
 <style scoped>
-/* ── Sezione ─────────────────────────────────────── */
+/* ── Sezione: padding verticale leggermente aumentato per più "aria" ───── */
 .clients-section {
-  padding: 72px 0 64px;
+  padding: 80px 0 72px;
   background: #f5f5f5;
 }
 
@@ -220,20 +220,19 @@ function afterTransition() {
 }
 .clients-heading-link:hover { color: #28477D; }
 
-/* ── Wrapper: layout a 3 colonne [arrow | viewport | arrow] ───────────────── */
+/* ── Wrapper: ora è relative, le frecce escono dal flow ──────────────────── */
+/* Prima era display:flex con gap:16px che "mangiava" spazio al viewport.    */
+/* Ora il viewport occupa il 100% del wrapper e le frecce galleggiano fuori. */
 .carousel-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  position: relative;
   width: 100%;
 }
 
-/* ── Viewport: occupa lo spazio residuo tra le frecce ─────────────────────── */
+/* ── Viewport: 100% del wrapper, niente più divisione dello spazio ────────── */
 .carousel-viewport {
   position: relative;
   overflow: hidden;
-  flex: 1 1 auto;
-  min-width: 0; /* fix classico flexbox per evitare overflow del contenuto */
+  width: 100%;
 }
 
 /* ── Track ───────────────────────────────────────── */
@@ -266,24 +265,29 @@ function afterTransition() {
   filter: grayscale(0%);
 }
 
-/* ── Fade bordi ──────────────────────────────────── */
+/* ── Fade bordi: ridotto da 60px a 28px per non coprire i loghi ─────────── */
 .fade-left,
 .fade-right {
   position: absolute;
   top: 0; bottom: 0;
-  width: 60px;
+  width: 28px;
   pointer-events: none;
   z-index: 2;
 }
 .fade-left  { left: 0;  background: linear-gradient(to right, #f5f5f5, transparent); }
 .fade-right { right: 0; background: linear-gradient(to left,  #f5f5f5, transparent); }
 
-/* ── Frecce: NON più absolute, ora sono parte del flex layout ───────────── */
+/* ── Frecce: ora absolute, posizionate FUORI dal viewport ─────────────────
+   - top/transform: centratura verticale sul viewport
+   - left/right negativi: le frecce "escono" dal viewport verso l'esterno
+   - z-index: sopra eventuali fade (anche se non si sovrappongono mai)
+   ──────────────────────────────────────────────────────────────────────── */
 .carousel-arrow {
-  flex: 0 0 auto;             /* non si restringe, non si allarga */
-  width: 36px; height: 36px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
   border-radius: 50%;
-  /* Stato normale: trasparente, solo l'icona blu visibile */
   border: 1.5px solid transparent;
   background: transparent;
   color: #28477D;
@@ -292,13 +296,18 @@ function afterTransition() {
   justify-content: center;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease,
-              border-color 0.2s ease, box-shadow 0.2s ease;
+              border-color 0.2s ease, box-shadow 0.2s ease,
+              transform 0.2s ease;
   box-shadow: none;
   padding: 0;
+  z-index: 3;
 }
-.carousel-arrow svg { width: 20px; height: 20px; }
+.carousel-arrow--left  { left: -52px; }
+.carousel-arrow--right { right: -52px; }
 
-/* Stato hover/focus: sfondo + bordo blu, icona bianca */
+.carousel-arrow svg { width: 22px; height: 22px; }
+
+/* Stato hover/focus */
 .carousel-arrow:hover,
 .carousel-arrow:focus-visible {
   background: #28477D;
@@ -307,22 +316,39 @@ function afterTransition() {
   box-shadow: 0 4px 14px rgba(40,71,125,.22);
   outline: none;
 }
+/* Piccolo "nudge" in hover per feedback tattile */
+.carousel-arrow--left:hover  { transform: translateY(-50%) translateX(-2px); }
+.carousel-arrow--right:hover { transform: translateY(-50%) translateX( 2px); }
 
 /* ── Responsive ──────────────────────────────────── */
+/* Tablet grande: frecce un po' più vicine ma ancora esterne */
+@media (max-width: 1199.98px) {
+  .carousel-arrow--left  { left: -40px; }
+  .carousel-arrow--right { right: -40px; }
+}
+
+/* Tablet: riduco loghi e avvicino frecce (ancora esterne ma di poco) */
 @media (max-width: 991.98px) {
-  .carousel-wrapper { gap: 10px; }
   .logo-item  { flex: 0 0 130px; width: 130px; margin-right: 32px; }
   .logo-img   { max-height: 42px; max-width: 110px; }
-  .fade-left, .fade-right { width: 40px; }
+  .fade-left, .fade-right { width: 20px; }
+  .carousel-arrow { width: 36px; height: 36px; }
+  .carousel-arrow svg { width: 18px; height: 18px; }
+  .carousel-arrow--left  { left: -20px; }
+  .carousel-arrow--right { right: -20px; }
 }
+
+/* Mobile: qui le frecce devono tornare DENTRO il viewport perché non c'è
+   spazio esterno utile; sovrapposizione con fade è tollerabile */
 @media (max-width: 767.98px) {
-  .clients-section  { padding: 48px 0; }
+  .clients-section  { padding: 56px 0 48px; }
   .clients-heading  { font-size: 1.1rem; margin-bottom: 36px; }
-  .carousel-wrapper { gap: 6px; }
   .logo-item  { flex: 0 0 100px; width: 100px; margin-right: 24px; }
   .logo-img   { max-height: 34px; max-width: 90px; }
-  .carousel-arrow { width: 28px; height: 28px; }
+  .fade-left, .fade-right { width: 20px; }
+  .carousel-arrow { width: 32px; height: 32px; }
   .carousel-arrow svg { width: 16px; height: 16px; }
-  .fade-left, .fade-right { width: 24px; }
+  .carousel-arrow--left  { left: 4px; }
+  .carousel-arrow--right { right: 4px; }
 }
 </style>

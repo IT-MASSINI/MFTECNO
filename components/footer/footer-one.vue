@@ -161,7 +161,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__nav a:hover {
-  color: var(--mft-orange, #48cbff) !important;
+  color: #48cbff !important;
 }
 
 /* ── Link contatti: colore grigio-blu ── */
@@ -170,7 +170,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__contact-link:hover {
-  color: var(--mft-orange, #48cbff) !important;
+  color: #48cbff !important;
 }
 
 /* ── Indirizzo sotto il logo ── */
@@ -221,7 +221,7 @@
   transition: color 0.2s ease;
 }
 .mft-footer__sede-address a:hover {
-  color: var(--mft-orange, #48cbff) !important;
+  color: #48cbff !important;
 }
 
 /* ── Social icons ── */
@@ -241,7 +241,7 @@
   align-items: center;
 }
 .mft-footer__social-link:hover {
-  color: var(--mft-orange, #48cbff) !important;
+  color: #48cbff !important;
 }
 
 /* ── Logo Massini ── */
@@ -295,7 +295,7 @@
 }
 .mft-footer__copyright-text a:hover,
 .mft-footer__legal a:hover {
-  color: var(--mft-orange, #48cbff) !important;
+  color: #48cbff !important;
 }
 
 /* ════════════════════════════════════════════════════

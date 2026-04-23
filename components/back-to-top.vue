@@ -1,11 +1,15 @@
 <template>
-  <button class="scroll-top d-none">
-      <i class="bi bi-arrow-up-short"></i>
-    </button>
+  <button
+    class="scroll-top d-none"
+    type="button"
+    :aria-label="$t('common.back_to_top')"
+    :title="$t('common.back_to_top')"
+  >
+    <i class="bi bi-arrow-up-short" aria-hidden="true"></i>
+  </button>
 </template>
 
 <script setup lang="ts">
-
 function backToTop () {
   const result = document.querySelector('.scroll-top') as HTMLElement;
   if (result) {

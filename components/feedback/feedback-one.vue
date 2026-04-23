@@ -77,7 +77,7 @@ const localePath = useLocalePath()
 .partner-banner {
   position: relative;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 40px;
   margin: 0 auto;
   max-width: 1320px;
 }

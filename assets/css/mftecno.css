@@ -27,6 +27,7 @@
    ============================================================ */
 
 :root {
+  --text-muted:      #6c757d;
   --mft-orange:      #ED7417;
   --mft-orange-dark: #c95f0e;
   --mft-navy:        #28477D;
@@ -36,8 +37,10 @@
   --mft-bg-grey:     #F5F5F5;
   --mft-bg-blue:     #e8edf4;
   --mft-card-blue:   #cedbee;
-  --text-muted:      #6c757d;
-  --mft-cyano:       #ED7417;
+  --mft-cyano:       #48cbff;
+  --mft-cyano-dark:  #4aadd4;
+  --mft-cyano-deep:  #45839c;
+  --mft-descr:       #2a2d30;
 }
 
 
@@ -105,9 +108,10 @@
   background: var(--mft-orange) !important;
 }
 
-/* Scrollbar brand */
+/* Scrollbar brand — navy a riposo, cyano in hover */
+/* Chromium / Edge / Safari (WebKit/Blink) */
 ::-webkit-scrollbar-thumb        { background: var(--mft-navy); }
-::-webkit-scrollbar-thumb:hover  { background: var(--mft-orange); }
+::-webkit-scrollbar-thumb:hover  { background: var(--mft-cyano); }
 
 
 /* ============================================================
@@ -143,13 +147,13 @@
 }
 .top-link:hover { color: #ffffff; }
 
-/* Hover arancione su link e social topbar */
+/* Hover azzurro su link e social topbar */
 .theme-main-menu .top-link:hover,
 .theme-main-menu .info-row .top-link:hover,
 .theme-main-menu .social-icons a:hover,
 .theme-main-menu .info-row .social-icons a:hover,
 .theme-main-menu .info-row a:hover {
-  color: var(--mft-orange) !important;
+  color:  var(--mft-cyano) !important;
   opacity: 1 !important;
 }
 
@@ -257,12 +261,12 @@
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08) !important;
 }
 .theme-main-menu.fixed .navbar-nav .nav-link {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
 }
 .theme-main-menu.fixed .navbar-nav .nav-link:hover,
 .theme-main-menu.fixed .navbar-nav .nav-item.dropdown:hover > .nav-link,
 .theme-main-menu.fixed .navbar-nav .nav-item.show > .nav-link {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
   text-decoration: none !important; /* rimosso: ora gestito via ::after animato */
 }
 
@@ -284,7 +288,7 @@
   background: #ffffff;
 }
 .theme-main-menu.fixed .navbar-nav .nav-item:not(.ima-has-panel) > .nav-link::after {
-  background: #2A2D30;
+  background:  var(--mft-descr);
 }
 /* Attivazione hover e route attiva */
 .navbar-nav .nav-item:not(.ima-has-panel) > .nav-link:hover::after,
@@ -345,14 +349,14 @@ header.theme-main-menu:not(.fixed) {
    - Solo la scritta "MENU" (niente pallini, niente linee)
    - Hero (mobile, non sticky):
        · chiuso default: MENU bianco, sfondo trasparente
-       · chiuso hover:   pill #48cbff con testo BIANCO
+       · chiuso hover:   pill  var(--mft-cyano) con testo BIANCO
        · aperto default: X BIANCA, sfondo trasparente
-       · aperto hover:   pill #48cbff con X BIANCA
+       · aperto hover:   pill  var(--mft-cyano) con X BIANCA
    - Sticky (.fixed):
        · chiuso default: MENU color --mft-black (= colore lente 🔍)
-       · chiuso hover:   pill #f5f5f5 con testo #2A2D30
-       · aperto default: X #2A2D30, sfondo trasparente
-       · aperto hover:   pill #f5f5f5 con X #2A2D30
+       · chiuso hover:   pill  var(--mft-bg-grey) con testo  var(--mft-descr)
+       · aperto default: X  var(--mft-descr), sfondo trasparente
+       · aperto hover:   pill  var(--mft-bg-grey) con X  var(--mft-descr)
    ══════════════════════════════════════════════════════════════ */
 
 /* ── Pulsante base ── */
@@ -468,7 +472,7 @@ header.theme-main-menu:not(.fixed) {
 
 /* FORCE-LIGHT (pagina senza hero) → stesso tono */
 .theme-main-menu.force-light .navbar-toggler.hamburger-dots {
-  color: #2A2D30;
+  color:  var(--mft-descr);
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -478,25 +482,25 @@ header.theme-main-menu:not(.fixed) {
 /* HERO chiuso hover → pill azzurra, testo BIANCO */
 .navbar-toggler.hamburger-dots:hover,
 .navbar-toggler.hamburger-dots:focus-visible {
-  background-color: #48cbff !important;
+  background-color:  var(--mft-cyano) !important;
   color: #ffffff !important;
   opacity: 1;
   border-radius: 999px;
 }
 
-/* STICKY chiuso hover → pill grigio chiaro #f5f5f5, testo #2A2D30 */
+/* STICKY chiuso hover → pill grigio chiaro  var(--mft-bg-grey), testo  var(--mft-descr) */
 .theme-main-menu.fixed .navbar-toggler.hamburger-dots:hover,
 .theme-main-menu.fixed .navbar-toggler.hamburger-dots:focus-visible {
-  background-color: #f5f5f5 !important;
-  color: #2A2D30 !important;
+  background-color:  var(--mft-bg-grey) !important;
+  color:  var(--mft-descr) !important;
   opacity: 1;
 }
 
 /* FORCE-LIGHT chiuso hover → stesso comportamento sticky */
 .theme-main-menu.force-light .navbar-toggler.hamburger-dots:hover,
 .theme-main-menu.force-light .navbar-toggler.hamburger-dots:focus-visible {
-  background-color: #f5f5f5 !important;
-  color: #2A2D30 !important;
+  background-color:  var(--mft-bg-grey) !important;
+  color:  var(--mft-descr) !important;
   opacity: 1;
 }
 
@@ -527,39 +531,39 @@ header.theme-main-menu:not(.fixed) {
   background-color: transparent !important;
 }
 
-/* ── APERTO DEFAULT su STICKY → X #2A2D30, sfondo trasparente ── */
+/* ── APERTO DEFAULT su STICKY → X  var(--mft-descr), sfondo trasparente ── */
 .theme-main-menu.fixed .navbar-toggler.hamburger-dots[aria-expanded="true"] {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
   background-color: transparent !important;
 }
 
 /* ── APERTO DEFAULT su FORCE-LIGHT → idem sticky ── */
 .theme-main-menu.force-light .navbar-toggler.hamburger-dots[aria-expanded="true"] {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
   background-color: transparent !important;
 }
 
-/* ── APERTO HOVER su HERO → pill #48cbff, X bianca ── */
+/* ── APERTO HOVER su HERO → pill  var(--mft-cyano), X bianca ── */
 .navbar-toggler.hamburger-dots[aria-expanded="true"]:hover,
 .navbar-toggler.hamburger-dots[aria-expanded="true"]:focus-visible {
-  background-color: #48cbff !important;
+  background-color:  var(--mft-cyano) !important;
   color: #ffffff !important;
   opacity: 1;
 }
 
-/* ── APERTO HOVER su STICKY → pill #f5f5f5, X #2A2D30 ── */
+/* ── APERTO HOVER su STICKY → pill  var(--mft-bg-grey), X  var(--mft-descr) ── */
 .theme-main-menu.fixed .navbar-toggler.hamburger-dots[aria-expanded="true"]:hover,
 .theme-main-menu.fixed .navbar-toggler.hamburger-dots[aria-expanded="true"]:focus-visible {
-  background-color: #f5f5f5 !important;
-  color: #2A2D30 !important;
+  background-color:  var(--mft-bg-grey) !important;
+  color:  var(--mft-descr) !important;
   opacity: 1;
 }
 
 /* ── APERTO HOVER su FORCE-LIGHT → idem sticky ── */
 .theme-main-menu.force-light .navbar-toggler.hamburger-dots[aria-expanded="true"]:hover,
 .theme-main-menu.force-light .navbar-toggler.hamburger-dots[aria-expanded="true"]:focus-visible {
-  background-color: #f5f5f5 !important;
-  color: #2A2D30 !important;
+  background-color:  var(--mft-bg-grey) !important;
+  color:  var(--mft-descr) !important;
   opacity: 1;
 }
 
@@ -871,39 +875,73 @@ header.theme-main-menu:not(.fixed) {
 }
 
 .lang-menu {
+  list-style: none;                    /* ← nuovo: rimuove i pallini <ul> */
   min-width: 110px;
   padding: 6px 0;
+  margin: 8px 0 0 0;                   /* ← nuovo: reset margin default */
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-  background: #ffffff !important;
-  margin-top: 8px !important;
-  z-index: 99999 !important;
-  position: absolute !important;
-  top: 100% !important;
-  right: 0 !important;
-  left: auto !important;
+  background: #ffffff;
+  z-index: 99999;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+
+  /* ── Visibilità controllata da .show (non più Bootstrap) ── */
+  display: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.lang-menu.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.lang-item {
+/* Freccia rotante */
+.lang-arrow {
+  transition: transform 0.2s ease;
+}
+.lang-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* Nota: usiamo .info-row .lang-menu .lang-item per vincere
+   sulla regola globale .info-row a { color: #fff !important } */
+.info-row .lang-menu .lang-item,
+.lang-menu .lang-item {
   display: flex;
   align-items: center;
   padding: 7px 16px;
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--mft-black) !important;
+  color: var(--mft-descr) !important;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, color 0.15s;
   text-decoration: none;
 }
-.lang-item:hover {
-  background: rgba(40, 71, 125, 0.06) !important;
-  color: var(--mft-navy) !important;
+.info-row .lang-menu .lang-item:hover,
+.info-row .lang-menu .lang-item:focus,
+.lang-menu .lang-item:hover,
+.lang-menu .lang-item:focus {
+  background: rgba(72, 203, 255, 0.08) !important;
+  color: var(--mft-cyano) !important;
 }
-.lang-item.active {
-  color: var(--mft-navy) !important;
+.info-row .lang-menu .lang-item.active,
+.lang-menu .lang-item.active {
+  color: var(--mft-cyano) !important;
   font-weight: 600;
-  background: rgba(40, 71, 125, 0.08) !important;
+  background: rgba(72, 203, 255, 0.08) !important;
+}
+
+/* Il codice lingua deve ereditare il colore dal link genitore */
+.lang-code {
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  color: inherit;
 }
 
 .lang-code { font-size: 0.82rem; letter-spacing: 0.5px; }
@@ -1135,7 +1173,7 @@ header.theme-main-menu:not(.fixed) {
 
 .hero-title {
   font-size: clamp(2.8rem, 6vw, 5.3rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.1;
   color: #ffffff;
   letter-spacing: -0.5px;
@@ -1221,7 +1259,7 @@ header.theme-main-menu:not(.fixed) {
 }
 
 /* ============================================================
-   BOTTONE VARIANTE CYANO — #48cbff → blu al hover
+   BOTTONE VARIANTE CYANO —  var(--mft-cyano) → blu al hover
    Uso: class="btn-cyano"
    ============================================================ */
 
@@ -1231,7 +1269,7 @@ header.theme-main-menu:not(.fixed) {
   padding: 11px 26px;
   border: none;
   border-radius: 40px;
-  background: #48cbff;
+  background:  var(--mft-cyano);
   color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
@@ -1241,9 +1279,15 @@ header.theme-main-menu:not(.fixed) {
   cursor: pointer;
 }
 
-/* ============================================================
-   BTN-CYANO — Hover invertito su header sticky / force-light
-   ============================================================ */
+/* Hover su hero trasparente: sfondo bianco + testo blu */
+.theme-main-menu:not(.fixed):not(.force-light) .btn-cyano:hover,
+.theme-main-menu:not(.fixed):not(.force-light) .btn-cyano:focus-visible {
+  background: #ffffff;
+  color: var(--mft-navy);
+  outline: none;
+}
+
+/* Hover su header sticky / force-light: sfondo blu + testo bianco */
 .theme-main-menu.fixed .btn-cyano:hover,
 .theme-main-menu.fixed .btn-cyano:focus-visible,
 .theme-main-menu.force-light .btn-cyano:hover,
@@ -1296,7 +1340,7 @@ header.theme-main-menu:not(.fixed) {
   color: var(--text-muted);
 }
 .section-title {
-  font-weight: 800;
+  font-weight: 700;
   color: var(--mft-navy-dark);
   line-height: 1.2;
 }
@@ -1447,9 +1491,9 @@ header.theme-main-menu:not(.fixed) {
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 .scopri-btn:hover {
-  background: var(--mft-orange);
-  border-color: var(--mft-orange);  /* var(--mft-orange) */
-  color: #ffffff;;
+  background:  var(--mft-cyano);
+  border-color:  var(--mft-cyano);
+  color: #ffffff;
 }
 
 /* =======================================================
@@ -1599,7 +1643,7 @@ header.theme-main-menu:not(.fixed) {
   position: relative;
   display: block;
   text-decoration: none;
-  border-radius: 24px;
+  border-radius: 40px;
   overflow: hidden;
   aspect-ratio: 16 / 9;     /* card orizzontale 2x2 come da mockup */
   width: 100%;
@@ -1791,7 +1835,7 @@ header.theme-main-menu:not(.fixed) {
   color: var(--mft-navy) !important;
 }
 
-/* Colora l'icona SVG in navy (#28477D) */
+/* Colora l'icona SVG in navy ( var(--mft-navy)) */
 .solutions-vedi-tutti .call-icon-svg {
   width: 22px;
   height: 22px;
@@ -1809,7 +1853,7 @@ header.theme-main-menu:not(.fixed) {
 .product-section {
   padding-top: 80px;
   padding-bottom: 100px;
-  background-color: #f5f5f5;
+  background-color:  var(--mft-bg-grey);
 }
 
 .scopri-wrap  { text-align: center; }
@@ -1840,7 +1884,7 @@ header.theme-main-menu:not(.fixed) {
   align-items: center;
   text-decoration: none;
   padding: 32px 28px 28px;
-  border-radius: 24px;
+  border-radius: 40px;
   background-color: transparent;
   transition: background-color 0.25s ease, transform 0.3s ease;
   cursor: pointer;
@@ -1974,7 +2018,7 @@ header.theme-main-menu:not(.fixed) {
 
 /* Stat badge — posizionamento responsivo progressivo */
 .stat-badge {
-  background: #48cbff;
+  background:  var(--mft-cyano);
   border-radius: 0;
   padding: 16px 20px;
   display: flex;
@@ -2045,7 +2089,7 @@ header.theme-main-menu:not(.fixed) {
   height: 22px;
   display: block;
   object-fit: contain;
-  /* Converte il colore SVG in navy (#28477D) */
+  /* Converte il colore SVG in navy ( var(--mft-navy)) */
   filter: brightness(0) saturate(100%) invert(26%) sepia(40%)
           saturate(700%) hue-rotate(195deg) brightness(0.9);
 }
@@ -2056,8 +2100,8 @@ header.theme-main-menu:not(.fixed) {
 
 .stat-icon  { font-size: 2.2rem; color: #22a94f; flex-shrink: 0; }
 .stat-body  { display: flex; flex-direction: column; gap: 2px; }
-.stat-value { font-size: 1.1rem; font-weight: 800; color: var(--mft-navy); }
-.stat-label { font-size: 0.95rem; font-weight: 600; color: var(--mft-navy); }
+.stat-value { font-size: 1.1rem; font-weight: 700; color: var(--mft-navy); }
+.stat-label { font-size: 0.95rem; font-weight: 500; color: var(--mft-navy); }
 .stat-link  { font-size: 0.80rem; color: #ffffff; text-align: right; margin-top: 2px; }
 
 @media (min-width: 1200px) {
@@ -2095,7 +2139,7 @@ header.theme-main-menu:not(.fixed) {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 40px;
   overflow: visible;       /* permette all'immagine di fuoriuscire */
   text-decoration: none;
   height: 100%;
@@ -2175,20 +2219,6 @@ header.theme-main-menu:not(.fixed) {
   transform: translateX(4px);
 }
 
-
-/* ============================================================
-   17. UTILITY
-   ============================================================ */
-
-/* Link fix dropdown lingua (Babun) */
-.lang-dropdown .lang-menu {
-  z-index: 99999 !important;
-  position: absolute !important;
-}
-
-
-
-
 /* ============================================================
    18. IMA MEGA PANEL — Menu fullwidth stile IMA Group
    ============================================================ */
@@ -2233,7 +2263,7 @@ header.theme-main-menu:not(.fixed) {
   left: 0;
   width: 0;
   height: 2px;
-  background: #2A2D30;
+  background:  var(--mft-descr);
   transition: width 0.22s ease;
 }
 .ima-trigger:hover::after,
@@ -2241,7 +2271,7 @@ header.theme-main-menu:not(.fixed) {
 
 /* Colori hero/sticky — sovrascrive il background fisso sopra */
 .theme-main-menu:not(.fixed) .ima-trigger::after { background: #ffffff; }
-.theme-main-menu.fixed       .ima-trigger::after { background: #2A2D30; }
+.theme-main-menu.fixed       .ima-trigger::after { background:  var(--mft-descr); }
 
 /* Freccia chevron */
 .ima-trigger .ima-arrow {
@@ -2257,14 +2287,14 @@ header.theme-main-menu:not(.fixed) {
   color: #ffffff !important;
 }
 .theme-main-menu.fixed .ima-trigger {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
 }
 .theme-main-menu.fixed .ima-trigger:hover,
 .theme-main-menu.fixed .ima-trigger.active {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
 }
 .theme-main-menu:not(.fixed) .ima-trigger::after { background: #ffffff; }
-.theme-main-menu.fixed .ima-trigger::after       { background: #2A2D30; }
+.theme-main-menu.fixed .ima-trigger::after       { background:  var(--mft-descr); }
 
 /* ── Overlay scuro — parte dal bottom dell'header ──────────────────── */
 .ima-overlay {
@@ -2548,10 +2578,10 @@ header.theme-main-menu:not(.fixed) {
   box-shadow: none !important;
 }
 
-/* Link menu principali → testo scuro #2A2D30 */
+/* Link menu principali → testo scuro  var(--mft-descr) */
 .theme-main-menu.force-light .navbar-nav .nav-link,
 .theme-main-menu.force-light .nav-link {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
 }
 
 /* Hover → arancione (coerente con il resto del sito) */
@@ -2563,22 +2593,22 @@ header.theme-main-menu:not(.fixed) {
 
 /* Topbar link → scuri */
 .theme-main-menu.force-light .top-link {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
   opacity: 0.75;
 }
 .theme-main-menu.force-light .top-link:hover {
-  color: var(--mft-orange) !important;
+  color:  var(--mft-cyano) !important;
   opacity: 1;
 }
 
 /* Icone social topbar → scure */
 .theme-main-menu.force-light .social-icons a,
 .theme-main-menu.force-light .social-icons i {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
   opacity: 0.65;
 }
 .theme-main-menu.force-light .social-icons a:hover {
-  color: var(--mft-orange) !important;
+  color:  var(--mft-cyano) !important;
   opacity: 1;
 }
 
@@ -2591,12 +2621,12 @@ header.theme-main-menu:not(.fixed) {
 .theme-main-menu.force-light .lang-trigger,
 .theme-main-menu.force-light .lang-label,
 .theme-main-menu.force-light .lang-arrow {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
 }
 
 /* Search icon → scura */
 .theme-main-menu.force-light .search-btn {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
 }
 .theme-main-menu.force-light .search-btn:hover {
   color: var(--mft-orange) !important;
@@ -2630,14 +2660,14 @@ header.theme-main-menu:not(.fixed) {
 /* Fine correzione force-light ima-trigger */
 
 /* ============================================================
-   FORCE-LIGHT — override: hover e barretta sempre #2A2D30
+   FORCE-LIGHT — override: hover e barretta sempre  var(--mft-descr)
    ============================================================ */
 .theme-main-menu.force-light .ima-trigger:hover,
 .theme-main-menu.force-light .ima-trigger.active {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
 }
 .theme-main-menu.force-light .ima-trigger::after {
-  background: #2A2D30 !important;
+  background:  var(--mft-descr) !important;
 }
 
 /* FORCE-LIGHT — hover testo nav-link sempre scuro */
@@ -2646,21 +2676,21 @@ header.theme-main-menu:not(.fixed) {
 .theme-main-menu.force-light .navbar-nav .nav-item.show > .nav-link,
 .theme-main-menu.force-light .ima-trigger:hover,
 .theme-main-menu.force-light .ima-trigger.active {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
   text-decoration: none !important;
 }
 
-/* FORCE-LIGHT — voci menu: blu navy a riposo, scuro #2A2D30 su hover */
+/* FORCE-LIGHT — voci menu: blu navy a riposo, scuro  var(--mft-descr) su hover */
 .theme-main-menu.force-light .navbar-nav .nav-link,
 .theme-main-menu.force-light .ima-trigger {
-  color: #28477D !important;
+  color:  var(--mft-navy) !important;
 }
 .theme-main-menu.force-light .navbar-nav .nav-link:hover,
 .theme-main-menu.force-light .navbar-nav .nav-item.dropdown:hover > .nav-link,
 .theme-main-menu.force-light .navbar-nav .nav-item.show > .nav-link,
 .theme-main-menu.force-light .ima-trigger:hover,
 .theme-main-menu.force-light .ima-trigger.active {
-  color: #2A2D30 !important;
+  color:  var(--mft-descr) !important;
   text-decoration: none !important;
 }
 
@@ -2718,4 +2748,25 @@ header.theme-main-menu:not(.fixed) {
 [class*="search"] input[type="text"],
 [class*="search"] input[type="search"] {
   border-radius: 40px !important;
+}
+/* ================================================================
+   BACK-TO-TOP — override colore sfondo a  var(--mft-cyano)
+   Componente: <back-to-top> (template: <button class="scroll-top">)
+   ================================================================ */
+.scroll-top {
+  background-color:  var(--mft-cyano) !important;
+  background:  var(--mft-cyano) !important;
+  border-color:  var(--mft-cyano) !important;
+  color: #ffffff !important;
+}
+
+.scroll-top i,
+.scroll-top svg {
+  color: #ffffff !important;
+}
+
+.scroll-top:hover {
+  background-color: #2bb8ee !important;
+  background: #2bb8ee !important;
+  border-color: #2bb8ee !important;
 }

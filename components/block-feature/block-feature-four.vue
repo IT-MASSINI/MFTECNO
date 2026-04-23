@@ -104,8 +104,8 @@ const solutions = [
 }
 
 .solution-card:hover .card-arrow-btn {
-  background: var(--mft-orange) !important;
-  border-color: var(--mft-orange) !important;
+  background: #48cbff !important;
+  border-color: #48cbff !important;
   color: #ffffff !important;
 }
 </style>

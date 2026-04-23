@@ -21,9 +21,9 @@
         </div>
       </div>
 
-      <!-- Cards row — stile Babun: 2 colonne larghe, immagine sopra, testo sotto -->
+      <!-- Cards row — stile Babun: 3 colonne, immagine sopra, testo sotto -->
       <div class="row g-4 g-lg-5">
-        <div v-for="article in news" :key="article.id" class="col-md-6">
+        <div v-for="article in newsList" :key="article.id" class="col-md-6 col-lg-4">
           <nuxt-link :to="localePath(article.link)" class="news-card">
 
             <!-- Image top -->
@@ -63,42 +63,27 @@
 </template>
 
 <script setup lang="ts">
+import { getLatestNews } from '~/data/news-data'
+
 const localePath = useLocalePath()
 
-const news = [
-  {
-    id: 1,
-    titleLine1: "Unicol e MF Tecno:",
-    titleLine2: "confezionamento di colla in granuli",
-    category: "Case Study",
-    author: "MF TECNO",
-    readTime: "6 min",
-    image: "/images/news/news-01.jpg",
-    link: "/news/unicol"
-  },
-  {
-    id: 2,
-    titleLine1: "Incartonatrice Wrap Around",
-    titleLine2: "MF TECNO",
-    category: "News",
-    author: "MF TECNO",
-    readTime: "7 min",
-    image: "/images/news/news-02.jpg",
-    link: "/news/wrap-around"
-  },
-]
+// Prendo le 3 news più recenti dal file dati centralizzato
+const newsList = getLatestNews(3)
 </script>
 
 <style scoped>
 /* ──────────────────────────────────────────────────────────────
    Card in stile Babun
    - sfondo trasparente, niente box-shadow
-   - immagine in alto con radius leggero
+   - immagine in alto, angoli squadrati
    - titolo + freccia a destra sulla stessa riga
    - meta info sotto una linea separatrice
+   - card in flex verticale per allineare la meta row
    ────────────────────────────────────────────────────────────── */
 .news-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   text-decoration: none;
   background: transparent;
   transition: transform 0.3s ease;
@@ -108,11 +93,11 @@ const news = [
   transform: translateY(-3px);
 }
 
-/* ── Immagine in alto ── */
+/* ── Immagine in alto (angoli squadrati) ── */
 .news-card-img-wrap {
   position: relative;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 0;
   aspect-ratio: 16 / 10;
   margin-bottom: 1.5rem;
 }
@@ -129,7 +114,11 @@ const news = [
   transform: scale(1.04);
 }
 
-/* ── Riga titolo + freccia ── */
+/* ── Riga titolo + freccia ──
+   Altezza minima calcolata per ospitare 3 righe di titolo.
+   font-size ~ clamp(1.15rem, 1.6vw, 1.6rem) con line-height 1.3
+   → 3 righe ≈ 3 * 1.3 * font-size. Con il valore sotto copriamo il caso
+   peggiore: il border-bottom (divider) resta allineato tra tutte le card. */
 .news-card-head {
   display: flex;
   align-items: flex-start;
@@ -137,6 +126,7 @@ const news = [
   gap: 1.5rem;
   padding-bottom: 1.25rem;
   border-bottom: 1px solid #e5e5e5;
+  min-height: calc(1.6rem * 1.3 * 3 + 1.25rem); /* 3 righe + padding */
 }
 
 .news-card-title {
@@ -150,6 +140,12 @@ const news = [
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
   transition: text-decoration-color 0.25s ease;
+
+  /* Limita a 3 righe con ellipsis se il titolo è troppo lungo */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .news-card:hover .news-card-title {
@@ -175,8 +171,8 @@ const news = [
 }
 
 .news-card:hover .news-card-arrow {
-  background: var(--mft-orange);
-  border-color: var(--mft-orange);
+  background: var(--mft-navy);
+  border-color: var(--mft-navy);
   color: #ffffff;
   transform: rotate(0deg);
 }
@@ -204,10 +200,17 @@ const news = [
 }
 
 /* ── Responsive ── */
+@media (max-width: 991.98px) {
+  /* Su tablet il clamp ci dà un font-size intermedio — ricalibriamo l'altezza minima */
+  .news-card-head {
+    min-height: calc(1.4rem * 1.3 * 3 + 1.25rem);
+  }
+}
+
 @media (max-width: 767.98px) {
   .news-card-img-wrap {
     aspect-ratio: 16 / 11;
-    border-radius: 14px;
+    border-radius: 0;
     margin-bottom: 1.1rem;
   }
   .news-card-arrow {
@@ -217,6 +220,10 @@ const news = [
   }
   .news-card-meta {
     font-size: 0.82rem;
+  }
+  /* Su mobile le card sono in colonna: l'allineamento tra righe non è più rilevante */
+  .news-card-head {
+    min-height: 0;
   }
 }
 </style>

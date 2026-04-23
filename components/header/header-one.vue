@@ -32,35 +32,33 @@
 
 				<div class="top-separator d-none d-lg-block mx-3"></div>
 
-				<!-- Selettore lingua dropdown -->
+				<!-- Selettore lingua dropdown (gestito in Vue, no Bootstrap JS) -->
 				<div class="lang-dropdown d-none d-lg-block" ref="langRef">
 					<button
 						class="lang-trigger d-flex align-items-center gap-1"
 						type="button"
-						data-bs-toggle="dropdown"
-						data-bs-auto-close="true"
-            data-bs-display="static"
-						aria-expanded="false"
+						:aria-expanded="langOpen"
+						@click.stop="langOpen = !langOpen"
 					>
 						<img
-							:src="`https://flagcdn.com/16x12/${currentLang.iso}.png`"
+							:src="`https://flagcdn.com/${currentLang.iso}.svg`"
 							:alt="currentLang.label"
 							class="flag-img"
 						/>
 						<span class="lang-label">{{ currentLang.code }}</span>
-						<i class="bi bi-chevron-down lang-arrow"></i>
+						<i class="bi bi-chevron-down lang-arrow" :class="{ 'rotated': langOpen }"></i>
 					</button>
 
-					<ul class="dropdown-menu lang-menu">
+					<ul class="lang-menu" :class="{ 'show': langOpen }">
 						<li v-for="lang in languages" :key="lang.code">
 							<a
-								class="dropdown-item lang-item"
+								class="lang-item"
 								:href="`/${lang.prefix}/`"
 								:class="{ active: currentLang.code === lang.code }"
-								@click.prevent="switchLang(lang)"
+								@click.prevent="switchLang(lang); langOpen = false"
 							>
 								<img
-									:src="`https://flagcdn.com/16x12/${lang.iso}.png`"
+									:src="`https://flagcdn.com/${lang.iso}.svg`"
 									:alt="lang.label"
 									class="flag-img me-2"
 								/>
@@ -173,6 +171,31 @@
 
 <script setup lang="ts">
 import type { Locale } from 'vue-i18n'
+
+// ── Stato dropdown lingua (gestito in Vue, no Bootstrap JS) ─
+const langOpen = ref(false)
+const langRef = ref<HTMLElement | null>(null)
+
+// Chiude il menu cliccando fuori
+const onClickOutside = (e: MouseEvent) => {
+    if (langRef.value && !langRef.value.contains(e.target as Node)) {
+        langOpen.value = false
+    }
+}
+// Chiude con ESC
+const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') langOpen.value = false
+}
+
+onMounted(() => {
+    document.addEventListener('click', onClickOutside)
+    document.addEventListener('keydown', onKeydown)
+})
+onBeforeUnmount(() => {
+    document.removeEventListener('click', onClickOutside)
+    document.removeEventListener('keydown', onKeydown)
+})
+
 // Prop opzionale: se true, forza sempre la modalità "sticky" (logo colorato, testo scuro)
 // Utile per pagine senza hero image (es. pagina 404/error)
 const props = withDefaults(defineProps<{ forceSticky?: boolean }>(), {
@@ -219,4 +242,3 @@ const logoSmallSrc = computed(() =>
     : '/images/logo/logo_mftecno_w_small.svg'
 )
 </script>
-
